@@ -32,6 +32,8 @@ final class SettingsViewModel: ObservableObject {
         case .mode:
             isDarkMode = !isDarkMode
             buildItems()
+        case .achievements:
+            break
         case .logout:
             userService.logout().sink { completion in
                 switch completion {
@@ -50,6 +52,7 @@ final class SettingsViewModel: ObservableObject {
         itemViewModels = [
             .init(title: userService.currentUser?.email ?? "Utworz konto", iconName: "person.circle", type: .account),
             .init(title: "Zmien na tryb \(isDarkMode ? "Jasny" : "Ciemny")", iconName: "lightbulb", type: .mode),
+            .init(title: "Osiagniecia", iconName: "hexagon.bottomhalf.filled", type: .achievements),
             .init(title: "Polityka Prywatnosci", iconName: "shield", type: .privacy),
         ]
 

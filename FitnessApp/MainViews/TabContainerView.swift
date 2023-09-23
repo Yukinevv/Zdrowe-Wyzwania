@@ -27,17 +27,8 @@ struct TabContainerView: View {
     func tabView(for tabItemType: TabItemViewModel.TabItemType) -> some View {
         switch tabItemType {
         case .health:
-            let steps = [
-                Step(count: 5632, date: Date()),
-                Step(count: 312, date: Date()),
-                Step(count: 1542, date: Date()),
-                Step(count: 6342, date: Date()),
-                Step(count: 11376, date: Date()),
-            ]
-
             NavigationView {
-                GraphView(steps: steps)
-                    .navigationTitle("Zdrowie")
+                HealthView()
             }
         case .challengeList:
             NavigationView {

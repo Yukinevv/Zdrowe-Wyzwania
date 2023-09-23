@@ -17,6 +17,7 @@ extension SettingsViewModel {
     enum SettingsItemType {
         case account
         case mode
+        case achievements
         case privacy
         case logout
     }

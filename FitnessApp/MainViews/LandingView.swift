@@ -14,6 +14,8 @@ struct LandingPage: View {
         Text(viewModel.title)
             .font(.system(size: 64, weight: .bold))
             .foregroundColor(.black)
+            .lineLimit(2)
+            .minimumScaleFactor(0.6)
     }
 
     var loginButton: some View {

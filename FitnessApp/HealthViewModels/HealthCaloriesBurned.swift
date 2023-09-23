@@ -1,24 +1,16 @@
 //
-//  CountStepsViewModel.swift
+//  HealthCaloriesBurned.swift
 //  FitnessApp
 //
-//  Created by Adrian Rodzic on 08/05/2023.
+//  Created by Adrian Rodzic on 18/06/2023.
 //
 
 import Foundation
-
 import HealthKit
 
-extension Date {
-    static func mondayAt12AM() -> Date {
-        return Calendar(identifier: .iso8601).date(from: Calendar(identifier: .iso8601).dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))!
-    }
-}
-
-class CountStepsViewModel: ObservableObject {
+class HealthCaloriesBurned: ObservableObject {
     var healthStore: HKHealthStore?
     var query: HKStatisticsCollectionQuery?
-    @Published var steps: [Step] = [Step]()
 
     init() {
         if HKHealthStore.isHealthDataAvailable() {
@@ -26,21 +18,23 @@ class CountStepsViewModel: ObservableObject {
         }
     }
 
-    func updateUIFromStatistics(_ statisticsCollection: HKStatisticsCollection) {
+    func updateUIFromStatistics(_ statisticsCollection: HKStatisticsCollection) -> [HealthModel] {
         let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
         let endDate = Date()
+        var caloriesBurned: [HealthModel] = []
 
         statisticsCollection.enumerateStatistics(from: startDate, to: endDate) { statistics, _ in
 
-            let count = statistics.sumQuantity()?.doubleValue(for: .count())
+            let count = statistics.sumQuantity()?.doubleValue(for: .kilocalorie())
 
-            let step = Step(count: Int(count ?? 0), date: statistics.startDate)
-            self.steps.append(step)
+            let calories = HealthModel(count: Int(count ?? 0), date: statistics.startDate)
+            caloriesBurned.append(calories)
         }
+        return caloriesBurned
     }
 
-    func calculateSteps(completion: @escaping (HKStatisticsCollection?) -> Void) {
-        let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!
+    func requestCaloriesBurned(completion: @escaping (HKStatisticsCollection?) -> Void) {
+        let calorieType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned)!
 
         let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())
 
@@ -50,7 +44,7 @@ class CountStepsViewModel: ObservableObject {
 
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictStartDate)
 
-        query = HKStatisticsCollectionQuery(quantityType: stepType, quantitySamplePredicate: predicate, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: daily)
+        query = HKStatisticsCollectionQuery(quantityType: calorieType, quantitySamplePredicate: predicate, options: .cumulativeSum, anchorDate: anchorDate, intervalComponents: daily)
 
         query!.initialResultsHandler = { _, statisticsCollection, _ in
             completion(statisticsCollection)
@@ -62,11 +56,11 @@ class CountStepsViewModel: ObservableObject {
     }
 
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
-        let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!
+        let calorieType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.activeEnergyBurned)!
 
         guard let healthStore = healthStore else { return completion(false) }
 
-        healthStore.requestAuthorization(toShare: [], read: [stepType]) { success, _ in
+        healthStore.requestAuthorization(toShare: [], read: [calorieType]) { success, _ in
             completion(success)
         }
     }

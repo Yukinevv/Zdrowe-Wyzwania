@@ -22,6 +22,12 @@ struct SettingsView: View {
                     }
                 }
             }
+//            NavigationLink(destination: AchievementsView()) {
+//                HStack {
+//                    Image(systemName: "hexagon.bottomhalf.filled")
+//                    Text("Osiągnięcia")
+//                }
+//            }
         }
         .background(
             NavigationLink(

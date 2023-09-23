@@ -25,12 +25,13 @@ extension Publishers {
 
         init(subscriber: S) {
             self.subscriber = subscriber
-            handler = Auth.auth().addStateDidChangeListener { auth, user in
+            handler = Auth.auth().addStateDidChangeListener { _, user in
                 _ = subscriber.receive(user)
             }
         }
 
         func request(_ demand: Subscribers.Demand) {}
+
         func cancel() {
             subscriber = nil
             handler = nil

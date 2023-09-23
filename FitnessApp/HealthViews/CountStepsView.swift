@@ -9,19 +9,19 @@ import HealthKit
 import SwiftUI
 
 struct CountStepsView: View {
-    @StateObject private var viewModel = CountStepsViewModel()
+    private var countSteps = HealthCountSteps()
+    @State var steps: [HealthModel] = [HealthModel]()
 
     var body: some View {
         NavigationView {
-            GraphView(steps: viewModel.steps)
-                .navigationTitle("Zdrowie")
+            GraphView(data: steps, title: "Suma kroków", color: Color.blue)
         }
         .onAppear {
-            viewModel.requestAuthorization { success in
+            countSteps.requestAuthorization { success in
                 if success {
-                    viewModel.calculateSteps { statisticsCollection in
+                    countSteps.calculateSteps { statisticsCollection in
                         if let statisticsCollection = statisticsCollection {
-                            viewModel.updateUIFromStatistics(statisticsCollection)
+                            self.steps = countSteps.updateUIFromStatistics(statisticsCollection)
                         }
                     }
                 }
