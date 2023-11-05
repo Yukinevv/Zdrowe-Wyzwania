@@ -1,5 +1,5 @@
 //
-//  Step.swift
+//  HealthModel.swift
 //  FitnessApp
 //
 //  Created by Adrian Rodzic on 08/05/2023.

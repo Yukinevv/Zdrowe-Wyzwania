@@ -1,5 +1,5 @@
 //
-//  FitnessAppApp.swift
+//  FitnessApp.swift
 //  FitnessApp
 //
 //  Created by Adrian Rodzic on 10/04/2023.

@@ -10,8 +10,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 protocol ChallengeServiceProtocol {
-    func create(_ challenge: Challenge) -> AnyPublisher<Void, CustomError>
-    func observeChallenges(userId: UserId) -> AnyPublisher<[Challenge], CustomError>
+    func create(_ challenge: ChallengeModel) -> AnyPublisher<Void, CustomError>
+    func observeChallenges(userId: UserId) -> AnyPublisher<[ChallengeModel], CustomError>
     func delete(_ challengeId: String) -> AnyPublisher<Void, CustomError>
     func updateChallenge(_ challengeId: String, activities: [Activity]) -> AnyPublisher<Void, CustomError>
 }
@@ -19,7 +19,7 @@ protocol ChallengeServiceProtocol {
 final class ChallengeService: ChallengeServiceProtocol {
     private let db = Firestore.firestore()
 
-    func create(_ challenge: Challenge) -> AnyPublisher<Void, CustomError> {
+    func create(_ challenge: ChallengeModel) -> AnyPublisher<Void, CustomError> {
         return Future<Void, CustomError> { promise in
             do {
                 _ = try self.db.collection("challenges").addDocument(from: challenge) { error in
@@ -35,13 +35,13 @@ final class ChallengeService: ChallengeServiceProtocol {
         }.eraseToAnyPublisher()
     }
 
-    func observeChallenges(userId: UserId) -> AnyPublisher<[Challenge], CustomError> {
+    func observeChallenges(userId: UserId) -> AnyPublisher<[ChallengeModel], CustomError> {
         let query = db.collection("challenges").whereField("userId", isEqualTo: userId).order(by: "startDate", descending: true)
         return Publishers.QuerySnapshotPublisher(query: query)
-            .flatMap { snapshot -> AnyPublisher<[Challenge], CustomError> in
+            .flatMap { snapshot -> AnyPublisher<[ChallengeModel], CustomError> in
                 do {
                     let challenges = try snapshot.documents.map {
-                        try $0.data(as: Challenge.self)
+                        try $0.data(as: ChallengeModel.self)
                     }
                     return Just(challenges)
                         .setFailureType(to: CustomError.self)
