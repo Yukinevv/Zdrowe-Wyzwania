@@ -8,71 +8,63 @@
 import SwiftUI
 
 struct HealthSettingsView: View {
-    @AppStorage("stepsCardVisibility") var stepsCardVisibility: Bool = true
-    @AppStorage("caloriesCardVisibility") var caloriesCardVisibility: Bool = true
-    @AppStorage("sleepCardVisibility") var sleepCardVisibility: Bool = true
-    @AppStorage("waterCardVisibility") var waterCardVisibility: Bool = true
-    @AppStorage("heartRateCardVisibility") var heartRateCardVisibility: Bool = true
-    @AppStorage("workoutTimeCardVisibility") var workoutTimeCardVisibility: Bool = true
-
-    @AppStorage("stepsGoal") var stepsGoalString: String = ""
-    @AppStorage("caloriesGoal") var caloriesGoalString: String = ""
-    @AppStorage("sleepGoal") var sleepGoalString: String = ""
-    @AppStorage("waterGoal") var waterGoalString: String = ""
-    @AppStorage("heartRateGoal") var heartRateGoalString: String = ""
-    @AppStorage("workoutTimeGoal") var workoutTimeGoalString: String = ""
+    let staticData = StaticData.staticData
 
     var body: some View {
         VStack {
             // Spacer()
             HStack {
-                Toggle("Kroki", isOn: $stepsCardVisibility)
+                Toggle("Kroki", isOn: staticData.$stepsCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Kroki", text: $stepsGoalString)
+                TextField("Kroki", text: staticData.$stepsGoalString)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
             }
             HStack {
-                Toggle("Kalorie", isOn: $caloriesCardVisibility)
+                Toggle("Kalorie", isOn: staticData.$caloriesCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Kalorie", text: $caloriesGoalString)
+                TextField("Kalorie", text: staticData.$caloriesGoalString)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
             }
             HStack {
-                Toggle("Sen", isOn: $sleepCardVisibility)
+                Toggle("Sen", isOn: staticData.$sleepCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Sen", text: $sleepGoalString)
+                TextField("Sen", text: staticData.$sleepGoalString)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
             }
             HStack {
-                Toggle("Nawodnienie", isOn: $waterCardVisibility)
+                Toggle("Nawodnienie", isOn: staticData.$waterCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Nawodnienie", text: $waterGoalString)
+                TextField("Nawodnienie", text: staticData.$waterGoalString)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
             }
             HStack {
-                Toggle("Tętno", isOn: $heartRateCardVisibility)
+                Toggle("Tętno", isOn: staticData.$heartRateCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Tętno", text: $heartRateGoalString)
+                TextField("Tętno", text: staticData.$heartRateGoalString)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
             }
             HStack {
-                Toggle("Czas treningu", isOn: $workoutTimeCardVisibility)
+                Toggle("Czas treningu", isOn: staticData.$workoutTimeCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Czas treningu", text: $workoutTimeGoalString)
+                TextField("Czas treningu", text: staticData.$workoutTimeGoalString)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
             }
+            Spacer()
+
+            Toggle("Dane testowe", isOn: staticData.$isTestData)
+                .padding()
             Spacer()
         }
         .padding()

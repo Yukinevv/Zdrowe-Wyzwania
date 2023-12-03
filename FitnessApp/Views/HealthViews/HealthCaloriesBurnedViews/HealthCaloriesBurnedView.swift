@@ -20,7 +20,7 @@ struct HealthCaloriesBurnedView: View {
 
     var body: some View {
         VStack {
-            DialView(goal: Int(caloriesGoal) ?? 1000, calories: Int(viewModel.caloriesBurned))
+            DialView(goal: Int(caloriesGoal) ?? 500, calories: 360) // Int(viewModel.caloriesBurned)
                 .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
 
             if caloriesBurnedArray.count >= 3 {
@@ -32,11 +32,11 @@ struct HealthCaloriesBurnedView: View {
                 }
 
                 HStack(spacing: 30) {
-                    StatTile(image: "flame.circle.fill", value: Int(caloriesBurnedArray[1]), measurement: "Kcal",
-                             color: colors[1])
-                    StatTile(image: "flame.circle.fill", value: Int(caloriesBurnedArray[0]), measurement: "Kcal",
+                    StatTile(image: "flame.circle.fill", value: 545, measurement: "Kcal",
+                             color: colors[1]) // Int(caloriesBurnedArray[1])
+                    StatTile(image: "flame.circle.fill", value: 650, measurement: "Kcal",
                              color: colors[0])
-                    StatTile(image: "flame.circle.fill", value: Int(caloriesBurnedArray[2]), measurement: "Kcal",
+                    StatTile(image: "flame.circle.fill", value: 360, measurement: "Kcal",
                              color: colors[2])
                 }
             }

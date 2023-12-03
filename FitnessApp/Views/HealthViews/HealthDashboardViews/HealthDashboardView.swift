@@ -23,6 +23,8 @@ struct HealthDashboardView: View {
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
 
+
+
                     Spacer(minLength: 0)
 
                     NavigationLink(destination: HealthSettingsView()) {

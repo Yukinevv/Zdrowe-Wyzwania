@@ -24,6 +24,12 @@ class HealthDailyStepsViewModel: ObservableObject {
     @Published var yearToDateChartData = [DailyStepView]()
     @Published var oneYearChartData = [DailyStepView]()
 
+    @Published var oneWeekChartStaticData = [DailyStepView]()
+    @Published var oneMonthChartStaticData = [DailyStepView]()
+    @Published var threeMonthChartStaticData = [DailyStepView]()
+    @Published var yearToDateChartStaticData = [DailyStepView]()
+    @Published var oneYearChartStaticData = [DailyStepView]()
+
     init() {
         let steps = HKQuantityType(.stepCount)
         let healthTypes: Set = [steps]
@@ -31,10 +37,31 @@ class HealthDailyStepsViewModel: ObservableObject {
         Task {
             do {
                 try await healthStore.requestAuthorization(toShare: [], read: healthTypes)
-                fetchPastMonthStepData()
+                fetchPastWeekStepData()
             } catch {
                 print("error fetching health data")
             }
+        }
+
+        let calendar = Calendar.current
+
+        let currentDate = StaticData.staticData.getCurrentYearMonthDay()
+        let stepsData = StaticData.staticData.stepsData
+
+        for i in 1 ... 7 {
+            oneWeekChartStaticData.append(DailyStepView(date: calendar.date(from: DateComponents(year: currentDate.year, month: currentDate.month, day: currentDate.day - i, hour: 12, minute: 0, second: 0)) ?? Date(), stepCount: stepsData[i - 1]))
+        }
+        for i in 1 ... 31 {
+            oneMonthChartStaticData.append(DailyStepView(date: calendar.date(from: DateComponents(year: currentDate.year, month: currentDate.month, day: currentDate.day - i, hour: 12, minute: 0, second: 0)) ?? Date(), stepCount: stepsData[i - 1]))
+        }
+        for i in 1 ... 90 {
+            threeMonthChartStaticData.append(DailyStepView(date: calendar.date(from: DateComponents(year: currentDate.year, month: currentDate.month, day: currentDate.day - i, hour: 12, minute: 0, second: 0)) ?? Date(), stepCount: stepsData[i - 1]))
+        }
+        for i in 1 ... 180 {
+            yearToDateChartStaticData.append(DailyStepView(date: calendar.date(from: DateComponents(year: currentDate.year, month: currentDate.month, day: currentDate.day - i, hour: 12, minute: 0, second: 0)) ?? Date(), stepCount: stepsData[i - 1]))
+        }
+        for i in 1 ... 365 {
+            oneYearChartStaticData.append(DailyStepView(date: calendar.date(from: DateComponents(year: currentDate.year, month: currentDate.month, day: currentDate.day - i, hour: 12, minute: 0, second: 0)) ?? Date(), stepCount: stepsData[i - 1]))
         }
     }
 

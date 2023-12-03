@@ -58,7 +58,7 @@ struct WaterCardView: View {
                         .frame(width: 150, height: 230).cornerRadius(40)
 
                     VStack {
-                        Text("\(Int(value) * 1000)")
+                        Text("\(Int(value * 1000))")
                             .font(.system(size: 42)).fontWeight(.bold)
                             .shadow(color: .black.opacity(0.8), radius: 1, x: 1, y: 1)
                         Text("ml")
