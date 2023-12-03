@@ -57,7 +57,7 @@ class StaticData {
         }
 
         for _ in 1 ... 7 {
-            caloriesData.append(Double(generateRandomNumber(min: 50, max: UInt32(caloriesGoal))))
+            caloriesData.append(Double(generateRandomNumber(min: 50, max: UInt32(caloriesGoal + 300))))
             sleepData.append(Double(generateRandomNumber(min: 3, max: UInt32(sleepGoal))))
             waterData.append(Double(generateRandomNumber(min: 1, max: UInt32(waterGoal))))
             heartRateData.append(Double(generateRandomNumber(min: 60, max: UInt32(heartRateGoal + 30))))
@@ -81,5 +81,9 @@ class StaticData {
             fatalError("min musi byc mniejsze od max")
         }
         return arc4random_uniform(max - min) + min
+    }
+
+    func getNthHighestValuesFromArray(arr: [Double], n: Int) -> [Double] {
+        return Array(arr.sorted(by: >).prefix(n))
     }
 }

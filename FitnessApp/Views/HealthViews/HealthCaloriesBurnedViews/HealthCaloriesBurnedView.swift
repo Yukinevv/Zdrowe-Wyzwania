@@ -10,20 +10,22 @@ import SwiftUI
 struct HealthCaloriesBurnedView: View {
     var viewModel: HealthCaloriesBurnedViewModel = HealthCaloriesBurnedViewModel()
 
-    @AppStorage("caloriesGoal") var caloriesGoal: String = ""
-
     @AppStorage("isDarkMode") private var isDarkMode = true
+
+    let staticData = StaticData.staticData
 
     var colors: [Color] = [.yellow, .gray, .brown]
 
     @State var caloriesBurnedArray: [Double] = []
 
+    @State var highestCaloriesBurned: [Double] = []
+
     var body: some View {
         VStack {
-            DialView(goal: Int(caloriesGoal) ?? 500, calories: 360) // Int(viewModel.caloriesBurned)
+            DialView(goal: Int(staticData.caloriesGoal), calories: staticData.isTestData ? Int(staticData.caloriesData[0]) : Int(viewModel.caloriesBurned))
                 .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
 
-            if caloriesBurnedArray.count >= 3 {
+            if (staticData.isTestData ? highestCaloriesBurned : caloriesBurnedArray).count >= 3 {
                 HStack {
                     Text("Ostatnie najlepsze wyniki")
                         .font(.system(size: 20, weight: .semibold))
@@ -32,11 +34,11 @@ struct HealthCaloriesBurnedView: View {
                 }
 
                 HStack(spacing: 30) {
-                    StatTile(image: "flame.circle.fill", value: 545, measurement: "Kcal",
-                             color: colors[1]) // Int(caloriesBurnedArray[1])
-                    StatTile(image: "flame.circle.fill", value: 650, measurement: "Kcal",
+                    StatTile(image: "flame.circle.fill", value: staticData.isTestData ? Int(highestCaloriesBurned[1]) : Int(caloriesBurnedArray[1]), measurement: "Kcal",
+                             color: colors[1])
+                    StatTile(image: "flame.circle.fill", value: staticData.isTestData ? Int(highestCaloriesBurned[0]) : Int(caloriesBurnedArray[0]), measurement: "Kcal",
                              color: colors[0])
-                    StatTile(image: "flame.circle.fill", value: 360, measurement: "Kcal",
+                    StatTile(image: "flame.circle.fill", value: staticData.isTestData ? Int(highestCaloriesBurned[2]) : Int(caloriesBurnedArray[2]), measurement: "Kcal",
                              color: colors[2])
                 }
             }
@@ -55,6 +57,7 @@ struct HealthCaloriesBurnedView: View {
         for item in viewModel.caloriesBurnedArray {
             caloriesBurnedArray.append(item)
         }
+        highestCaloriesBurned = staticData.getNthHighestValuesFromArray(arr: staticData.caloriesData, n: 3)
     }
 }
 
