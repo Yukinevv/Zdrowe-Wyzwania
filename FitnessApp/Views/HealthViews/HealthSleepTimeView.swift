@@ -9,18 +9,6 @@ import HealthKit
 import SwiftUI
 
 struct HealthSleepTimeView: View {
-    let dateFormatterTime: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mm:ss"
-        return formatter
-    }()
-
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
-        return formatter
-    }()
-
     var viewModel: HealthSleepTimeViewModel = HealthSleepTimeViewModel()
 
     @State var data: [HKSample] = []
@@ -36,24 +24,24 @@ struct HealthSleepTimeView: View {
                     ForEach(data.indices, id: \.self) { index in
                         VStack(spacing: 5) {
                             HStack {
-                                Text("Poczatek:")
+                                Text("Początek:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
-                                Text("\(data[index].startDate, formatter: dateFormatterTime)")
+                                Text("\(data[index].startDate, formatter: Date.dateFormatterTime)")
                                     .font(.system(size: 22, weight: .medium))
                             }
                             HStack {
                                 Text("Koniec:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
-                                Text("\(data[index].endDate, formatter: dateFormatterTime)")
+                                Text("\(data[index].endDate, formatter: Date.dateFormatterTime)")
                                     .font(.system(size: 22, weight: .medium))
                             }
                             HStack {
-                                Text("Dzien:")
+                                Text("Dzień:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
-                                Text("\(data[index].startDate, formatter: dateFormatter)")
+                                Text("\(data[index].startDate, formatter: Date.dateFormatter)")
                                     .font(.system(size: 22, weight: .medium))
                             }
                         }
@@ -65,24 +53,24 @@ struct HealthSleepTimeView: View {
                     ForEach(staticData.sleepData.indices, id: \.self) { index in
                         VStack(spacing: 5) {
                             HStack {
-                                Text("Poczatek:")
+                                Text("Początek:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
-                                Text("\(staticData.sleepData[index].startTime, formatter: dateFormatterTime)")
+                                Text("\(staticData.sleepData[index].startTime, formatter: Date.dateFormatterTime)")
                                     .font(.system(size: 22, weight: .medium))
                             }
                             HStack {
                                 Text("Koniec:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
-                                Text("\(staticData.sleepData[index].endTime, formatter: dateFormatterTime)")
+                                Text("\(staticData.sleepData[index].endTime, formatter: Date.dateFormatterTime)")
                                     .font(.system(size: 22, weight: .medium))
                             }
                             HStack {
-                                Text("Dzien:")
+                                Text("Dzień:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
-                                Text("\(staticData.sleepData[index].date, formatter: dateFormatter)")
+                                Text("\(staticData.sleepData[index].date, formatter: Date.dateFormatter)")
                                     .font(.system(size: 22, weight: .medium))
                             }
                             HStack {

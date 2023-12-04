@@ -8,6 +8,18 @@
 import Foundation
 
 extension Date {
+    static var dateFormatterTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm:ss"
+        return formatter
+    }()
+
+    static var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy"
+        return formatter
+    }()
+
     static var startOfDay: Date {
         Calendar.current.startOfDay(for: Date())
     }

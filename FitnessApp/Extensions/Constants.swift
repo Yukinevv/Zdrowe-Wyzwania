@@ -41,7 +41,7 @@ class StaticData {
     var caloriesData: [Double] = []
     var sleepData: [(date: Date, startTime: Date, endTime: Date, duration: TimeInterval)] = []
     var waterData: [Double] = []
-    var heartRateData: [Double] = []
+    var heartRateData: [(date: Date, startTime: Date, endTime: Date, highHeartRate: Int)] = []
     var workoutTimeData: [Double] = []
 
     private init() {
@@ -59,13 +59,13 @@ class StaticData {
         for _ in 1 ... 7 {
             caloriesData.append(Double(generateRandomNumber(min: 50, max: UInt32(caloriesGoal + 300))))
             waterData.append(Double(generateRandomNumber(min: 1, max: UInt32(waterGoal))))
-            heartRateData.append(Double(generateRandomNumber(min: 60, max: UInt32(heartRateGoal + 30))))
             workoutTimeData.append(Double(generateRandomNumber(min: 4, max: 15)) / 10.0)
         }
 
         let startDate = Date()
         let endDate = Calendar.current.date(byAdding: .day, value: -6, to: startDate)!
         sleepData = generateSleepData(startDate: startDate, endDate: endDate)
+        heartRateData = generateHighHeartRateData(startDate: startDate, endDate: endDate)
     }
 
     func getCurrentYearMonthDay() -> (year: Int, month: Int, day: Int) {
@@ -115,5 +115,32 @@ class StaticData {
         }
 
         return sleepData
+    }
+
+    func generateHighHeartRateData(startDate: Date, endDate: Date) -> [(date: Date, startTime: Date, endTime: Date, highHeartRate: Int)] {
+        var currentDate = startDate
+        let calendar = Calendar.current
+
+        while currentDate >= endDate {
+            let highHeartRate = Int.random(in: 90 ... 150)
+            let randomStartTime = Int.random(in: 9 ... 23)
+            let startDateComponents = calendar.dateComponents([.year, .month, .day], from: currentDate)
+
+            if let startDate = calendar.date(from: startDateComponents) {
+                if let startTime = calendar.date(bySettingHour: randomStartTime, minute: Int.random(in: 0 ... 59), second: Int.random(in: 0 ... 59), of: startDate) {
+                    let endTime = calendar.date(byAdding: .second, value: Int.random(in: 15 ... 150), to: startTime)!
+
+                    heartRateData.append((date: currentDate, startTime: startTime, endTime: endTime, highHeartRate: highHeartRate))
+                } else {
+                    print("Error: Unable to calculate startTime for \(currentDate)")
+                }
+            } else {
+                print("Error: Unable to create startDate components for \(currentDate)")
+            }
+
+            currentDate = calendar.date(byAdding: .day, value: -1, to: currentDate)!
+        }
+
+        return heartRateData
     }
 }

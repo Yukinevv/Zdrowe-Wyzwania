@@ -9,43 +9,75 @@ import HealthKit
 import SwiftUI
 
 struct HealthHighHeartRateView: View {
-    let dateFormatterTime: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM hh:mm"
-        return formatter
-    }()
-
     var viewModel: HealthHighHeartRateViewModel = HealthHighHeartRateViewModel()
 
     @State var data: [HKQuantitySample] = []
+
+    let staticData = StaticData.staticData
 
     var body: some View {
         ScrollView {
             Spacer()
                 .frame(height: 20)
             VStack(spacing: 15) {
-                if !data.isEmpty {
+                if !staticData.isTestData && !data.isEmpty {
                     ForEach(data.indices, id: \.self) { index in
                         VStack(spacing: 5) {
                             HStack {
-                                Text("Poczatek:")
+                                Text("Początek:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
-                                Text("\(data[index].startDate, formatter: dateFormatterTime)")
+                                Text("\(data[index].startDate, formatter: Date.dateFormatterTime)")
                                     .font(.system(size: 22, weight: .medium))
                             }
                             HStack {
                                 Text("Koniec:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
-                                Text("\(data[index].endDate, formatter: dateFormatterTime)")
+                                Text("\(data[index].endDate, formatter: Date.dateFormatterTime)")
                                     .font(.system(size: 22, weight: .medium))
                             }
                             HStack {
-                                Text("Dzien:")
+                                Text("Tętno:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
                                 Text("\(data[index].quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))) / min")
+                                    .font(.system(size: 22, weight: .medium))
+                            }
+                        }
+                        .padding(16)
+                        .background(index % 2 == 0 ? Color.orange : Color.red)
+                        .cornerRadius(10)
+                    }
+                } else if !staticData.heartRateData.isEmpty {
+                    ForEach(staticData.heartRateData.indices, id: \.self) { index in
+                        VStack(spacing: 5) {
+                            HStack {
+                                Text("Początek:")
+                                    .font(.system(size: 22, weight: .medium))
+                                Spacer()
+                                Text("\(staticData.heartRateData[index].startTime, formatter: Date.dateFormatterTime)")
+                                    .font(.system(size: 22, weight: .medium))
+                            }
+                            HStack {
+                                Text("Koniec:")
+                                    .font(.system(size: 22, weight: .medium))
+                                Spacer()
+                                Text("\(staticData.heartRateData[index].endTime, formatter: Date.dateFormatterTime)")
+                                    .font(.system(size: 22, weight: .medium))
+                            }
+                            HStack {
+                                Text("Dzień:")
+                                    .font(.system(size: 22, weight: .medium))
+                                Spacer()
+                                Text("\(staticData.heartRateData[index].date, formatter: Date.dateFormatter)")
+                                    .font(.system(size: 22, weight: .medium))
+                            }
+                            HStack {
+                                Text("Tętno:")
+                                    .font(.system(size: 22, weight: .medium))
+                                Spacer()
+                                Text("\(staticData.heartRateData[index].highHeartRate) ud / min")
                                     .font(.system(size: 22, weight: .medium))
                             }
                         }
@@ -61,9 +93,11 @@ struct HealthHighHeartRateView: View {
         .padding(20)
         .onAppear {
             DispatchQueue.main.async {
-                viewModel.requestAuthorization { success in
-                    if success {
-                        self.data = viewModel.requestHighHeartRateData()
+                if !staticData.isTestData {
+                    viewModel.requestAuthorization { success in
+                        if success {
+                            self.data = viewModel.requestHighHeartRateData()
+                        }
                     }
                 }
             }

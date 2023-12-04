@@ -79,7 +79,7 @@ class HealthCardViewModel {
         case "Kalorie": return "kcal"
         case "Sen": return ""
         case "Nawodnienie": return "L"
-        case "Tętno": return "bpm"
+        case "Tętno": return "ud / min"
         case "Czas treningu": return "min"
         default: return "default"
         }
