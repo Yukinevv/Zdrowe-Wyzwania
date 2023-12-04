@@ -86,7 +86,7 @@ struct HealthHighHeartRateView: View {
                         .cornerRadius(10)
                     }
                 } else {
-                    Text("Brak danych o wysokim tetnie.")
+                    Text("Brak danych o wysokim tętnie.")
                 }
             }
         }

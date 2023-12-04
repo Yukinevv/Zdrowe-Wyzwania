@@ -56,7 +56,7 @@ struct HealthDailyStepsChartsView: View {
                 case .oneWeek:
                     Chart {
                         ForEach(staticData.isTestData ? manager.oneWeekChartStaticData : manager.oneWeekChartData) { daily in
-                            BarMark(x: .value(daily.date.formatted(), daily.date, unit: .day), y: .value("Steps", daily.stepCount))
+                            BarMark(x: .value(daily.date.formatted(), daily.date, unit: .day), y: .value("Kroki", daily.stepCount))
                         }
                     }
                     .onAppear {
@@ -71,7 +71,7 @@ struct HealthDailyStepsChartsView: View {
                 case .oneMonth:
                     Chart {
                         ForEach(staticData.isTestData ? manager.oneMonthChartStaticData : manager.oneMonthChartData) { daily in
-                            BarMark(x: .value(daily.date.formatted(), daily.date, unit: .day), y: .value("Steps", daily.stepCount))
+                            BarMark(x: .value(daily.date.formatted(), daily.date, unit: .day), y: .value("Kroki", daily.stepCount))
                         }
                     }
                     .onAppear {
@@ -86,7 +86,7 @@ struct HealthDailyStepsChartsView: View {
                 case .threeMonth:
                     Chart {
                         ForEach(staticData.isTestData ? manager.threeMonthChartStaticData : manager.threeMonthChartData) { daily in
-                            BarMark(x: .value(daily.date.formatted(), daily.date, unit: .day), y: .value("Steps", daily.stepCount))
+                            BarMark(x: .value(daily.date.formatted(), daily.date, unit: .day), y: .value("Kroki", daily.stepCount))
                         }
                     }
                     .onAppear {
@@ -101,7 +101,7 @@ struct HealthDailyStepsChartsView: View {
                 case .yearToDate:
                     Chart {
                         ForEach(staticData.isTestData ? manager.yearToDateChartStaticData : manager.yearToDateChartData) { daily in
-                            LineMark(x: .value(daily.date.formatted(), daily.date, unit: .day), y: .value("Steps", daily.stepCount))
+                            LineMark(x: .value(daily.date.formatted(), daily.date, unit: .day), y: .value("Kroki", daily.stepCount))
                         }
                     }
                     .onAppear {
@@ -116,7 +116,7 @@ struct HealthDailyStepsChartsView: View {
                 case .oneYear:
                     Chart {
                         ForEach(staticData.isTestData ? manager.oneYearChartStaticData : manager.oneYearChartData) { daily in
-                            LineMark(x: .value(daily.date.formatted(), daily.date, unit: .day), y: .value("Steps", daily.stepCount))
+                            LineMark(x: .value(daily.date.formatted(), daily.date, unit: .day), y: .value("Kroki", daily.stepCount))
                         }
                     }
                     .onAppear {
@@ -135,7 +135,7 @@ struct HealthDailyStepsChartsView: View {
             .padding(.horizontal)
 
             HStack {
-                Button("1W") {
+                Button("1T") {
                     withAnimation {
                         selectedChart = .oneWeek
                     }
@@ -165,7 +165,7 @@ struct HealthDailyStepsChartsView: View {
                 .background(selectedChart == .threeMonth ? .green : .clear)
                 .cornerRadius(10)
 
-                Button("YTD") {
+                Button("6M") {
                     withAnimation {
                         selectedChart = .yearToDate
                     }
@@ -175,7 +175,7 @@ struct HealthDailyStepsChartsView: View {
                 .background(selectedChart == .yearToDate ? .green : .clear)
                 .cornerRadius(10)
 
-                Button("1Y") {
+                Button("1R") {
                     withAnimation {
                         selectedChart = .oneYear
                     }

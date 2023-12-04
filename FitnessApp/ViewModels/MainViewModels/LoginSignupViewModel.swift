@@ -15,7 +15,7 @@ final class LoginSignupViewModel: ObservableObject {
     @Published var isValid = false
     @Published var isPushed = true
     private(set) var emailPlaceholderText = "Email"
-    private(set) var passwordPlaceholderText = "Haslo"
+    private(set) var passwordPlaceholderText = "Hasło"
     private let userService: UserServiceProtocol
     private var cancellables: [AnyCancellable] = []
 
@@ -37,16 +37,16 @@ final class LoginSignupViewModel: ObservableObject {
         case .login:
             return "Witaj ponownie!"
         case .signup, .link:
-            return "Zaloz konto"
+            return "Załóż konto"
         }
     }
 
     var subtitle: String {
         switch mode {
         case .login:
-            return "Zaloguj sie"
+            return "Zaloguj się"
         case .signup, .link:
-            return "Zarejestruj sie"
+            return "Zarejestruj się"
         }
     }
 
@@ -66,6 +66,7 @@ final class LoginSignupViewModel: ObservableObject {
                 switch completion {
                 case let .failure(error):
                     print(error.localizedDescription)
+                    // ustawic zmienna na true i pokazac alert
                 case .finished: break
                 }
             } receiveValue: { _ in }

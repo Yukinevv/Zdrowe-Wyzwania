@@ -39,7 +39,7 @@ struct ProgressCircleView_Previews: PreviewProvider {
     static var previews: some View {
         ProgressCircleView(
             viewModel: .init(
-                title: "Dzien",
+                title: "Dzień",
                 message: "3 z 7",
                 percentageComplete: 0.45
             )

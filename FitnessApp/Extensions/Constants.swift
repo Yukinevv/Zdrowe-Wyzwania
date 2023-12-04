@@ -15,6 +15,8 @@ struct Constants {
 class StaticData {
     static let staticData = StaticData()
 
+    @AppStorage("isDarkMode") var isDarkMode = false
+
     @AppStorage("stepsCardVisibility") var stepsCardVisibility: Bool = true
     @AppStorage("caloriesCardVisibility") var caloriesCardVisibility: Bool = true
     @AppStorage("sleepCardVisibility") var sleepCardVisibility: Bool = true
@@ -116,10 +118,10 @@ class StaticData {
 
                     sleepData.append((date: currentDate, startTime: startTime, endTime: endTime, duration: sleepDuration))
                 } else {
-                    print("Error: Unable to calculate startTime for \(currentDate) | RandomStartTime: \(randomStartTime)")
+                    print("Blad przy wyliczeniu obecnej daty: \(currentDate) | RandomStartTime: \(randomStartTime)")
                 }
             } else {
-                print("Error: Unable to create startDate components for \(currentDate)")
+                print("Blad przy tworzeniu komponentu z dzisiejszej daty: \(currentDate)")
             }
 
             currentDate = calendar.date(byAdding: .day, value: -1, to: currentDate)!
@@ -143,10 +145,10 @@ class StaticData {
 
                     heartRateData.append((date: currentDate, startTime: startTime, endTime: endTime, highHeartRate: highHeartRate))
                 } else {
-                    print("Error: Unable to calculate startTime for \(currentDate)")
+                    print("Blad przy wyliczeniu obecnej daty: \(currentDate)")
                 }
             } else {
-                print("Error: Unable to create startDate components for \(currentDate)")
+                print("Blad przy tworzeniu komponentu z dzisiejszej daty: \(currentDate)")
             }
 
             currentDate = calendar.date(byAdding: .day, value: -1, to: currentDate)!

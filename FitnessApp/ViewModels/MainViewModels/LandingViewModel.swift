@@ -14,9 +14,9 @@ final class LandingViewModel: ObservableObject {
     private var cancellables: [AnyCancellable] = []
 
     let title = "Zdrowe Wyzwania"
-    let loginButtonTitle = "Zaloguj sie"
+    let loginButtonTitle = "Zaloguj się"
     let loginButtonImageName = "person.crop.circle"
-    let signupButtonTitle = "Zarejestruj sie"
+    let signupButtonTitle = "Zarejestruj się"
     let signupButtonImageName = "person.badge.plus"
     let alreadyButtonTitle = "Kontynuuj bez konta"
     let backgroundImageName = "background1"

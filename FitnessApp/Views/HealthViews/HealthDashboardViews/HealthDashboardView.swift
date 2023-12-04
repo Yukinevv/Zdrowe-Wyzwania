@@ -23,8 +23,6 @@ struct HealthDashboardView: View {
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
 
-
-
                     Spacer(minLength: 0)
 
                     NavigationLink(destination: HealthSettingsView()) {
@@ -47,13 +45,15 @@ struct HealthDashboardView: View {
 
                 if let atIndex = userEmail.firstIndex(of: "@") {
                     userName = String(userEmail.prefix(upTo: atIndex))
+                } else {
+                    userName = "użytkowniku"
                 }
             } else {
-                userName = "uzytkowniku"
+                userName = "użytkowniku"
             }
         }
         .background(Color.black.edgesIgnoringSafeArea(.all))
-        .preferredColorScheme(.dark)
+        // .preferredColorScheme(StaticData.staticData.isDarkMode ? .dark : .light)
     }
 }
 

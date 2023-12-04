@@ -29,7 +29,7 @@ struct PrimaryButtonStyle: ButtonStyle {
 struct PrimaryButtonStyle_Previews: PreviewProvider {
     static var previews: some View {
         Button(action: { }) {
-            Text("Utworz wyzwanie")
+            Text("Utwórz wyzwanie")
         }.buttonStyle(PrimaryButtonStyle())
     }
 }

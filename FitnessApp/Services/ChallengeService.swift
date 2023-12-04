@@ -47,7 +47,7 @@ final class ChallengeService: ChallengeServiceProtocol {
                         .setFailureType(to: CustomError.self)
                         .eraseToAnyPublisher()
                 } catch {
-                    return Fail(error: .default(description: "Parsing error"))
+                    return Fail(error: .default(description: "Blad parsowania"))
                         .eraseToAnyPublisher()
                 }
 

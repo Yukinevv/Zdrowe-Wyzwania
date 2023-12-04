@@ -54,7 +54,19 @@ struct LoginSignupView: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarItems(leading: LoopBackView())
         ) {
-            viewModel.mode == .login ? Text("Nie masz konta? Zarejestruj sie") : Text("Masz juz konto? Przejdz do logowania")
+            if viewModel.mode == .login {
+                HStack {
+                    Text("Nie masz konta? ")
+                    Text("Zarejestruj się")
+                        .foregroundStyle(.blue)
+                }
+            } else {
+                HStack {
+                    Text("Masz juz konto? ")
+                    Text("Przejdź do logowania")
+                        .foregroundStyle(.blue)
+                }
+            }
         }
     }
 
@@ -64,7 +76,7 @@ struct LoginSignupView: View {
                 .font(.largeTitle)
                 .fontWeight(.bold)
             Text(viewModel.subtitle)
-                .font(.title2)
+                .font(.title)
                 .fontWeight(.semibold)
                 .foregroundColor(Color(.systemGray2))
             Spacer()
@@ -80,6 +92,7 @@ struct LoginSignupView: View {
             self.isPushed = isPushed
         })
         .padding()
+        .preferredColorScheme(StaticData.staticData.isDarkMode ? .dark : .light)
     }
 }
 
@@ -100,7 +113,7 @@ struct LoopBackView: View {
         ) {
             HStack {
                 Image(systemName: "arrow.left")
-                Text("Back")
+                Text("Powrót")
             }
         }
     }

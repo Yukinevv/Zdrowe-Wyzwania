@@ -20,10 +20,13 @@ struct RecentWorkoutsWidgetsView: View {
             if workouts.count >= 5 {
                 HStack {
                     Text("Świetna robota!")
+                        .foregroundColor(.white)
                     Image(systemName: "hand.thumbsup.fill")
                         .font(.system(size: 28))
+                        .foregroundColor(.white)
                     Spacer().frame(width: 25)
                     Text("Teraz czas na... odpoczynek :)")
+                        .foregroundColor(.white)
                     Image(systemName: "bed.double.fill")
                         .font(.system(size: 32))
                         .foregroundColor(.white)
@@ -31,10 +34,13 @@ struct RecentWorkoutsWidgetsView: View {
             } else if workouts.count >= 2 && workouts.count < 5 {
                 HStack {
                     Text("Dobrze Ci idzie.")
+                        .foregroundColor(.white)
                     Image(systemName: "hand.thumbsup.fill")
                         .font(.system(size: 26))
+                        .foregroundColor(.white)
                     Spacer().frame(width: 15)
                     Text("Oby tak dalej!")
+                        .foregroundColor(.white)
                     Image(systemName: "hand.raised.fingers.spread.fill")
                         .font(.system(size: 28))
                         .foregroundColor(.white)
@@ -42,6 +48,7 @@ struct RecentWorkoutsWidgetsView: View {
             } else if workouts.count < 2 {
                 HStack {
                     Text("Hej, co powiesz na trening?")
+                        .foregroundColor(.white)
                     Spacer().frame(width: 15)
                     Image(systemName: "figure.strengthtraining.traditional")
                         .font(.system(size: 32))

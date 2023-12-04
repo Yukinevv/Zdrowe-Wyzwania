@@ -33,7 +33,7 @@ struct CreateView: View {
                         Image(systemName: "plus.circle")
                             .font(.system(size: 22, weight: .semibold))
                             .foregroundColor(isDarkMode ? .white : .black)
-                        Text("Utworz")
+                        Text("Utwórz")
                             .font(.system(size: 22, weight: .semibold))
                             .foregroundColor(isDarkMode ? .white : .black)
                         Spacer()
@@ -53,14 +53,14 @@ struct CreateView: View {
             }
         }.alert(isPresented: Binding<Bool>.constant($viewModel.error.wrappedValue != nil)) {
             Alert(
-                title: Text("Blad!"),
+                title: Text("Bład!"),
                 message: Text($viewModel.error.wrappedValue?.localizedDescription ?? ""),
                 dismissButton: .default(Text("OK"), action: {
                     viewModel.error = nil
                 })
             )
         }
-        .navigationBarTitle("Utworz wyzwanie")
+        .navigationBarTitle("Utwórz wyzwanie")
         .padding(.bottom, 15)
     }
 }

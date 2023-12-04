@@ -16,7 +16,7 @@ enum CustomError: LocalizedError {
         case let .auth(description):
             return description
         case let .default(description):
-            return description ?? "Something went wrong"
+            return description ?? "Coś poszło nie tak"
         }
     }
 }

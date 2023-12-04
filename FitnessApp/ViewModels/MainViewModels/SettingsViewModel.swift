@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 final class SettingsViewModel: ObservableObject {
-    @AppStorage("isDarkMode") private var isDarkMode = false
+    // @AppStorage("isDarkMode") private var isDarkMode = false
     @Published private(set) var itemViewModels: [SettingsItemViewModel] = []
     @Published var loginSignupPushed = false
     let title = "Ustawienia"
@@ -30,7 +30,7 @@ final class SettingsViewModel: ObservableObject {
             guard userService.currentUser?.email == nil else { return }
             loginSignupPushed = true
         case .mode:
-            isDarkMode = !isDarkMode
+            StaticData.staticData.isDarkMode = !StaticData.staticData.isDarkMode
             buildItems()
         case .achievements:
             break
@@ -50,10 +50,10 @@ final class SettingsViewModel: ObservableObject {
 
     private func buildItems() {
         itemViewModels = [
-            .init(title: userService.currentUser?.email ?? "Utworz konto", iconName: "person.circle", type: .account),
-            .init(title: "Zmien na tryb \(isDarkMode ? "Jasny" : "Ciemny")", iconName: "lightbulb", type: .mode),
-            .init(title: "Osiagniecia", iconName: "medal.fill", type: .achievements),
-            .init(title: "Polityka Prywatnosci", iconName: "shield", type: .privacy),
+            .init(title: userService.currentUser?.email ?? "Utwórz konto", iconName: "person.circle", type: .account),
+            .init(title: "Zmień na tryb \(StaticData.staticData.isDarkMode ? "Jasny" : "Ciemny")", iconName: "lightbulb", type: .mode),
+            .init(title: "Osiągnięcia", iconName: "medal.fill", type: .achievements),
+            .init(title: "Polityka Prywatności", iconName: "shield", type: .privacy),
         ]
 
         if userService.currentUser?.email != nil {

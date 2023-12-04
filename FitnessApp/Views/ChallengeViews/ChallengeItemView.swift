@@ -44,7 +44,7 @@ struct ChallengeItemView: View {
                 .font(.system(size: 18, weight: .bold))
                 .lineLimit(1)
                 .minimumScaleFactor(0.2)
-            Button(viewModel.isDayComplete || viewModel.isComplete ? "Ukonczono" : "Zakoncz") {
+            Button(viewModel.isDayComplete || viewModel.isComplete ? "Ukończono" : "Zakończ") {
                 viewModel.send(action: .toggleComplete)
             }
             .disabled(viewModel.isComplete)

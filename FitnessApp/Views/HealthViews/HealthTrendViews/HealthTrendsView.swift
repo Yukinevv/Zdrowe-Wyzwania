@@ -32,6 +32,7 @@ struct HealthTrendsView: View {
             }
         }
         .navigationTitle("Trendy")
+        .preferredColorScheme(StaticData.staticData.isDarkMode ? .dark : .light)
     }
 }
 

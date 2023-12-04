@@ -17,7 +17,7 @@ struct ChallengeListView: View {
             } else if let error = viewModel.error {
                 VStack {
                     Text(error.localizedDescription)
-                    Button("Ponow") {
+                    Button("Ponów") {
                         viewModel.send(action: .retry)
                     }
                     .padding(10)
@@ -46,7 +46,7 @@ struct ChallengeListView: View {
             if viewModel.itemViewModel.count == 0 {
                 Spacer()
                     .frame(height: 100)
-                Text("Tu pojawia sie Twoje wyzwania")
+                Text("Tu pojawią się Twoje wyzwania")
             }
         }
         .sheet(isPresented: $viewModel.showingCreateModal) {

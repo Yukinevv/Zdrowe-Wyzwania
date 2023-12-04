@@ -14,12 +14,12 @@ struct RemindView: View {
             // DropdownView()
             Spacer()
             Button(action: {}) {
-                Text("Utworz")
+                Text("Utwórz")
                     .font(.system(size: 24, weight: .medium))
                     .foregroundColor(.primary)
             }.padding(.bottom, 15)
             Button(action: {}) {
-                Text("Pomin")
+                Text("Pomiń")
                     .font(.system(size: 24, weight: .medium))
                     .foregroundColor(.primary)
             }

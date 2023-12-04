@@ -20,8 +20,8 @@ struct ChallengeItemViewModel: Identifiable {
 
     var progressCircleViewModel: ProgressCircleViewModel {
         let dayNumber = daysFromStart + 1
-        let title = "Dzien"
-        let message = isComplete ? "Ukonczono" : "\(dayNumber) z \(challenge.length)"
+        let title = "Dzień"
+        let message = isComplete ? "Ukończono" : "\(dayNumber) z \(challenge.length)"
         return .init(title: title, message: message, percentageComplete: Double(dayNumber) / Double(challenge.length))
     }
 
@@ -39,9 +39,9 @@ struct ChallengeItemViewModel: Identifiable {
     }
 
     var statusText: String {
-        guard !isComplete else { return "Ukonczono" }
+        guard !isComplete else { return "Ukończono" }
         let dayNumber = daysFromStart + 1
-        return "Dzien \(dayNumber) z \(challenge.length)"
+        return "Dzień \(dayNumber) z \(challenge.length)"
     }
 
     var dailyIncreaseText: String {
@@ -63,7 +63,7 @@ struct ChallengeItemViewModel: Identifiable {
             switch challenge.exercise {
             case "Pompki":
                 exercise = exercise + "a"
-            case "Podciagniecia":
+            case "Podciągnięcia":
                 exercise = exercise + "e"
             case "Przysiady": break
             default: break
@@ -71,7 +71,7 @@ struct ChallengeItemViewModel: Identifiable {
         } else {
             exercise = challenge.exercise
         }
-        return isComplete ? "Zakonczono" : "\(repNumber) " + exercise
+        return isComplete ? "Zakończono" : "\(repNumber) " + exercise
     }
 
     var shouldShowTodayView: Bool {
