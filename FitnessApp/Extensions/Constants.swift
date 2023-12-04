@@ -58,8 +58,13 @@ class StaticData {
 
         for _ in 1 ... 7 {
             caloriesData.append(Double(generateRandomNumber(min: 50, max: UInt32(caloriesGoal + 300))))
-            waterData.append(Double(generateRandomNumber(min: 1, max: UInt32(waterGoal))))
-            workoutTimeData.append(Double(generateRandomNumber(min: 4, max: 15)) / 10.0)
+            waterData.append(Double.random(in: 1 ... waterGoal))
+
+            var tmpWorkoutTimeData = 0.0
+            repeat {
+                tmpWorkoutTimeData = Double(generateRandomNumber(min: 3, max: 12)) / 10.0
+            } while workoutTimeData.contains(tmpWorkoutTimeData)
+            workoutTimeData.append(tmpWorkoutTimeData)
         }
 
         let startDate = Date()

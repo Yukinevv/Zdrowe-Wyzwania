@@ -20,6 +20,12 @@ extension Date {
         return formatter
     }()
 
+    static var dateWithoutYearFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM"
+        return formatter
+    }()
+
     static var startOfDay: Date {
         Calendar.current.startOfDay(for: Date())
     }

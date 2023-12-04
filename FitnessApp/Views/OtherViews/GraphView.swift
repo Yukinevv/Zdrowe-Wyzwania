@@ -8,17 +8,13 @@
 import SwiftUI
 
 struct GraphView: View {
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM"
-        return formatter
-    }()
-
     var data: [HealthModel]
 
     var title: String
 
     var color: Color
+
+    var goal: Double
 
     var multiplyer: CGFloat?
 
@@ -30,24 +26,25 @@ struct GraphView: View {
         VStack {
             HStack(alignment: .lastTextBaseline) {
                 ForEach(self.data, id: \.id) { value in
-                    let yValue = Swift.min((value.count / 40 >= 1 ? value.count / 40 : value.count), 300)
+                    // let yValue = Swift.min(value.count / 40 >= 1 ? value.count / 40 : value.count, 300)
+                    let yValue = Swift.min(value.count, 100)
 
                     VStack {
                         Text("\(value.count)")
                             .font(.caption)
 
                         Rectangle()
-                            .fill(value.count > 8000 ? Color.green : color)
-                            .frame(width: 30, height: CGFloat(yValue) * (multiplyer ?? 1.0))
+                            .fill(value.count > Int(self.goal) ? Color.green : self.color)
+                            .frame(width: 40, height: CGFloat(yValue) * (multiplyer ?? 5.0))
 
-                        Text("\(value.date, formatter: dateFormatter)")
+                        Text("\(value.date, formatter: Date.dateWithoutYearFormatter)")
                             .font(.caption)
                     }
                 }
             }
 
             Text("\(self.title): \(self.totalData)")
-                .padding(.top, 60)
+                .padding(.top, 40)
                 .font(.system(size: 28, weight: .medium))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -59,13 +56,13 @@ struct GraphView: View {
 struct GraphView_Previews: PreviewProvider {
     static var previews: some View {
         let data = [
-            HealthModel(count: 5632, date: Date()),
+            HealthModel(count: 6632, date: Date()),
             HealthModel(count: 312, date: Date()),
             HealthModel(count: 1542, date: Date()),
-            HealthModel(count: 6342, date: Date()),
-            HealthModel(count: 11376, date: Date()),
+            HealthModel(count: 4347, date: Date()),
+            HealthModel(count: 10376, date: Date()),
         ]
 
-        GraphView(data: data, title: "Suma krokow", color: Color.red)
+        GraphView(data: data, title: "Suma kroków", color: Color.red, goal: 6000)
     }
 }

@@ -10,24 +10,28 @@ import SwiftUI
 
 struct HealthExerciseTimeView: View {
     var viewModel: HealthExerciseTimeViewModel = HealthExerciseTimeViewModel()
-    @State var data: [HealthModel] = [HealthModel]()
+    @State var data: [HealthModel] = []
 
-    var staticData = [
-        HealthModel(count: 35, date: Date()),
-        HealthModel(count: 40, date: Date()),
-        HealthModel(count: 60, date: Date()),
-        HealthModel(count: 110, date: Date()),
-        HealthModel(count: 45, date: Date()),
-    ]
+    let calendar = Calendar.current
+    let currentDate = StaticData.staticData.getCurrentYearMonthDay()
+    let workoutTimeData = StaticData.staticData.workoutTimeData
+
+    @State var staticData: [HealthModel] = []
 
     var body: some View {
         NavigationView {
-            GraphView(data: staticData, title: "Suma minut", color: Color.blue)
+            GraphView(data: staticData, title: "Suma minut", color: Color.yellow, goal: StaticData.staticData.workoutTimeGoal)
         }
         .onAppear {
-            viewModel.requestAuthorization { success in
-                if success {
-                    self.data = viewModel.requestExerciseTime()
+            if !StaticData.staticData.isTestData {
+                viewModel.requestAuthorization { success in
+                    if success {
+                        self.data = viewModel.requestExerciseTime()
+                    }
+                }
+            } else {
+                for i in 1 ... 7 {
+                    staticData.append(HealthModel(count: Int(workoutTimeData[i - 1] * 60), date: calendar.date(from: DateComponents(year: currentDate.year, month: currentDate.month, day: currentDate.day - i, hour: 12, minute: 0, second: 0)) ?? Date()))
                 }
             }
         }

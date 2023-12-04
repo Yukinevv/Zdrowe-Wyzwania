@@ -44,7 +44,6 @@ class HealthDailyStepsViewModel: ObservableObject {
         }
 
         let calendar = Calendar.current
-
         let currentDate = StaticData.staticData.getCurrentYearMonthDay()
         let stepsData = StaticData.staticData.stepsData
 
