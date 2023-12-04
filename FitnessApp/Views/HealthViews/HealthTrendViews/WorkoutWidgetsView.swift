@@ -11,12 +11,13 @@ import SwiftUI
 struct WorkoutWidgetsView: View {
     @EnvironmentObject var workoutManager: HealthTrendsViewModel
 
+    let staticData = StaticData.staticData
+
     var body: some View {
         VStack {
-            WeekWorkoutsWidgetView(weekWorkoutModel: workoutManager.weekWorkoutModel)
+            WeekWorkoutsWidgetView(weekWorkoutModel: staticData.isTestData ? WeekWorkoutModel.data : workoutManager.weekWorkoutModel)
             Spacer().frame(height: 50)
-            // RecentWorkoutsWidgetsView(workouts: workoutManager.recentWorkouts)
-            RecentWorkoutsWidgetsView(workouts: HKWorkout.data)
+            RecentWorkoutsWidgetsView(workouts: staticData.isTestData ? HKWorkout.data : workoutManager.recentWorkouts)
         }
         .padding()
         .onAppear {

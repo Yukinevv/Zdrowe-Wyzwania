@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HealthWorkoutView: View {
     @EnvironmentObject var manager: HealthWorkoutViewModel
-    let welcomeArray = ["Witaj!", "Co u Ciebie :)"]
+    let welcomeArray = ["Twoje statystyki treningowe", "Jaki trening na dziś planujesz?", "Nie zatrzymuj się. Tak trzymaj!"]
     @State private var currentIndex = 0
 
     var body: some View {
@@ -24,8 +24,7 @@ struct HealthWorkoutView: View {
                 }
 
             LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)) {
-                // tutaj zmienic na activities z mockActivities
-                ForEach(manager.mockActivities.sorted(by: { $0.value.id < $1.value.id }), id: \.key) { item in
+                ForEach((StaticData.staticData.isTestData ? manager.mockActivities : manager.activites).sorted(by: { $0.value.id < $1.value.id }), id: \.key) { item in
                     WorkoutCardView(activity: item.value)
                 }
             }
@@ -35,7 +34,7 @@ struct HealthWorkoutView: View {
     }
 
     func startWelcomeTimer() {
-        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
+        Timer.scheduledTimer(withTimeInterval: 7, repeats: true) { _ in
             withAnimation {
                 currentIndex = (currentIndex + 1) % welcomeArray.count
             }

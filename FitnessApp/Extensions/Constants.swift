@@ -43,6 +43,7 @@ class StaticData {
     var waterData: [Double] = []
     var heartRateData: [(date: Date, startTime: Date, endTime: Date, highHeartRate: Int)] = []
     var workoutTimeData: [Double] = []
+    var workoutStaticData: [Daily] = []
 
     private init() {
         stepsGoal = Double(stepsGoalString) ?? stepsGoal
@@ -56,7 +57,10 @@ class StaticData {
             stepsData.append(Double(generateRandomNumber(min: 500, max: UInt32(stepsGoal))))
         }
 
-        for _ in 1 ... 7 {
+        let calendar = Calendar.current
+        let currentDate = getCurrentYearMonthDay()
+
+        for i in 1 ... 7 {
             caloriesData.append(Double(generateRandomNumber(min: 50, max: UInt32(caloriesGoal + 300))))
             waterData.append(Double.random(in: 1 ... waterGoal))
 
@@ -65,6 +69,8 @@ class StaticData {
                 tmpWorkoutTimeData = Double(generateRandomNumber(min: 3, max: 12)) / 10.0
             } while workoutTimeData.contains(tmpWorkoutTimeData)
             workoutTimeData.append(tmpWorkoutTimeData)
+
+            workoutStaticData.append(Daily(id: i - 1, day: (calendar.date(from: DateComponents(year: currentDate.year, month: currentDate.month, day: currentDate.day - i + 1, hour: 12, minute: 0, second: 0)) ?? Date()).weekday(), workout_In_Min: workoutTimeData[i - 1] * 60))
         }
 
         let startDate = Date()

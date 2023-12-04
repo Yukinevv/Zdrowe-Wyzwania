@@ -17,9 +17,12 @@ struct HealthSettingsView: View {
                 Toggle("Kroki", isOn: staticData.$stepsCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Kroki", text: staticData.$stepsGoalString)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+                VStack {
+                    Text("Cel").font(.system(size: 18, weight: .medium))
+                    TextField("Kroki", text: staticData.$stepsGoalString)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                }
             }
             HStack {
                 Toggle("Kalorie", isOn: staticData.$caloriesCardVisibility)
@@ -62,6 +65,8 @@ struct HealthSettingsView: View {
                     .padding()
             }
             Spacer()
+
+            Rectangle().fill(.gray).frame(height: 2).padding()
 
             Toggle("Dane testowe", isOn: staticData.$isTestData)
                 .padding()

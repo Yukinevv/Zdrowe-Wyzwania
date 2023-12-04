@@ -14,14 +14,14 @@ class HealthWorkoutViewModel: ObservableObject {
     @Published var activites: [String: WorkoutModel] = [:]
 
     @Published var mockActivities: [String: WorkoutModel] = [
-        "todaySteps": WorkoutModel(id: 0, title: "Kroki", subtitle: "Cel 10,000", image: "figure.walk", tintColor: .green, amount: "8,429"),
-        "todayCalories": WorkoutModel(id: 1, title: "Kalorie", subtitle: "Cel 500", image: "flame", tintColor: .red, amount: "360 kcal"),
-        "weekRunning": WorkoutModel(id: 2, title: "Bieganie", subtitle: "Obecny tydzień", image: "figure.walk", tintColor: .green, amount: "60 minut"),
-        "weekLifting": WorkoutModel(id: 3, title: "Siłownia", subtitle: "Obecny tydzień", image: "dumbbell", tintColor: .cyan, amount: "80 minut"),
-        "weekSoccer": WorkoutModel(id: 4, title: "Piłka nozna", subtitle: "Obecny tydzień", image: "figure.soccer", tintColor: .blue, amount: "20 minut"),
-        "weekBasketball": WorkoutModel(id: 5, title: "Koszykówka", subtitle: "Obecny tydzień", image: "figure.basketball", tintColor: .orange, amount: "18 minut"),
-        "weekStairs": WorkoutModel(id: 6, title: "Stair Stepper", subtitle: "Obecny tydzień", image: "figure.stair.stepper", tintColor: .green, amount: "10 minut"),
-        "weekKickbox": WorkoutModel(id: 7, title: "Kickboxing", subtitle: "Obecny tydzień", image: "figure.kickboxing", tintColor: .green, amount: "25 minut"),
+        "todaySteps": WorkoutModel(id: 0, title: "Kroki", subtitle: "Cel 10,000", image: "figure.walk", tintColor: .green, amount: String(Int(StaticData.staticData.stepsData[0]))),
+        "todayCalories": WorkoutModel(id: 1, title: "Kalorie", subtitle: "Cel 500", image: "flame", tintColor: .red, amount: String(Int(StaticData.staticData.caloriesData[0])) + " kcal"),
+        "weekRunning": WorkoutModel(id: 2, title: "Bieganie", subtitle: "Obecny tydzień", image: "figure.walk", tintColor: .green, amount: String(Int.random(in: 60 ... 250)) + " min"),
+        "weekLifting": WorkoutModel(id: 3, title: "Trening siłowy", subtitle: "Obecny tydzień", image: "dumbbell", tintColor: .cyan, amount: String(Int.random(in: 60 ... 250)) + " min"),
+        "weekSoccer": WorkoutModel(id: 4, title: "Piłka nożna", subtitle: "Obecny tydzień", image: "figure.soccer", tintColor: .blue, amount: String(Int.random(in: 60 ... 250)) + " min"),
+        "weekBasketball": WorkoutModel(id: 5, title: "Koszykówka", subtitle: "Obecny tydzień", image: "figure.basketball", tintColor: .orange, amount: String(Int.random(in: 60 ... 250)) + " min"),
+        "weekStairs": WorkoutModel(id: 6, title: "Orbitrek", subtitle: "Obecny tydzień", image: "figure.stair.stepper", tintColor: .green, amount: String(Int.random(in: 60 ... 250)) + " min"),
+        "weekKickbox": WorkoutModel(id: 7, title: "Kickboxing", subtitle: "Obecny tydzień", image: "figure.kickboxing", tintColor: .green, amount: String(Int.random(in: 60 ... 250)) + " min"),
     ]
 
     init() {
@@ -35,7 +35,7 @@ class HealthWorkoutViewModel: ObservableObject {
                 try await healthStore.requestAuthorization(toShare: [], read: healthTypes)
                 fetchCurrentWeekWorkoutStats()
             } catch {
-                print("errror fetching health data")
+                print("error fetching health data")
             }
         }
     }
@@ -77,12 +77,12 @@ class HealthWorkoutViewModel: ObservableObject {
                 }
             }
 
-            let runningActivity = WorkoutModel(id: 2, title: "Running", subtitle: "This week", image: "figure.walk", tintColor: .green, amount: "\(runningCount) minutes")
-            let strengthActivity = WorkoutModel(id: 3, title: "Weight Lifting", subtitle: "This week", image: "dumbbell", tintColor: .cyan, amount: "\(strengthCount) minutes")
-            let soccerActivity = WorkoutModel(id: 4, title: "Soccer", subtitle: "This week", image: "figure.soccer", tintColor: .blue, amount: "\(soccerCount) minutes")
-            let basketballActivity = WorkoutModel(id: 5, title: "Basketball", subtitle: "This week", image: "figure.basketball", tintColor: .orange, amount: "\(basketballCount) minutes")
-            let stairActivity = WorkoutModel(id: 6, title: "Stair Stepper", subtitle: "This week", image: "figure.stair.stepper", tintColor: .green, amount: "\(stairsCount) minutes")
-            let kickboxActivity = WorkoutModel(id: 7, title: "Kickboxing", subtitle: "This week", image: "figure.kickboxing", tintColor: .green, amount: "\(kickboxingCount) minutes")
+            let runningActivity = WorkoutModel(id: 2, title: "Bieganie", subtitle: "Obecny tydzień", image: "figure.walk", tintColor: .green, amount: "\(runningCount) min")
+            let strengthActivity = WorkoutModel(id: 3, title: "Trening siłowy", subtitle: "Obecny tydzień", image: "dumbbell", tintColor: .cyan, amount: "\(strengthCount) min")
+            let soccerActivity = WorkoutModel(id: 4, title: "Piłka nożna", subtitle: "Obecny tydzień", image: "figure.soccer", tintColor: .blue, amount: "\(soccerCount) min")
+            let basketballActivity = WorkoutModel(id: 5, title: "Koszykówka", subtitle: "Obecny tydzień", image: "figure.basketball", tintColor: .orange, amount: "\(basketballCount) min")
+            let stairActivity = WorkoutModel(id: 6, title: "Orbitrek", subtitle: "Obecny tydzień", image: "figure.stair.stepper", tintColor: .green, amount: "\(stairsCount) min")
+            let kickboxActivity = WorkoutModel(id: 7, title: "Kickboxing", subtitle: "Obecny tydzień", image: "figure.kickboxing", tintColor: .green, amount: "\(kickboxingCount) min")
 
             DispatchQueue.main.async {
                 self.activites["weekRunning"] = runningActivity

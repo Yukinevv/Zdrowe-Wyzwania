@@ -45,6 +45,6 @@ struct WorkoutCardView: View {
 
 struct WorkoutCardView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutCardView(activity: WorkoutModel(id: 0, title: "Daily steps", subtitle: "Goal: 10,000", image: "figure.walk", tintColor: .green, amount: "6,545"))
+        WorkoutCardView(activity: WorkoutModel(id: 0, title: "Kroki", subtitle: "Cel: 10,000", image: "figure.walk", tintColor: .green, amount: "8,476"))
     }
 }

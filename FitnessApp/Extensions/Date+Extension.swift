@@ -76,11 +76,18 @@ extension Date {
         return calendar.date(from: components)!
     }
 
+//    func weekday() -> String {
+//        let weekDays = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"]
+//        let myCalendar = Calendar(identifier: .gregorian)
+//        let weekDay = myCalendar.component(.weekday, from: self)
+//        return String(weekDays[weekDay - 1].prefix(3))
+//    }
+
     func weekday() -> String {
-        let weekDays = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"]
+        let weekDays = ["Nd", "Pon", "Wt", "Śr", "Czw", "Pt", "Sob"]
         let myCalendar = Calendar(identifier: .gregorian)
         let weekDay = myCalendar.component(.weekday, from: self)
-        return String(weekDays[weekDay - 1].prefix(3))
+        return String(weekDays[weekDay - 1])
     }
 
     func day() -> Int {
