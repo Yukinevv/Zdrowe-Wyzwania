@@ -25,12 +25,14 @@ struct HealthSleepTimeView: View {
 
     @State var data: [HKSample] = []
 
+    let staticData = StaticData.staticData
+
     var body: some View {
         ScrollView {
             Spacer()
                 .frame(height: 20)
             VStack(spacing: 15) {
-                if !data.isEmpty {
+                if !staticData.isTestData && !data.isEmpty {
                     ForEach(data.indices, id: \.self) { index in
                         VStack(spacing: 5) {
                             HStack {
@@ -59,6 +61,42 @@ struct HealthSleepTimeView: View {
                         .background(index % 2 == 0 ? Color.lightGreen : Color.cyan)
                         .cornerRadius(10)
                     }
+                } else if !staticData.sleepData.isEmpty {
+                    ForEach(staticData.sleepData.indices, id: \.self) { index in
+                        VStack(spacing: 5) {
+                            HStack {
+                                Text("Poczatek:")
+                                    .font(.system(size: 22, weight: .medium))
+                                Spacer()
+                                Text("\(staticData.sleepData[index].startTime, formatter: dateFormatterTime)")
+                                    .font(.system(size: 22, weight: .medium))
+                            }
+                            HStack {
+                                Text("Koniec:")
+                                    .font(.system(size: 22, weight: .medium))
+                                Spacer()
+                                Text("\(staticData.sleepData[index].endTime, formatter: dateFormatterTime)")
+                                    .font(.system(size: 22, weight: .medium))
+                            }
+                            HStack {
+                                Text("Dzien:")
+                                    .font(.system(size: 22, weight: .medium))
+                                Spacer()
+                                Text("\(staticData.sleepData[index].date, formatter: dateFormatter)")
+                                    .font(.system(size: 22, weight: .medium))
+                            }
+                            HStack {
+                                Text("Czas trwania:")
+                                    .font(.system(size: 22, weight: .medium))
+                                Spacer()
+                                Text("\(String(format: "%.1f", staticData.sleepData[index].duration / 3600)) h")
+                                    .font(.system(size: 22, weight: .medium))
+                            }
+                        }
+                        .padding(16)
+                        .background(index % 2 == 0 ? Color.lightGreen : Color.cyan)
+                        .cornerRadius(10)
+                    }
                 } else {
                     Text("Brak danych o czasie snu.")
                 }
@@ -66,11 +104,13 @@ struct HealthSleepTimeView: View {
         }
         .padding(20)
         .onAppear {
-            viewModel.requestSleepData { samples, _ in
-                if let samples = samples {
-                    data = samples
-                } else {
-                    print("get sleep data error")
+            if !StaticData.staticData.isTestData {
+                viewModel.requestSleepData { samples, _ in
+                    if let samples = samples {
+                        data = samples
+                    } else {
+                        print("get sleep data error")
+                    }
                 }
             }
         }

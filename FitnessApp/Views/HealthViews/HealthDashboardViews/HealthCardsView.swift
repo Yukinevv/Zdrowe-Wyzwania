@@ -61,7 +61,7 @@ struct HealthCardsView: View {
         statsData = [
             Stats(id: 0, title: "Kroki", currentData: staticData.isTestData ? staticData.stepsData[0] : healthData.stepCount, goal: staticData.stepsGoal, color: Color("steps"), showModal: false),
             Stats(id: 1, title: "Kalorie", currentData: staticData.isTestData ? staticData.caloriesData[0] : healthData.caloriesBurned, goal: staticData.caloriesGoal, color: Color("Main"), showModal: false),
-            Stats(id: 2, title: "Sen", currentData: staticData.isTestData ? staticData.sleepData[0] : healthData.sleepData, goal: staticData.sleepGoal, color: Color("sleep"), showModal: false),
+            Stats(id: 2, title: "Sen", currentData: staticData.isTestData ? round((staticData.sleepData[0].duration / 3600) * 10) / 10 : healthData.sleepData, goal: staticData.sleepGoal, color: Color("sleep"), showModal: false),
             Stats(id: 3, title: "Nawodnienie", currentData: staticData.isTestData ? staticData.waterData[0] : healthData.waterAmount, goal: staticData.waterGoal, color: Color("water"), showModal: false),
             Stats(id: 4, title: "Tętno", currentData: staticData.isTestData ? staticData.heartRateData[0] : healthData.highHeartRateValue, goal: staticData.heartRateGoal, color: Color("running"), showModal: false),
             Stats(id: 5, title: "Czas treningu", currentData: staticData.isTestData ? staticData.workoutTimeData[0] : healthData.workoutTime, goal: staticData.workoutTimeGoal, color: Color("cycle"), showModal: false),
