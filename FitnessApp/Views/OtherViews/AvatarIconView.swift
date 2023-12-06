@@ -12,7 +12,7 @@ struct AvatarIconView: View {
         ZStack(alignment: .center) {
             Color.lightGreen.ignoresSafeArea()
 
-            Circle().stroke(.white, lineWidth: 1)
+            Circle().stroke(.white, lineWidth: 3)
                 .blendMode(.overlay)
 
             Image(systemName: "person.circle.fill")

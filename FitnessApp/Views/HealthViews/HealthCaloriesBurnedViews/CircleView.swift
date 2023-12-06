@@ -14,11 +14,9 @@ struct CircleView: View {
     private let shadowColor: Color = .foregroundGray
     private let highlightColor: Color = .white
 
-    @AppStorage("isDarkMode") private var isDarkMode = true
-
     var body: some View {
-        Circle().fill(isDarkMode ? .black : .white)
+        Circle().fill(StaticData.staticData.isDarkMode ? .black : .white)
             .shadow(color: shadowColor, radius: shadowRadius, x: shadowOffset, y: shadowOffset)
-            .shadow(color: isDarkMode ? .white : .black, radius: shadowRadius, x: -shadowOffset, y: -shadowOffset)
+            .shadow(color: StaticData.staticData.isDarkMode ? .white : .black, radius: shadowRadius, x: -shadowOffset, y: -shadowOffset)
     }
 }

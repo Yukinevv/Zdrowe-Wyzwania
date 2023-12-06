@@ -19,7 +19,8 @@ struct HealthExerciseTimeView: View {
     @State var staticData: [HealthModel] = []
 
     var body: some View {
-        NavigationView {
+        ScrollView {
+            Spacer().frame(height: 50)
             GraphView(data: staticData, title: "Suma minut", color: Color.yellow, goal: StaticData.staticData.workoutTimeGoal)
         }
         .onAppear {

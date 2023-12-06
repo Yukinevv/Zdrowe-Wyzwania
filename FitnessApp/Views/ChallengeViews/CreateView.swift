@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CreateView: View {
     @StateObject var viewModel = CreateChallengeViewModel()
-    @AppStorage("isDarkMode") private var isDarkMode = false
 
     var dropdownList: some View {
         VStack {
@@ -32,10 +31,10 @@ struct CreateView: View {
                         Spacer()
                         Image(systemName: "plus.circle")
                             .font(.system(size: 22, weight: .semibold))
-                            .foregroundColor(isDarkMode ? .white : .black)
+                            .foregroundColor(StaticData.staticData.isDarkMode ? .white : .black)
                         Text("Utwórz")
                             .font(.system(size: 22, weight: .semibold))
-                            .foregroundColor(isDarkMode ? .white : .black)
+                            .foregroundColor(StaticData.staticData.isDarkMode ? .white : .black)
                         Spacer()
                     }
                 }.buttonStyle(PrimaryButtonStyle())

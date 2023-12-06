@@ -13,24 +13,26 @@ struct HealthWorkoutView: View {
     @State private var currentIndex = 0
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(welcomeArray[currentIndex])
-                .font(.largeTitle)
-                .padding()
-                .foregroundColor(.secondary)
-                .animation(.easeInOut(duration: 1), value: currentIndex)
-                .onAppear {
-                    startWelcomeTimer()
-                }
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text(welcomeArray[currentIndex])
+                    .font(.largeTitle)
+                    .padding()
+                    .foregroundColor(.secondary)
+                    .animation(.easeInOut(duration: 1), value: currentIndex)
+                    .onAppear {
+                        startWelcomeTimer()
+                    }
 
-            LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)) {
-                ForEach((StaticData.staticData.isTestData ? manager.mockActivities : manager.activites).sorted(by: { $0.value.id < $1.value.id }), id: \.key) { item in
-                    WorkoutCardView(activity: item.value)
+                LazyVGrid(columns: Array(repeating: GridItem(spacing: 20), count: 2)) {
+                    ForEach((StaticData.staticData.isTestData ? manager.mockActivities : manager.activites).sorted(by: { $0.value.id < $1.value.id }), id: \.key) { item in
+                        WorkoutCardView(activity: item.value)
+                    }
                 }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        // .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 
     func startWelcomeTimer() {

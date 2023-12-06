@@ -16,7 +16,7 @@ struct Constants {
 class StaticData {
     static let staticData = StaticData()
 
-    @AppStorage("isDarkMode") var isDarkMode = false
+    @AppStorage("isDarkMode") var isDarkMode = true
 
     @AppStorage("stepsCardVisibility") var stepsCardVisibility: Bool = true
     @AppStorage("caloriesCardVisibility") var caloriesCardVisibility: Bool = true

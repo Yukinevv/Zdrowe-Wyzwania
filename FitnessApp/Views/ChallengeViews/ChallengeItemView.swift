@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChallengeItemView: View {
     private let viewModel: ChallengeItemViewModel
+
     init(viewModel: ChallengeItemViewModel) {
         self.viewModel = viewModel
     }

@@ -12,8 +12,6 @@ struct DialView: View {
     let goal: Int
     let calories: Int
 
-    @AppStorage("isDarkMode") private var isDarkMode = true
-
     var body: some View {
         ZStack {
             SpokesView()
@@ -45,7 +43,7 @@ struct DialView: View {
             }
             .padding()
         }
-        .foregroundColor(isDarkMode ? .white : .black)
+        .foregroundColor(StaticData.staticData.isDarkMode ? .white : .black)
     }
 }
 

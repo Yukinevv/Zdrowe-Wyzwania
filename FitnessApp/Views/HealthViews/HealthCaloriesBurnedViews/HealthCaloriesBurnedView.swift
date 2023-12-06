@@ -10,8 +10,6 @@ import SwiftUI
 struct HealthCaloriesBurnedView: View {
     var viewModel: HealthCaloriesBurnedViewModel = HealthCaloriesBurnedViewModel()
 
-    @AppStorage("isDarkMode") private var isDarkMode = true
-
     let staticData = StaticData.staticData
 
     var colors: [Color] = [.yellow, .gray, .brown]
@@ -23,7 +21,7 @@ struct HealthCaloriesBurnedView: View {
     var body: some View {
         VStack {
             DialView(goal: Int(staticData.caloriesGoal), calories: staticData.isTestData ? Int(staticData.caloriesData[0]) : Int(viewModel.caloriesBurned))
-                .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+                .padding(.init(top: 0, leading: 20, bottom: -10, trailing: 20))
 
             if (staticData.isTestData ? highestCaloriesBurned : caloriesBurnedArray).count >= 3 {
                 HStack {
@@ -50,7 +48,7 @@ struct HealthCaloriesBurnedView: View {
                 prepareData()
             }
         }
-        .preferredColorScheme(isDarkMode ? .dark : .light)
+        .preferredColorScheme(StaticData.staticData.isDarkMode ? .dark : .light)
     }
 
     func prepareData() {
@@ -67,8 +65,6 @@ struct StatTile: View {
     let measurement: String
     let color: Color
 
-    @AppStorage("isDarkMode") private var isDarkMode = true
-
     var body: some View {
         VStack {
             Image(systemName: image)
@@ -76,10 +72,10 @@ struct StatTile: View {
                 .font(.title)
             Text(measurement)
         }
-        .foregroundColor(isDarkMode ? .white : .black)
+        .foregroundColor(StaticData.staticData.isDarkMode ? .white : .black)
         .padding()
         .background(
-            RoundedRectangle(cornerRadius: 15).fill(isDarkMode ? .black : .white)
+            RoundedRectangle(cornerRadius: 15).fill(StaticData.staticData.isDarkMode ? .black : .white)
                 .shadow(color: .foregroundGray, radius: 3, x: 8, y: 8)
                 .shadow(color: color, radius: 3, x: -8, y: -8)
         )

@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct HealthCardView: View {
-    @AppStorage("isDarkMode") private var isDarkMode = false
-
     @State var stats: Stats
     @State var currentData: Double = 0.0
 
@@ -80,7 +78,7 @@ struct HealthCardView: View {
             NavigationView {
                 healthCardViewModel.getHealthView(for: stats.title, value: currentData)
                     .navigationTitle(stats.title)
-            }.preferredColorScheme(isDarkMode ? .dark : .light)
+            }.preferredColorScheme(StaticData.staticData.isDarkMode ? .dark : .light)
         }
     }
 }

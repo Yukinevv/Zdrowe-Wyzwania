@@ -10,6 +10,7 @@ import SwiftUI
 struct ProgressCircleView: View {
     let viewModel: ProgressCircleViewModel
     @State private var percentage: CGFloat = 0
+
     var body: some View {
         ZStack {
             Circle()

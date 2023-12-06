@@ -17,8 +17,7 @@ struct HealthHighHeartRateView: View {
 
     var body: some View {
         ScrollView {
-            Spacer()
-                .frame(height: 20)
+            Spacer().frame(height: 20)
             VStack(spacing: 15) {
                 if !staticData.isTestData && !data.isEmpty {
                     ForEach(data.indices, id: \.self) { index in
