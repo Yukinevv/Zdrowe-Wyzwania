@@ -12,6 +12,7 @@ final class LoginSignupViewModel: ObservableObject {
     let mode: Mode
     @Published var emailText = ""
     @Published var passwordText = ""
+    @Published var isValidFailed = false
     @Published var isValid = false
     @Published var isPushed = true
     private(set) var emailPlaceholderText = "Email"
@@ -66,7 +67,7 @@ final class LoginSignupViewModel: ObservableObject {
                 switch completion {
                 case let .failure(error):
                     print(error.localizedDescription)
-                    // ustawic zmienna na true i pokazac alert
+                    self.isValidFailed = true
                 case .finished: break
                 }
             } receiveValue: { _ in }

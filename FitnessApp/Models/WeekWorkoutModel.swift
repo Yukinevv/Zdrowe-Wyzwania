@@ -41,11 +41,11 @@ struct WeekWorkoutModel {
 
 extension WeekWorkoutModel {
     static var data = WeekWorkoutModel(workouts: [
-        generateWorkout(daysAgo: 0),
-        generateWorkout(daysAgo: 2),
-        generateWorkout(daysAgo: 3),
-        generateWorkout(daysAgo: 6),
-        generateWorkout(daysAgo: 6),
+        generateWorkout(daysAgo: Int.random(in: 0 ... 6)),
+        generateWorkout(daysAgo: Int.random(in: 0 ... 6)),
+        generateWorkout(daysAgo: Int.random(in: 0 ... 6)),
+        generateWorkout(daysAgo: Int.random(in: 0 ... 6)),
+        generateWorkout(daysAgo: Int.random(in: 0 ... 6)),
     ])
 
     private static func generateWorkout(daysAgo: Int) -> HKWorkout {

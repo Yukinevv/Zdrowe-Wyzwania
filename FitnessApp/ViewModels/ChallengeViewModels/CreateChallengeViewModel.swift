@@ -59,7 +59,7 @@ final class CreateChallengeViewModel: ObservableObject {
               let startAmount = startAmountDropown.number,
               let increase = increaseDropdown.number,
               let length = lengthDropdown.number else {
-            return Fail(error: .default(description: "Parsing error")).eraseToAnyPublisher()
+            return Fail(error: .default(description: "Blad parsowania")).eraseToAnyPublisher()
         }
 
         let startDate = Calendar.current.startOfDay(for: Date())

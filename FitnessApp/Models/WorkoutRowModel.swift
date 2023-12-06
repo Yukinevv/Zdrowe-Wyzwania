@@ -33,4 +33,8 @@ struct WorkoutRowModel {
     var imageName: String {
         return workout.workoutActivityType.associatedImageName
     }
+
+    var imageSystemName: String {
+        return workout.workoutActivityType.associatedImageSystemName
+    }
 }

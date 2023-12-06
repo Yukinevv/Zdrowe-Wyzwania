@@ -25,7 +25,7 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func tappedItem(at index: Int) {
-        switch itemViewModels[index].type {
+        switch itemViewModels[index].action {
         case .account:
             guard userService.currentUser?.email == nil else { return }
             loginSignupPushed = true
@@ -48,16 +48,27 @@ final class SettingsViewModel: ObservableObject {
         }
     }
 
+    func tappedNavigationItem(at index: Int) -> AnyView {
+        switch itemViewModels[index].destination {
+        case "achievements":
+            return AnyView(AchievementsView())
+        case "privacyPolicy":
+            return AnyView(PrivacyPolicyView())
+        default:
+            return AnyView(EmptyView())
+        }
+    }
+
     private func buildItems() {
         itemViewModels = [
-            .init(title: userService.currentUser?.email ?? "Utwórz konto", iconName: "person.circle", type: .account),
-            .init(title: "Zmień na tryb \(StaticData.staticData.isDarkMode ? "Jasny" : "Ciemny")", iconName: "lightbulb", type: .mode),
-            .init(title: "Osiągnięcia", iconName: "medal.fill", type: .achievements),
-            .init(title: "Polityka Prywatności", iconName: "shield", type: .privacy),
+            .init(type: .button, title: userService.currentUser?.email ?? "Utwórz konto", iconName: "person.circle", action: .account, destination: ""),
+            .init(type: .navigationLink, title: "Osiągnięcia", iconName: "medal.fill", action: .achievements, destination: "achievements"),
+            .init(type: .navigationLink, title: "Polityka Prywatności", iconName: "shield", action: .privacy, destination: "privacyPolicy"),
+            .init(type: .button, title: "Zmień na tryb \(StaticData.staticData.isDarkMode ? "Jasny" : "Ciemny")", iconName: "lightbulb", action: .mode, destination: ""),
         ]
 
         if userService.currentUser?.email != nil {
-            itemViewModels += [.init(title: "Wyloguj", iconName: "arrowshape.turn.up.left", type: .logout)]
+            itemViewModels += [.init(type: .button, title: "Wyloguj", iconName: "arrowshape.turn.up.left", action: .logout, destination: "")]
         }
     }
 

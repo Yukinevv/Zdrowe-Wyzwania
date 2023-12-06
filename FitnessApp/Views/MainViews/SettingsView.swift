@@ -13,21 +13,24 @@ struct SettingsView: View {
     var body: some View {
         VStack {
             List(viewModel.itemViewModels.indices, id: \.self) { index in
-                Button {
-                    viewModel.tappedItem(at: index)
-                } label: {
-                    HStack {
-                        Image(systemName: viewModel.item(at: index).iconName)
-                        Text(viewModel.item(at: index).title)
+                if viewModel.item(at: index).type == .button {
+                    Button {
+                        viewModel.tappedItem(at: index)
+                    } label: {
+                        HStack {
+                            Image(systemName: viewModel.item(at: index).iconName)
+                            Text(viewModel.item(at: index).title)
+                        }
+                    }
+                } else {
+                    NavigationLink(destination: viewModel.tappedNavigationItem(at: index)) {
+                        HStack {
+                            Image(systemName: viewModel.item(at: index).iconName)
+                            Text(viewModel.item(at: index).title)
+                        }
                     }
                 }
             }
-//            NavigationLink(destination: AchievementsView()) {
-//                HStack {
-//                    Image(systemName: "hexagon.bottomhalf.filled")
-//                    Text("Osiągnięcia")
-//                }
-//            }
         }
         .background(
             NavigationLink(

@@ -5,11 +5,12 @@
 //  Created by Adrian Rodzic on 01/10/2023.
 //
 
+import HealthKit
 import SwiftUI
 
 struct Constants {
-    static let widgetMediumHeight: CGFloat = 169
-    static let widgetLargeHeight: CGFloat = 376
+    static let widgetMediumHeight: CGFloat = 170
+    static let widgetLargeHeight: CGFloat = 380
 }
 
 class StaticData {
@@ -47,6 +48,8 @@ class StaticData {
     var workoutTimeData: [Double] = []
     var workoutStaticData: [Daily] = []
 
+    var recentWorkoutsData: [HKWorkout] = []
+
     private init() {
         stepsGoal = Double(stepsGoalString) ?? stepsGoal
         caloriesGoal = Double(caloriesGoalString) ?? caloriesGoal
@@ -79,6 +82,10 @@ class StaticData {
         let endDate = Calendar.current.date(byAdding: .day, value: -6, to: startDate)!
         sleepData = generateSleepData(startDate: startDate, endDate: endDate)
         heartRateData = generateHighHeartRateData(startDate: startDate, endDate: endDate)
+
+        for _ in 1 ... 25 {
+            recentWorkoutsData.append(HKWorkout.generateWorkoutWithActivity(daysAgo: Int.random(in: 0 ... 40), activityType: HKWorkout.getActivityType(for: Int.random(in: 1 ... 74))!))
+        }
     }
 
     func getCurrentYearMonthDay() -> (year: Int, month: Int, day: Int) {

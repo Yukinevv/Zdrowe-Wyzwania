@@ -30,7 +30,6 @@ class HealthTrendsViewModel: NSObject, ObservableObject {
         if HKHealthStore.isHealthDataAvailable() {
             let typesToRead: Set = [
                 HKObjectType.workoutType(),
-                // HKSeriesType.workoutRoute(),
                 HKQuantityType.quantityType(forIdentifier: .heartRate)!,
                 HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
                 HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
@@ -89,7 +88,7 @@ class HealthTrendsViewModel: NSObject, ObservableObject {
 
     func latestWorkouts(completion: (([HKWorkout]) -> Void)? = nil) {
         let end = Date()
-        let start = Calendar.current.date(byAdding: .day, value: -7, to: end)!
+        let start = Calendar.current.date(byAdding: .day, value: -30, to: end)!
 
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .greaterThanOrEqualTo, duration: 1)
 

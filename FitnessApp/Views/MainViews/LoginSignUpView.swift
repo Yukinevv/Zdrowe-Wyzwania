@@ -91,6 +91,9 @@ struct LoginSignupView: View {
         .onReceive(viewModel.$isPushed, perform: { isPushed in
             self.isPushed = isPushed
         })
+        .alert(isPresented: $viewModel.isValidFailed) {
+            Alert(title: Text("Błąd"), message: Text("Niepoprawne dane logowania"), dismissButton: .default(Text("Ok")))
+        }
         .padding()
         .preferredColorScheme(StaticData.staticData.isDarkMode ? .dark : .light)
     }
