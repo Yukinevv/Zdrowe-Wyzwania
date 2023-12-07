@@ -16,7 +16,7 @@ struct Constants {
 class StaticData {
     static let staticData = StaticData()
 
-    @AppStorage("isDarkMode") var isDarkMode = true
+    @AppStorage("isDarkMode") var isDarkMode: Bool = true
 
     @AppStorage("stepsCardVisibility") var stepsCardVisibility: Bool = true
     @AppStorage("caloriesCardVisibility") var caloriesCardVisibility: Bool = true
@@ -49,6 +49,9 @@ class StaticData {
     var workoutStaticData: [Daily] = []
 
     var recentWorkoutsData: [HKWorkout] = []
+    var todayWorkouts: [HKWorkout] = []
+    var weekWorkouts: [HKWorkout] = []
+    var monthWorkouts: [HKWorkout] = []
 
     private init() {
         stepsGoal = Double(stepsGoalString) ?? stepsGoal
@@ -85,6 +88,24 @@ class StaticData {
 
         for _ in 1 ... 25 {
             recentWorkoutsData.append(HKWorkout.generateWorkoutWithActivity(daysAgo: Int.random(in: 0 ... 40), activityType: HKWorkout.getActivityType(for: Int.random(in: 1 ... 74))!))
+        }
+
+        let oneDayInSeconds: TimeInterval = 24 * 60 * 60
+        let weekInSeconds: TimeInterval = 7 * 24 * 60 * 60
+        let monthInSeconds: TimeInterval = 30 * 24 * 60 * 60
+        let today = Date()
+
+        todayWorkouts = recentWorkoutsData.filter { workout in
+            let timeDifference = today.timeIntervalSince(workout.startDate)
+            return timeDifference <= oneDayInSeconds
+        }
+        weekWorkouts = recentWorkoutsData.filter { workout in
+            let timeDifference = today.timeIntervalSince(workout.startDate)
+            return timeDifference <= weekInSeconds
+        }
+        monthWorkouts = recentWorkoutsData.filter { workout in
+            let timeDifference = today.timeIntervalSince(workout.startDate)
+            return timeDifference <= monthInSeconds
         }
     }
 

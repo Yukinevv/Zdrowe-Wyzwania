@@ -20,7 +20,7 @@ struct HealthExerciseTimeView: View {
 
     var body: some View {
         ScrollView {
-            Spacer().frame(height: 50)
+            Spacer().frame(height: 90)
             GraphView(data: staticData, title: "Suma minut", color: Color.yellow, goal: StaticData.staticData.workoutTimeGoal)
         }
         .onAppear {

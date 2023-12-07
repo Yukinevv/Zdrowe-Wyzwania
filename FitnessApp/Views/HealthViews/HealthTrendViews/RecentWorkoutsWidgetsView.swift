@@ -14,10 +14,6 @@ struct RecentWorkoutsWidgetsView: View {
     let workoutDaysRangeOptions: [Int] = [1, 7, 30]
     @State private var selectedOption = 1
 
-    @State var todayWorkouts: [HKWorkout] = []
-    @State var weekWorkouts: [HKWorkout] = []
-    @State var monthWorkouts: [HKWorkout] = []
-
     @State var workoutThresholds: [Int] = []
 
     var body: some View {
@@ -95,40 +91,20 @@ struct RecentWorkoutsWidgetsView: View {
         .cardStyle()
         // .frame(maxHeight: Constants.widgetLargeHeight)
         .onAppear {
-            if todayWorkouts.isEmpty && weekWorkouts.isEmpty && monthWorkouts.isEmpty {
-                let oneDayInSeconds: TimeInterval = 24 * 60 * 60
-                let weekInSeconds: TimeInterval = 7 * 24 * 60 * 60
-                let monthInSeconds: TimeInterval = 30 * 24 * 60 * 60
-                let today = Date()
-
-                todayWorkouts = workouts.filter { workout in
-                    let timeDifference = today.timeIntervalSince(workout.startDate)
-                    return timeDifference <= oneDayInSeconds
-                }
-                weekWorkouts = workouts.filter { workout in
-                    let timeDifference = today.timeIntervalSince(workout.startDate)
-                    return timeDifference <= weekInSeconds
-                }
-                monthWorkouts = workouts.filter { workout in
-                    let timeDifference = today.timeIntervalSince(workout.startDate)
-                    return timeDifference <= monthInSeconds
-                }
-
-                assignWorkouts(selectedWorkoutDaysRange: selectedOption)
-            }
+            assignWorkouts(selectedWorkoutDaysRange: selectedOption)
         }
     }
 
     func assignWorkouts(selectedWorkoutDaysRange: Int) {
         switch selectedWorkoutDaysRange {
         case 0:
-            workouts = todayWorkouts
+            workouts = StaticData.staticData.todayWorkouts
             break
         case 1:
-            workouts = weekWorkouts
+            workouts = StaticData.staticData.weekWorkouts
             break
         case 2:
-            workouts = monthWorkouts
+            workouts = StaticData.staticData.monthWorkouts
             break
         default:
             break

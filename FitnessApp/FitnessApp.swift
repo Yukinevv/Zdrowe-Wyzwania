@@ -20,14 +20,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct FitnessApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var appState = AppState()
+    @AppStorage("isDarkMode") private var isDarkMode = true
 
     var body: some Scene {
         WindowGroup {
             if appState.isLoggedIn {
                 TabContainerView()
-                    .preferredColorScheme(StaticData.staticData.isDarkMode ? .dark : .light)
+                    .preferredColorScheme(isDarkMode ? .dark : .light)
             } else {
-                LandingPage()
+                LandingView()
             }
         }
     }

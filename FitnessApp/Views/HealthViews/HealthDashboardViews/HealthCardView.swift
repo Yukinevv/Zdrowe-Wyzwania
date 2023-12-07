@@ -25,7 +25,7 @@ struct HealthCardView: View {
                     Spacer(minLength: 0)
                 }
                 HStack {
-                    Text("\(stats.title == "Tętno" ? "Próg" : "Cel"): \(Int(stats.goal)) \(stats.title == "Sen" ? "h" : healthCardViewModel.getType(title: stats.title))")
+                    Text("\(stats.title == "Tętno" ? "Próg" : "Cel"): \(Int(stats.goal)) \(stats.title == "Sen" ? "godz" : healthCardViewModel.getType(title: stats.title))")
                         .font(.system(size: 16))
                         .fontWeight(.semibold)
                         .foregroundColor(Color(.white))

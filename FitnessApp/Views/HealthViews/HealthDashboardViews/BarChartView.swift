@@ -25,7 +25,7 @@ struct BarChartView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 25) {
-            Text("Codzienne treningi")
+            Text("Codzienne treningi (godz)")
                 .font(.system(size: 22))
                 .fontWeight(.bold)
                 .foregroundColor(.white)

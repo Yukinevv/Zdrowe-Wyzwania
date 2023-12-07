@@ -1,5 +1,5 @@
 //
-//  LandingPage.swift
+//  LandingView.swift
 //  FitnessApp
 //
 //  Created by Adrian Rodzic on 10/04/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LandingPage: View {
+struct LandingView: View {
     @StateObject private var viewModel = LandingViewModel()
 
     var title: some View {
@@ -56,8 +56,10 @@ struct LandingPage: View {
                     HStack(spacing: 40) {
                         Image(systemName: "heart.fill")
                             .font(.system(size: 50))
+                            .foregroundColor(.black)
                         Image(systemName: "figure.highintensity.intervaltraining")
                             .font(.system(size: 50))
+                            .foregroundColor(.black)
                     }
                     Spacer()
                     NavigationLink(
@@ -103,8 +105,8 @@ struct LandingPage: View {
     }
 }
 
-struct LandingPage_Previews: PreviewProvider {
+struct LandingView_Previews: PreviewProvider {
     static var previews: some View {
-        LandingPage()
+        LandingView()
     }
 }

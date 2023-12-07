@@ -118,13 +118,13 @@ class HealthCardViewModel {
 
         var timeString = ""
         if hoursInt > 0 {
-            timeString += "\(hoursInt) h "
+            timeString += "\(hoursInt) godz "
         }
         if minutes > 0 {
             timeString += "\(minutes) min"
         }
         if timeString == "" {
-            timeString += "0 h"
+            timeString += "0 godz"
         }
         return timeString
     }

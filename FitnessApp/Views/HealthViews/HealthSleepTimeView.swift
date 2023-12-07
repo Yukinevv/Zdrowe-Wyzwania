@@ -76,7 +76,7 @@ struct HealthSleepTimeView: View {
                                 Text("Czas trwania:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
-                                Text("\(String(format: "%.1f", staticData.sleepData[index].duration / 3600)) h")
+                                Text("\(String(format: "%.1f", staticData.sleepData[index].duration / 3600)) godz")
                                     .font(.system(size: 22, weight: .medium))
                             }
                         }

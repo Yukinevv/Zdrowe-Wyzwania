@@ -16,7 +16,7 @@ class HealthWorkoutViewModel: ObservableObject {
     @Published var mockActivities: [String: WorkoutModel] = [
         "todaySteps": WorkoutModel(id: 0, title: "Kroki", subtitle: "Cel 10,000", image: "figure.walk", tintColor: .green, amount: String(Int(StaticData.staticData.stepsData[0]))),
         "todayCalories": WorkoutModel(id: 1, title: "Kalorie", subtitle: "Cel 500", image: "flame", tintColor: .red, amount: String(Int(StaticData.staticData.caloriesData[0])) + " kcal"),
-        "weekRunning": WorkoutModel(id: 2, title: "Bieganie", subtitle: "Obecny tydzień", image: "figure.walk", tintColor: .green, amount: String(Int.random(in: 60 ... 250)) + " min"),
+        "weekRunning": WorkoutModel(id: 2, title: "Bieganie", subtitle: "Obecny tydzień", image: "figure.run", tintColor: .green, amount: String(Int.random(in: 60 ... 250)) + " min"),
         "weekLifting": WorkoutModel(id: 3, title: "Trening siłowy", subtitle: "Obecny tydzień", image: "dumbbell", tintColor: .cyan, amount: String(Int.random(in: 60 ... 250)) + " min"),
         "weekSoccer": WorkoutModel(id: 4, title: "Piłka nożna", subtitle: "Obecny tydzień", image: "figure.soccer", tintColor: .blue, amount: String(Int.random(in: 60 ... 250)) + " min"),
         "weekBasketball": WorkoutModel(id: 5, title: "Koszykówka", subtitle: "Obecny tydzień", image: "figure.basketball", tintColor: .orange, amount: String(Int.random(in: 60 ... 250)) + " min"),
@@ -77,7 +77,7 @@ class HealthWorkoutViewModel: ObservableObject {
                 }
             }
 
-            let runningActivity = WorkoutModel(id: 2, title: "Bieganie", subtitle: "Obecny tydzień", image: "figure.walk", tintColor: .green, amount: "\(runningCount) min")
+            let runningActivity = WorkoutModel(id: 2, title: "Bieganie", subtitle: "Obecny tydzień", image: "figure.run", tintColor: .green, amount: "\(runningCount) min")
             let strengthActivity = WorkoutModel(id: 3, title: "Trening siłowy", subtitle: "Obecny tydzień", image: "dumbbell", tintColor: .cyan, amount: "\(strengthCount) min")
             let soccerActivity = WorkoutModel(id: 4, title: "Piłka nożna", subtitle: "Obecny tydzień", image: "figure.soccer", tintColor: .blue, amount: "\(soccerCount) min")
             let basketballActivity = WorkoutModel(id: 5, title: "Koszykówka", subtitle: "Obecny tydzień", image: "figure.basketball", tintColor: .orange, amount: "\(basketballCount) min")

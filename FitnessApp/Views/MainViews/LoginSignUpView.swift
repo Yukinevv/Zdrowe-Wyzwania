@@ -110,7 +110,7 @@ struct LoginSignupView_Previews: PreviewProvider {
 struct LoopBackView: View {
     var body: some View {
         NavigationLink(
-            destination: LandingPage()
+            destination: LandingView()
                 .navigationBarBackButtonHidden(true)
                 .navigationBarItems(leading: EmptyView())
         ) {
