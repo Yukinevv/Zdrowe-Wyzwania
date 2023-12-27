@@ -134,9 +134,9 @@ extension CreateChallengeViewModel {
 
         enum ChallengePartType: String, CaseIterable {
             case exercise = "Ćwiczenie"
-            case startAmount = "Ilość powtórzen"
+            case startAmount = "Ilość powtórzeń"
             case increase = "Dzienny wzrost"
-            case length = "Długosc wyzwania"
+            case length = "Długość wyzwania"
         }
 
         enum ExerciseOption: String, CaseIterable, DropdownOptionProtocol {

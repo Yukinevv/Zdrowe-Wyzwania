@@ -41,7 +41,9 @@ struct HealthCardsView: View {
                 updateCardsVisibility()
                 // print("update widocznosci kart")
                 updateStatsData()
-                // print("update wartosci kart")
+                for data in statsData {
+                    print("\(data.title): \(data.currentData)")
+                }
             }
         }
     }

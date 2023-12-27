@@ -191,8 +191,10 @@ struct HealthDailyStepsChartsView: View {
         }
         .onAppear {
             manager.fetchPastWeekStepData()
+            manager.fetchPastMonthStepData()
             manager.fetchPastThreeMonthsStepData()
             manager.fetchYearToDateStepData()
+            manager.fetchPastYearStepData()
         }
     }
 }

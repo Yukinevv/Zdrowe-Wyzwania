@@ -21,13 +21,15 @@ struct HealthExerciseTimeView: View {
     var body: some View {
         ScrollView {
             Spacer().frame(height: 90)
-            GraphView(data: staticData, title: "Suma minut", color: Color.yellow, goal: StaticData.staticData.workoutTimeGoal)
+            GraphView(data: StaticData.staticData.isTestData ? staticData : data, title: "Suma minut", color: Color.yellow, goal: StaticData.staticData.workoutTimeGoal)
         }
         .onAppear {
             if !StaticData.staticData.isTestData {
                 viewModel.requestAuthorization { success in
                     if success {
-                        self.data = viewModel.requestExerciseTime()
+                        viewModel.requestExerciseTime { data in
+                            self.data = data
+                        }
                     }
                 }
             } else {

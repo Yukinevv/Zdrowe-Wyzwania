@@ -19,7 +19,6 @@ struct BarChartView: View {
     var colors = [Color("Color1"), Color("Color")]
 
     var viewModel: HealthExerciseTimeViewModel = HealthExerciseTimeViewModel()
-    @State var data: [HealthModel] = [HealthModel]()
 
     @State var workoutData: [Daily] = []
 
@@ -44,7 +43,7 @@ struct BarChartView: View {
                             // gradient bars
                             RoundedShape()
                                 .fill(LinearGradient(gradient: .init(colors: selected == work.id ? colors : backgrnd), startPoint: .top, endPoint: .bottom))
-                                .frame(height: getHeight(value: (work.workout_In_Min) * 8))
+                                .frame(height: (getHeight(value: work.workout_In_Min) * 8) > 80 ? 80 : getHeight(value: work.workout_In_Min) * 8)
                         }
                         .frame(height: 120)
                         .onTapGesture {
@@ -61,20 +60,20 @@ struct BarChartView: View {
             }
         }
         .onAppear {
-            if !StaticData.staticData.isTestData {
-                DispatchQueue.main.async {
-                    viewModel.requestAuthorization { success in
-                        if success {
-                            self.data = viewModel.requestExerciseTimeFromLastWeek()
+            if !StaticData.staticData.isTestData && workoutData.isEmpty {
+                viewModel.requestAuthorization { success in
+                    if success {
+                        viewModel.requestExerciseTime { data in
+                            print("data ilosc: \(data.count)")
+                            if data.count > 0 {
+                                print("czy ilosc treningow > 0")
+                                for i in 0 ..< data.count {
+                                    workoutData.append(Daily(id: i, day: data[i].date.weekday(), workout_In_Min: CGFloat(data[i].count)))
+                                }
+                            } else {
+                                print("nie jest > 0")
+                            }
                         }
-                    }
-                    if data.count > 0 {
-                        print("czy ilosc treningow > 0")
-                        for i in 0 ..< data.count {
-                            workoutData.append(Daily(id: i, day: data[i].date.weekday(), workout_In_Min: CGFloat(data[i].count)))
-                        }
-                    } else {
-                        print("nie jest > 0")
                     }
                 }
             }

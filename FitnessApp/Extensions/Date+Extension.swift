@@ -61,6 +61,12 @@ extension Date {
         return calendar.startOfDay(for: oneYear!)
     }
 
+    static var dayAgo: Date {
+        let calendar = Calendar.current
+        let dayAgo = calendar.date(byAdding: .day, value: -1, to: Date())
+        return calendar.startOfDay(for: dayAgo!)
+    }
+
     static var weekAgo: Date {
         let calendar = Calendar.current
         let weekAgo = calendar.date(byAdding: .day, value: -7, to: Date())

@@ -24,7 +24,6 @@ class HealthCardsViewModel {
     var caloriesBurned: Double = 0.0
     var sleepData: Double = 0.0
     var waterAmount: Double = 0.0
-    // var highHeartRateSamples: [HKQuantitySample] = []
     var highHeartRateValue: Double = 0.0
     var workoutTime: Double = 0.0
 
@@ -42,7 +41,7 @@ class HealthCardsViewModel {
                 requestHighHeartRateData()
                 requestWorkoutTimeData()
             } catch {
-                print("error fetching health data")
+                print("Blad przy probie pobrania danych zdrowotnych")
             }
         }
     }
@@ -55,7 +54,6 @@ class HealthCardsViewModel {
     }
 
     func requestStepCount() {
-        // let steps = HKQuantityType(.stepCount)
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate) { _, result, error in
             guard let quantity = result?.sumQuantity(), error == nil else {
@@ -65,9 +63,11 @@ class HealthCardsViewModel {
 
             let stepCount = quantity.doubleValue(for: .count())
 
-            DispatchQueue.main.async {
-                self.stepCount = stepCount
-            }
+//            DispatchQueue.main.async {
+//                self.stepCount = stepCount
+//            }
+
+            self.stepCount = stepCount
         }
         healthStore.execute(query)
     }
@@ -82,15 +82,20 @@ class HealthCardsViewModel {
 
             let caloriesBurned = quantity.doubleValue(for: .kilocalorie())
 
-            DispatchQueue.main.async {
-                self.caloriesBurned = caloriesBurned
-            }
+//            DispatchQueue.main.async {
+//                self.caloriesBurned = caloriesBurned
+//            }
+            self.caloriesBurned = caloriesBurned
+
+            print("requestCaloriesBurned: \(self.caloriesBurned)")
         }
         healthStore.execute(query)
     }
 
     func requestSleepData() {
-        let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
+        let startDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date()) // .startOfDay
+
         let query = HKSampleQuery(sampleType: sleepDataType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
             guard let samples = samples, error == nil else {
                 print("Error fetching today's sleep data")
@@ -113,10 +118,12 @@ class HealthCardsViewModel {
 
             let totalSleepTimeInHours = sleepTime / 3600.0
 
-            DispatchQueue.main.async {
-                // self.sleepData = self.formatTime(totalSleepTime)
-                self.sleepData = totalSleepTimeInHours
-            }
+//            DispatchQueue.main.async {
+//                // self.sleepData = self.formatTime(totalSleepTime)
+//                self.sleepData = totalSleepTimeInHours
+//            }
+
+            self.sleepData = totalSleepTimeInHours
         }
         healthStore.execute(query)
     }
@@ -131,9 +138,11 @@ class HealthCardsViewModel {
 
             let waterAmount = quantity.doubleValue(for: HKUnit.literUnit(with: .milli))
 
-            DispatchQueue.main.async {
-                self.waterAmount = waterAmount
-            }
+//            DispatchQueue.main.async {
+//                self.waterAmount = waterAmount
+//            }
+
+            self.waterAmount = waterAmount
         }
         healthStore.execute(query)
     }
@@ -152,10 +161,12 @@ class HealthCardsViewModel {
                 sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) > Double(heartRateGoal) ?? 100
             }
 
-            DispatchQueue.main.async {
-                // self.highHeartRateSamples = highHeartRateSamples
-                self.highHeartRateValue = highHeartRateSamples.last?.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) ?? 0
-            }
+//            DispatchQueue.main.async {
+//                // self.highHeartRateSamples = highHeartRateSamples
+//                self.highHeartRateValue = highHeartRateSamples.last?.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) ?? 0
+//            }
+
+            self.highHeartRateValue = highHeartRateSamples.last?.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) ?? 0
         }
         healthStore.execute(query)
     }
@@ -174,12 +185,14 @@ class HealthCardsViewModel {
 
             let workoutTime = samples.last?.duration
 
-            let totalWorkoutTimeInHours = workoutTime ?? 0.0 / 3600.0
+            let totalWorkoutTimeInHours = (workoutTime ?? 0.0) / 3600.0
 
-            DispatchQueue.main.async {
-                // self.workoutTime = self.formatTime(totalWorkoutTime)
-                self.workoutTime = totalWorkoutTimeInHours
-            }
+//            DispatchQueue.main.async {
+//                // self.workoutTime = self.formatTime(totalWorkoutTime)
+//                self.workoutTime = totalWorkoutTimeInHours
+//            }
+
+            self.workoutTime = totalWorkoutTimeInHours
         }
         healthStore.execute(query)
     }

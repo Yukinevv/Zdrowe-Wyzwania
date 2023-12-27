@@ -27,8 +27,8 @@ class HealthExerciseTimeViewModel {
         }
     }
 
-    func requestExerciseTime() -> [HealthModel] {
-        let workoutPredicate = HKQuery.predicateForWorkouts(with: .greaterThan, duration: 30)
+    func requestExerciseTime(completion: @escaping ([HealthModel]) -> Void) {
+        let workoutPredicate = HKQuery.predicateForWorkouts(with: .greaterThan, duration: 5)
 
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
 
@@ -40,20 +40,25 @@ class HealthExerciseTimeViewModel {
                 for workout in workoutSamples {
                     let duration = workout.duration
                     let durationMinutes = duration / 60.0
+                    print("durationMinutes: \(durationMinutes)")
 
                     data.append(.init(count: Int(durationMinutes), date: workout.startDate))
                 }
             }
+
+            while data.count < 5 {
+                data.append(HealthModel(count: 0, date: Date()))
+            }
+
+            completion(data)
         }
 
         if let healthStore = healthStore {
             healthStore.execute(query)
         }
-
-        return data
     }
 
-    func requestExerciseTimeFromLastWeek() -> [HealthModel] {
+    func requestExerciseTimeFromLastWeek(completion: @escaping ([HealthModel]) -> Void) {
         let calendar = Calendar.current
         let oneWeekAgo = calendar.date(byAdding: .weekOfYear, value: -1, to: Date())
 
@@ -61,26 +66,26 @@ class HealthExerciseTimeViewModel {
 
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
 
-        var data: [HealthModel] = []
-
         let query = HKSampleQuery(sampleType: workoutType, predicate: workoutPredicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { _, samples, _ in
+            var data: [HealthModel] = []
 
             if let workoutSamples = samples as? [HKWorkout] {
                 for workout in workoutSamples {
-                    let duration = workout.duration
-                    let durationMinutes = duration / 60.0
-
-                    print("czas treningu \(durationMinutes)")
-
-                    data.append(.init(count: Int(durationMinutes), date: workout.startDate))
+                    let durationMinutes = workout.duration / 60.0
+                    print("durationMinutes: \(durationMinutes)")
+                    data.append(HealthModel(count: Int(durationMinutes), date: workout.startDate))
                 }
             }
+
+            while data.count < 5 {
+                data.append(HealthModel(count: 0, date: Date()))
+            }
+
+            completion(data)
         }
 
         if let healthStore = healthStore {
             healthStore.execute(query)
         }
-
-        return data
     }
 }

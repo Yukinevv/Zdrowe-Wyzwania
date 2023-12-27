@@ -40,7 +40,7 @@ struct HealthHighHeartRateView: View {
                                 Text("Tętno:")
                                     .font(.system(size: 22, weight: .medium))
                                 Spacer()
-                                Text("\(data[index].quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))) / min")
+                                Text("\(String(format: "%.0f", data[index].quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())))) ud / min")
                                     .font(.system(size: 22, weight: .medium))
                             }
                         }
@@ -95,7 +95,9 @@ struct HealthHighHeartRateView: View {
                 if !staticData.isTestData {
                     viewModel.requestAuthorization { success in
                         if success {
-                            self.data = viewModel.requestHighHeartRateData()
+                            viewModel.requestHighHeartRateData { data in
+                                self.data = data
+                            }
                         }
                     }
                 }

@@ -96,7 +96,7 @@ struct HealthSleepTimeView: View {
                     if let samples = samples {
                         data = samples
                     } else {
-                        print("get sleep data error")
+                        print("Blad podczas pobierania danych o czasie snu")
                     }
                 }
             }

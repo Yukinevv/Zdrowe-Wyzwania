@@ -23,8 +23,8 @@ extension HKWorkout {
 //    ]
 
     static func generateWorkoutWithActivity(daysAgo: Int, activityType: HKWorkoutActivityType) -> HKWorkout {
-        let totalEnergyBurned = Double.random(in: 350 ..< 651)
-        let totalDistance = Double.random(in: 1500 ..< 6555)
+        let totalEnergyBurned = Double.random(in: 350 ..< 650)
+        let totalDistance = Double.random(in: 1500 ..< 6500)
         let duration = Double.random(in: 3500 ..< 7500)
 
         let today = Date()
