@@ -73,7 +73,7 @@ class HealthExerciseTimeViewModel {
                 for workout in workoutSamples {
                     let durationMinutes = workout.duration / 60.0
                     print("durationMinutes: \(durationMinutes)")
-                    data.append(HealthModel(count: Int(durationMinutes), date: workout.startDate))
+                    data.append(HealthModel(count: Int(durationMinutes), date: workout.startDate, type: workout.workoutActivityType))
                 }
             }
 

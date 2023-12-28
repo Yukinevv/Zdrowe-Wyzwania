@@ -34,7 +34,10 @@ class HealthCardsViewModel {
         Task {
             do {
                 try await healthStore.requestAuthorization(toShare: [], read: readTypes)
-                requestStepCount()
+                //requestStepCount()
+                requestStepCount2 { data in
+                    self.stepCount = data
+                }
                 requestCaloriesBurned()
                 requestSleepData()
                 requestWaterData()
@@ -68,6 +71,21 @@ class HealthCardsViewModel {
 //            }
 
             self.stepCount = stepCount
+        }
+        healthStore.execute(query)
+    }
+
+    func requestStepCount2(completion: @escaping (Double) -> Void) {
+        let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
+        let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate) { _, result, error in
+            guard let quantity = result?.sumQuantity(), error == nil else {
+                print("error fetching todays step data")
+                return
+            }
+
+            let stepCount = quantity.doubleValue(for: .count())
+
+            completion(stepCount)
         }
         healthStore.execute(query)
     }
