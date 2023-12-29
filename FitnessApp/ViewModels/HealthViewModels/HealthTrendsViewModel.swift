@@ -49,11 +49,15 @@ class HealthTrendsViewModel: NSObject, ObservableObject {
     }
 
     func loadWorkoutData() {
-        latestWorkoutWeekDays()
-        latestWorkouts()
+        latestWorkoutWeekDays { data in
+            self.weekWorkoutModel = data
+        }
+//        latestWorkouts { data in
+//            self.recentWorkouts = data
+//        }
     }
 
-    func latestWorkoutWeekDays(completion: ((WeekWorkoutModel) -> Void)? = nil) {
+    func latestWorkoutWeekDays(completion: ((WeekWorkoutModel) -> Void)?) {
         let end = Date()
         let start = Calendar.current.date(byAdding: .day, value: -7, to: end)!
 
@@ -86,7 +90,7 @@ class HealthTrendsViewModel: NSObject, ObservableObject {
         healthStore?.execute(query)
     }
 
-    func latestWorkouts(completion: (([HKWorkout]) -> Void)? = nil) {
+    func latestWorkouts(completion: @escaping (([HKWorkout]) -> Void)) {
         let end = Date()
         let start = Calendar.current.date(byAdding: .day, value: -30, to: end)!
 
@@ -106,11 +110,11 @@ class HealthTrendsViewModel: NSObject, ObservableObject {
                 DispatchQueue.main.async {
                     guard let samples = samples as? [HKWorkout], error == nil else {
                         self.recentWorkouts = []
-                        completion?([])
+                        completion([])
                         return
                     }
                     self.recentWorkouts = samples
-                    completion?(samples)
+                    completion(samples)
                 }
             }
 

@@ -34,15 +34,24 @@ class HealthCardsViewModel {
         Task {
             do {
                 try await healthStore.requestAuthorization(toShare: [], read: readTypes)
-                //requestStepCount()
-                requestStepCount2 { data in
+                requestStepCount { data in
                     self.stepCount = data
                 }
-                requestCaloriesBurned()
-                requestSleepData()
-                requestWaterData()
-                requestHighHeartRateData()
-                requestWorkoutTimeData()
+                requestCaloriesBurned { data in
+                    self.caloriesBurned = data
+                }
+                requestSleepData { data in
+                    self.sleepData = data
+                }
+                requestWaterData { data in
+                    self.waterAmount = data
+                }
+                requestHighHeartRateData { data in
+                    self.highHeartRateValue = data
+                }
+                requestWorkoutTimeData { data in
+                    self.workoutTime = data
+                }
             } catch {
                 print("Blad przy probie pobrania danych zdrowotnych")
             }
@@ -56,26 +65,7 @@ class HealthCardsViewModel {
         return formatter.string(from: timeInterval) ?? ""
     }
 
-    func requestStepCount() {
-        let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
-        let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate) { _, result, error in
-            guard let quantity = result?.sumQuantity(), error == nil else {
-                print("error fetching todays step data")
-                return
-            }
-
-            let stepCount = quantity.doubleValue(for: .count())
-
-//            DispatchQueue.main.async {
-//                self.stepCount = stepCount
-//            }
-
-            self.stepCount = stepCount
-        }
-        healthStore.execute(query)
-    }
-
-    func requestStepCount2(completion: @escaping (Double) -> Void) {
+    func requestStepCount(completion: @escaping (Double) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate) { _, result, error in
             guard let quantity = result?.sumQuantity(), error == nil else {
@@ -90,7 +80,7 @@ class HealthCardsViewModel {
         healthStore.execute(query)
     }
 
-    func requestCaloriesBurned() {
+    func requestCaloriesBurned(completion: @escaping (Double) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: caloriesBurnedType, quantitySamplePredicate: predicate) { _, result, error in
             guard let quantity = result?.sumQuantity(), error == nil else {
@@ -103,14 +93,13 @@ class HealthCardsViewModel {
 //            DispatchQueue.main.async {
 //                self.caloriesBurned = caloriesBurned
 //            }
-            self.caloriesBurned = caloriesBurned
 
-            print("requestCaloriesBurned: \(self.caloriesBurned)")
+            completion(caloriesBurned)
         }
         healthStore.execute(query)
     }
 
-    func requestSleepData() {
+    func requestSleepData(completion: @escaping (Double) -> Void) {
         let startDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date()) // .startOfDay
 
@@ -141,12 +130,12 @@ class HealthCardsViewModel {
 //                self.sleepData = totalSleepTimeInHours
 //            }
 
-            self.sleepData = totalSleepTimeInHours
+            completion(totalSleepTimeInHours)
         }
         healthStore.execute(query)
     }
 
-    func requestWaterData() {
+    func requestWaterData(completion: @escaping (Double) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: waterType, quantitySamplePredicate: predicate) { _, result, error in
             guard let quantity = result?.sumQuantity(), error == nil else {
@@ -160,12 +149,12 @@ class HealthCardsViewModel {
 //                self.waterAmount = waterAmount
 //            }
 
-            self.waterAmount = waterAmount
+            completion(waterAmount)
         }
         healthStore.execute(query)
     }
 
-    func requestHighHeartRateData() {
+    func requestHighHeartRateData(completion: @escaping (Double) -> Void) {
         @AppStorage("heartRateGoal") var heartRateGoal: String = ""
 
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
@@ -184,12 +173,12 @@ class HealthCardsViewModel {
 //                self.highHeartRateValue = highHeartRateSamples.last?.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) ?? 0
 //            }
 
-            self.highHeartRateValue = highHeartRateSamples.last?.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) ?? 0
+            completion(highHeartRateSamples.last?.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) ?? 0)
         }
         healthStore.execute(query)
     }
 
-    func requestWorkoutTimeData() {
+    func requestWorkoutTimeData(completion: @escaping (Double) -> Void) {
         let workoutType = HKWorkoutType.workoutType()
 
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
@@ -210,7 +199,7 @@ class HealthCardsViewModel {
 //                self.workoutTime = totalWorkoutTimeInHours
 //            }
 
-            self.workoutTime = totalWorkoutTimeInHours
+            completion(totalWorkoutTimeInHours)
         }
         healthStore.execute(query)
     }

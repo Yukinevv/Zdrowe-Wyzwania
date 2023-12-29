@@ -16,7 +16,7 @@ struct WorkoutWidgetsView: View {
     var body: some View {
         VStack(spacing: 20) {
             WeekWorkoutsWidgetView(weekWorkoutModel: staticData.isTestData ? WeekWorkoutModel.data : workoutManager.weekWorkoutModel)
-            RecentWorkoutsWidgetsView(workouts: staticData.isTestData ? StaticData.staticData.recentWorkoutsData : workoutManager.recentWorkouts)
+            RecentWorkoutsWidgetsView(workouts: staticData.isTestData ? StaticData.staticData.recentWorkoutsData : workoutManager.recentWorkouts).environmentObject(workoutManager)
         }
         .padding()
     }

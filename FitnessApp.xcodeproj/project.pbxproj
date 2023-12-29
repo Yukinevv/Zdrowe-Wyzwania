@@ -228,8 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				0F170E262B3D8C83006EEDCD /* FitnessAppTests.swift */,
-				0F170E1E2B3D8407006EEDCD /* ExerciseTimeTests.swift */,
 				0F170E2F2B3DB347006EEDCD /* HealthCardsTests.swift */,
+				0F170E1E2B3D8407006EEDCD /* ExerciseTimeTests.swift */,
 			);
 			path = FitnessAppTests;
 			sourceTree = "<group>";

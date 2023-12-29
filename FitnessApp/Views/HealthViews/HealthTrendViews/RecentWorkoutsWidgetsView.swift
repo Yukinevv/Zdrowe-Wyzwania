@@ -9,7 +9,9 @@ import HealthKit
 import SwiftUI
 
 struct RecentWorkoutsWidgetsView: View {
+    @EnvironmentObject var workoutManager: HealthTrendsViewModel
     @State var workouts: [HKWorkout]
+    @State var workoutsToDisplay: [HKWorkout] = []
 
     let workoutDaysRangeOptions: [Int] = [1, 7, 30]
     @State private var selectedOption = 1
@@ -31,15 +33,15 @@ struct RecentWorkoutsWidgetsView: View {
             }
 
             if selectedOption == 0 {
-                Text("Trenowano dzisiaj \(workouts.count) \(workouts.count == 1 ? "raz" : "razy").")
+                Text("Trenowano dzisiaj \(workoutsToDisplay.count) \(workoutsToDisplay.count == 1 ? "raz" : "razy").")
                     .font(Font.body.bold())
                     .foregroundColor(Color.white)
             } else {
-                Text("Trenowano \(workouts.count) \(workouts.count == 1 ? "raz" : "razy") w ciągu ostatnich \(workoutDaysRangeOptions[selectedOption]) dni.")
+                Text("Trenowano \(workoutsToDisplay.count) \(workoutsToDisplay.count == 1 ? "raz" : "razy") w ciągu ostatnich \(workoutDaysRangeOptions[selectedOption]) dni.")
                     .font(Font.body.bold())
                     .foregroundColor(Color.white)
             }
-            if workouts.count >= getWorkoutThresholds(selectedWorkoutDaysRange: selectedOption)[0] {
+            if workoutsToDisplay.count >= getWorkoutThresholds(selectedWorkoutDaysRange: selectedOption)[0] {
                 HStack {
                     Text("Świetna robota!")
                         .foregroundColor(.white)
@@ -53,8 +55,8 @@ struct RecentWorkoutsWidgetsView: View {
                         .font(.system(size: 32))
                         .foregroundColor(.white)
                 }
-            } else if workouts.count >= getWorkoutThresholds(selectedWorkoutDaysRange: selectedOption)[1]
-                && workouts.count < getWorkoutThresholds(selectedWorkoutDaysRange: selectedOption)[0] {
+            } else if workoutsToDisplay.count >= getWorkoutThresholds(selectedWorkoutDaysRange: selectedOption)[1]
+                && workoutsToDisplay.count < getWorkoutThresholds(selectedWorkoutDaysRange: selectedOption)[0] {
                 HStack {
                     Text("Dobrze Ci idzie.")
                         .foregroundColor(.white)
@@ -68,7 +70,7 @@ struct RecentWorkoutsWidgetsView: View {
                         .font(.system(size: 28))
                         .foregroundColor(.white)
                 }
-            } else if workouts.count < getWorkoutThresholds(selectedWorkoutDaysRange: selectedOption)[1] {
+            } else if workoutsToDisplay.count < getWorkoutThresholds(selectedWorkoutDaysRange: selectedOption)[1] {
                 HStack {
                     Text("Hej, co powiesz na trening?")
                         .foregroundColor(.white)
@@ -82,7 +84,7 @@ struct RecentWorkoutsWidgetsView: View {
                 .background(Color(UIColor.systemGray2))
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack(spacing: 20) {
-                    ForEach(workouts.batched(into: 7), id: \.self) { items in
+                    ForEach(workoutsToDisplay.batched(into: 7), id: \.self) { items in
                         ThreeRowWorkoutsView(workouts: items)
                     }
                 }
@@ -91,23 +93,59 @@ struct RecentWorkoutsWidgetsView: View {
         .cardStyle()
         // .frame(maxHeight: Constants.widgetLargeHeight)
         .onAppear {
-            assignWorkouts(selectedWorkoutDaysRange: selectedOption)
+            workoutManager.latestWorkouts { data in
+                workouts = data
+                assignWorkouts(selectedWorkoutDaysRange: selectedOption)
+            }
         }
     }
 
     func assignWorkouts(selectedWorkoutDaysRange: Int) {
-        switch selectedWorkoutDaysRange {
-        case 0:
-            workouts = StaticData.staticData.todayWorkouts
-            break
-        case 1:
-            workouts = StaticData.staticData.weekWorkouts
-            break
-        case 2:
-            workouts = StaticData.staticData.monthWorkouts
-            break
-        default:
-            break
+        if StaticData.staticData.isTestData {
+            switch selectedWorkoutDaysRange {
+            case 0:
+                workoutsToDisplay = StaticData.staticData.todayWorkouts
+                break
+            case 1:
+                workoutsToDisplay = StaticData.staticData.weekWorkouts
+                break
+            case 2:
+                workoutsToDisplay = StaticData.staticData.monthWorkouts
+                break
+            default:
+                break
+            }
+        } else {
+            let oneDayInSeconds: TimeInterval = 24 * 60 * 60
+            let weekInSeconds: TimeInterval = 7 * 24 * 60 * 60
+            let monthInSeconds: TimeInterval = 30 * 24 * 60 * 60
+            let today = Date()
+
+            switch selectedWorkoutDaysRange {
+            case 0:
+                let todayWorkouts = workouts.filter { workout in
+                    let timeDifference = today.timeIntervalSince(workout.startDate)
+                    return timeDifference <= oneDayInSeconds
+                }
+                workoutsToDisplay = todayWorkouts
+                break
+            case 1:
+                let weekWorkouts = workouts.filter { workout in
+                    let timeDifference = today.timeIntervalSince(workout.startDate)
+                    return timeDifference <= weekInSeconds
+                }
+                workoutsToDisplay = weekWorkouts
+                break
+            case 2:
+                let monthWorkouts = workouts.filter { workout in
+                    let timeDifference = today.timeIntervalSince(workout.startDate)
+                    return timeDifference <= monthInSeconds
+                }
+                workoutsToDisplay = monthWorkouts
+                break
+            default:
+                break
+            }
         }
     }
 
