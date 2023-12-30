@@ -57,7 +57,7 @@ final class ChallengeListViewModel: ObservableObject {
                 case let .failure(error):
                     self.error = error
                 case .finished:
-                    print("ukonczono wyzwanie")
+                    print("Ukonczono wyzwanie")
                 }
             } receiveValue: { [weak self] challenges in
                 guard let self = self else { return }

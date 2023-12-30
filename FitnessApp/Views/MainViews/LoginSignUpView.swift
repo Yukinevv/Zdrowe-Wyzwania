@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginSignupView: View {
     @StateObject var viewModel: LoginSignupViewModel
     @Binding var isPushed: Bool
+    @State private var isChecked: Bool = false
 
     init(
         mode: LoginSignupViewModel.Mode,
@@ -29,6 +30,23 @@ struct LoginSignupView: View {
         SecureField(viewModel.passwordPlaceholderText, text: $viewModel.passwordText)
             .modifier(TextFieldCustomRoundedStyle())
             .autocapitalization(.none)
+    }
+
+    var checkbox: some View {
+        HStack {
+            Image(systemName: isChecked ? "checkmark.square" : "square")
+                .onTapGesture {
+                    isChecked.toggle()
+                    viewModel.isSave.toggle()
+                }
+            Text("Zapamiętaj")
+            Spacer()
+        }
+        .font(.system(size: 16))
+        .padding()
+        .onTapGesture {
+            isChecked.toggle()
+        }
     }
 
     var actionButton: some View {
@@ -83,6 +101,9 @@ struct LoginSignupView: View {
                 .frame(height: 50)
             emailTextField
             passwordTextField
+            if viewModel.mode == .login {
+                checkbox
+            }
             actionButton
             if viewModel.mode != .link {
                 accountButton

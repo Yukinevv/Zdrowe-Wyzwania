@@ -16,6 +16,7 @@ struct PrivacyPolicyView: View {
                 Text(viewModel.privacyPolicyContent)
             }
             .padding()
+            .navigationTitle("Zdrowe Wyzwania")
         }
     }
 }
@@ -28,7 +29,7 @@ struct PrivacyPolicyView_Previews: PreviewProvider {
 
 class PrivacyPolicyViewModel {
     let privacyPolicyContent = """
-    Polityka Prywatności Aplikacji Zdrowe Wyzwania
+    Polityka Prywatności Aplikacji
 
     Data ostatniej aktualizacji: 29.12.2023
 

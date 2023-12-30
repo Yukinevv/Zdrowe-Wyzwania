@@ -27,7 +27,7 @@ final class HealthCardsTests: XCTestCase {
         var receivedData: Double?
 
         // Tworzenie mockowych danych
-        let mockData: Double = 2500
+        let mockData: Double = 4200
 
         // Działanie
         healthCardsInstance.requestStepCount { data in
@@ -105,7 +105,7 @@ final class HealthCardsTests: XCTestCase {
         var receivedData: Double?
 
         // Tworzenie mockowych danych
-        let mockData: Double = 2
+        let mockData: Double = 3
 
         // Działanie
         healthCardsInstance.requestWaterData { data in
@@ -131,15 +131,15 @@ final class HealthCardsTests: XCTestCase {
         var receivedData: Double?
 
         // Tworzenie mockowych danych
-        let mockData: Double = 100
+        let mockData: Double = 122
 
         // Działanie
         healthCardsInstance.requestHighHeartRateData { data in
             receivedData = data
             if let unwrapedData = receivedData {
-                print("Tetno: \(unwrapedData)")
+                print("Tętno: \(unwrapedData)")
             } else {
-                print("Tetno: nil")
+                print("Tętno: nil")
             }
             expectation.fulfill()
         }
@@ -148,7 +148,8 @@ final class HealthCardsTests: XCTestCase {
 
         // Sprawdzenie
         XCTAssertNotNil(receivedData, "Otrzymane dane nie powinny być nil")
-        XCTAssertGreaterThan(receivedData ?? 0, mockData, "Otrzymane tętno powinno być wyższe od 100 ud / min")
+        XCTAssertGreaterThan(receivedData ?? 0, 100, "Otrzymane tętno powinno być wyższe od 100 ud / min")
+        XCTAssertEqual(receivedData, mockData, "Otrzymane tętno powinno być wyższe od 100 ud / min")
     }
 
     func testRequestWorkoutTime() {
@@ -157,7 +158,7 @@ final class HealthCardsTests: XCTestCase {
         var receivedData: Double?
 
         // Tworzenie mockowych danych
-        let mockData: Double = 45
+        let mockData: Double = 0.75 // 45 min
 
         // Działanie
         healthCardsInstance.requestWorkoutTimeData { data in
@@ -174,7 +175,7 @@ final class HealthCardsTests: XCTestCase {
 
         // Sprawdzenie
         XCTAssertNotNil(receivedData, "Otrzymane dane nie powinny być nil")
-        XCTAssertGreaterThan(receivedData ?? 0, 5, "Czas treningu powinien być dłuższy niż 5 min")
+        XCTAssertGreaterThan(receivedData ?? 0, 0.12, "Czas treningu powinien być dłuższy niż 5 min")
         XCTAssertEqual(receivedData, mockData, "Wartość otrzymanych danych powinna być równa wartości mockowych danych")
     }
 }

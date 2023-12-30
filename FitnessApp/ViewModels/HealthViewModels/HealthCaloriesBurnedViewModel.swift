@@ -28,7 +28,7 @@ class HealthCaloriesBurnedViewModel {
                 requestCaloriesBurned()
                 requestHighestCaloriesBurnedFromLastWeek()
             } catch {
-                print("error fetching health data")
+                print("Blad przy probie pobrania danych zdrowotnych")
             }
         }
     }
@@ -37,7 +37,7 @@ class HealthCaloriesBurnedViewModel {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: caloriesBurnedType, quantitySamplePredicate: predicate) { _, result, error in
             guard let quantity = result?.sumQuantity(), error == nil else {
-                print("error fetching todays calorie data")
+                print("Blad przy pobraniu danych dotyczacych dzisiaj spalonych kalorii")
                 return
             }
 
@@ -58,7 +58,7 @@ class HealthCaloriesBurnedViewModel {
 
         query.initialResultsHandler = { _, result, error in
             guard let result = result, error == nil else {
-                print("error fetching todays calorie data from last three days")
+                print("Blad przy pobraniu danych dotyczacych spalonych kalorii z ostatniego tygodnia")
                 return
             }
             var caloriesBurnedData = [Double]()

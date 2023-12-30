@@ -30,9 +30,9 @@ final class ExerciseTimeTests: XCTestCase {
         let mockWorkouts = [
             HKWorkout.createMockWorkout(duration: 60, startDate: Date().addingTimeInterval(-80000), type: .running),
             HKWorkout.createMockWorkout(duration: 80, startDate: Date().addingTimeInterval(-160000), type: .running),
-            HKWorkout.createMockWorkout(duration: 80, startDate: Date().addingTimeInterval(-160000), type: .running),
-            HKWorkout.createMockWorkout(duration: 80, startDate: Date().addingTimeInterval(-160000), type: .running),
-            HKWorkout.createMockWorkout(duration: 80, startDate: Date().addingTimeInterval(-160000), type: .running),
+            HKWorkout.createMockWorkout(duration: 100, startDate: Date().addingTimeInterval(-120000), type: .running),
+            HKWorkout.createMockWorkout(duration: 45, startDate: Date().addingTimeInterval(-100000), type: .running),
+            HKWorkout.createMockWorkout(duration: 30, startDate: Date().addingTimeInterval(-200000), type: .running),
         ]
 
         // Działanie

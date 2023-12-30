@@ -141,8 +141,11 @@ extension CreateChallengeViewModel {
 
         enum ExerciseOption: String, CaseIterable, DropdownOptionProtocol {
             case situps = "Przysiady"
+            case crunches = "Brzuszki"
+            case legRaises = "Wznosy nóg"
             case pullups = "Podciągnięcia"
             case pushups = "Pompki"
+            case forwardBends = "Skłony"
 
             var toDropdownOption: DropdownOption {
                 .init(

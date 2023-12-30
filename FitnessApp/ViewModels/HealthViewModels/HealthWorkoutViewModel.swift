@@ -35,7 +35,7 @@ class HealthWorkoutViewModel: ObservableObject {
                 try await healthStore.requestAuthorization(toShare: [], read: healthTypes)
                 fetchCurrentWeekWorkoutStats()
             } catch {
-                print("error fetching health data")
+                print("Blad przy probie pobrania danych zdrowotnych")
             }
         }
     }
@@ -45,7 +45,7 @@ class HealthWorkoutViewModel: ObservableObject {
         let timePredicate = HKQuery.predicateForSamples(withStart: .startOfWeek, end: Date())
         let query = HKSampleQuery(sampleType: workout, predicate: timePredicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, sample, error in
             guard let workouts = sample as? [HKWorkout], error == nil else {
-                print("error fetching week running data")
+                print("Blad przy probie pobrania danych treningowych z ostatniego tygodnia")
                 return
             }
 

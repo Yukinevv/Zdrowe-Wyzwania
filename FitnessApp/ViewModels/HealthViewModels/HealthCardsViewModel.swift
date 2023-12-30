@@ -69,7 +69,7 @@ class HealthCardsViewModel {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate) { _, result, error in
             guard let quantity = result?.sumQuantity(), error == nil else {
-                print("error fetching todays step data")
+                print("Blad przy pobraniu danych dotyczacych dzisiaj przebytych krokow")
                 return
             }
 
@@ -84,7 +84,7 @@ class HealthCardsViewModel {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: caloriesBurnedType, quantitySamplePredicate: predicate) { _, result, error in
             guard let quantity = result?.sumQuantity(), error == nil else {
-                print("error fetching todays calorie data")
+                print("Blad przy pobraniu danych dotyczacych dzisiaj spalonych kalorii")
                 return
             }
 
@@ -105,7 +105,7 @@ class HealthCardsViewModel {
 
         let query = HKSampleQuery(sampleType: sleepDataType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
             guard let samples = samples, error == nil else {
-                print("Error fetching today's sleep data")
+                print("Blad przy pobraniu danych dotyczacych dzisiejszego czasu snu")
                 return
             }
 
@@ -139,7 +139,7 @@ class HealthCardsViewModel {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: waterType, quantitySamplePredicate: predicate) { _, result, error in
             guard let quantity = result?.sumQuantity(), error == nil else {
-                print("Error fetching today's water data")
+                print("Blad przy pobraniu danych dotyczacych dzisiejszego nawodnienia")
                 return
             }
 
@@ -160,7 +160,7 @@ class HealthCardsViewModel {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKSampleQuery(sampleType: heartRateType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
             guard let samples = samples as? [HKQuantitySample], error == nil else {
-                print("Error fetching high heart rate data")
+                print("Blad przy pobraniu danych dotyczacych wystapienia wysokiego tetna z dzisiaj")
                 return
             }
 
@@ -184,7 +184,7 @@ class HealthCardsViewModel {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKSampleQuery(sampleType: workoutType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
             guard let samples = samples as? [HKWorkout], error == nil else {
-                print("Error fetching workout time data")
+                print("Blad przy pobraniu danych dotyczacych dzisiejszego czasu treningow")
                 return
             }
 

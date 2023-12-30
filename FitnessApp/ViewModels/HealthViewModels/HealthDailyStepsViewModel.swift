@@ -39,7 +39,7 @@ class HealthDailyStepsViewModel: ObservableObject {
                 try await healthStore.requestAuthorization(toShare: [], read: healthTypes)
                 fetchPastWeekStepData()
             } catch {
-                print("error fetching health data")
+                print("Blad przy probie pobrania danych zdrowotnych")
             }
         }
 

@@ -122,7 +122,7 @@ class StaticData {
 
     func generateRandomNumber(min: UInt32, max: UInt32) -> UInt32 {
         guard min < max else {
-            fatalError("min musi byc mniejsze od max")
+            fatalError("Min musi byc mniejsze od Max")
         }
         return arc4random_uniform(max - min) + min
     }

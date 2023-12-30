@@ -35,7 +35,7 @@ class HealthHighHeartRateViewModel {
         let predicate = HKQuery.predicateForSamples(withStart: .dayAgo, end: Date())
         let query = HKSampleQuery(sampleType: heartRateType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
             guard let samples = samples as? [HKQuantitySample], error == nil else {
-                print("Blad przy pobieraniu danych o wysokim tetnie")
+                print("Blad przy probie pobrania danych o wysokim tetnie")
                 return
             }
 

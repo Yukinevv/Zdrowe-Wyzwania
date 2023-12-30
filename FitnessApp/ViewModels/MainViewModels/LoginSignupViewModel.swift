@@ -6,15 +6,18 @@
 //
 
 import Combine
-import Foundation
+import SwiftUI
 
 final class LoginSignupViewModel: ObservableObject {
     let mode: Mode
+    @AppStorage("emailString") var emailString: String = ""
+    @AppStorage("passwordString") var passwordString: String = ""
     @Published var emailText = ""
     @Published var passwordText = ""
     @Published var isValidFailed = false
     @Published var isValid = false
     @Published var isPushed = true
+    @Published var isSave = false
     private(set) var emailPlaceholderText = "Email"
     private(set) var passwordPlaceholderText = "Hasło"
     private let userService: UserServiceProtocol
@@ -26,6 +29,13 @@ final class LoginSignupViewModel: ObservableObject {
     ) {
         self.mode = mode
         self.userService = userService
+
+        if !emailString.isEmpty {
+            emailText = emailString
+        }
+        if !passwordString.isEmpty {
+            passwordText = passwordString
+        }
 
         Publishers.CombineLatest($emailText, $passwordText)
             .map { [weak self] email, password in
@@ -68,7 +78,12 @@ final class LoginSignupViewModel: ObservableObject {
                 case let .failure(error):
                     print(error.localizedDescription)
                     self.isValidFailed = true
-                case .finished: break
+                case .finished:
+                    if self.isSave {
+                        self.emailString = self.emailText
+                        self.passwordString = self.passwordText
+                    }
+                    break
                 }
             } receiveValue: { _ in }
                 .store(in: &cancellables)
