@@ -34,26 +34,62 @@ class HealthCardsViewModel {
         Task {
             do {
                 try await healthStore.requestAuthorization(toShare: [], read: readTypes)
-                requestStepCount { data in
-                    self.stepCount = data
+                requestStepCount { data, error in
+                    if let error = error {
+                        print("Wystąpił błąd: \(error)")
+                    } else if let data = data {
+                        self.stepCount = data
+                    } else {
+                        print("Brak danych o ilości przebytych kroków")
+                    }
                 }
-                requestCaloriesBurned { data in
-                    self.caloriesBurned = data
+                requestCaloriesBurned { data, error in
+                    if let error = error {
+                        print("Wystąpił błąd: \(error)")
+                    } else if let data = data {
+                        self.caloriesBurned = data
+                    } else {
+                        print("Brak danych o spalonych kaloriach")
+                    }
                 }
-                requestSleepData { data in
-                    self.sleepData = data
+                requestSleepData { data, error in
+                    if let error = error {
+                        print("Wystąpił błąd: \(error)")
+                    } else if let data = data {
+                        self.sleepData = data
+                    } else {
+                        print("Brak danych o czasie snu")
+                    }
                 }
-                requestWaterData { data in
-                    self.waterAmount = data
+                requestWaterData { data, error in
+                    if let error = error {
+                        print("Wystąpił błąd: \(error)")
+                    } else if let data = data {
+                        self.waterAmount = data
+                    } else {
+                        print("Brak danych o nawodnieniu")
+                    }
                 }
-                requestHighHeartRateData { data in
-                    self.highHeartRateValue = data
+                requestHighHeartRateData { data, error in
+                    if let error = error {
+                        print("Wystąpił błąd: \(error)")
+                    } else if let data = data {
+                        self.highHeartRateValue = data
+                    } else {
+                        print("Brak danych o wysokim tętnie")
+                    }
                 }
-                requestWorkoutTimeData { data in
-                    self.workoutTime = data
+                requestWorkoutTimeData { data, error in
+                    if let error = error {
+                        print("Wystąpił błąd: \(error)")
+                    } else if let data = data {
+                        self.workoutTime = data
+                    } else {
+                        print("Brak danych o czasie treningów")
+                    }
                 }
             } catch {
-                print("Blad przy probie pobrania danych zdrowotnych")
+                print("Błąd przy próbie pobrania danych zdrowotnych")
             }
         }
     }
@@ -65,57 +101,64 @@ class HealthCardsViewModel {
         return formatter.string(from: timeInterval) ?? ""
     }
 
-    func requestStepCount(completion: @escaping (Double) -> Void) {
+    func requestStepCount(completion: @escaping (Double?, Error?) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate) { _, result, error in
-            guard let quantity = result?.sumQuantity(), error == nil else {
-                print("Blad przy pobraniu danych dotyczacych dzisiaj przebytych krokow")
+            if let error = error {
+                print("Błąd przy pobieraniu danych dotyczących dzisiaj przebytych kroków: \(error)")
+                completion(nil, error)
+                return
+            }
+
+            guard let quantity = result?.sumQuantity() else {
+                print("Brak danych dotyczących dzisiaj przebytych kroków")
+                completion(nil, nil)
                 return
             }
 
             let stepCount = quantity.doubleValue(for: .count())
-
-            completion(stepCount)
+            completion(stepCount, nil)
         }
         healthStore.execute(query)
     }
 
-    func requestCaloriesBurned(completion: @escaping (Double) -> Void) {
+    func requestCaloriesBurned(completion: @escaping (Double?, Error?) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: caloriesBurnedType, quantitySamplePredicate: predicate) { _, result, error in
-            guard let quantity = result?.sumQuantity(), error == nil else {
-                print("Blad przy pobraniu danych dotyczacych dzisiaj spalonych kalorii")
+            if let error = error {
+                print("Błąd przy pobieraniu danych dotyczących dzisiaj spalonych kalorii: \(error)")
+                completion(nil, error)
+                return
+            }
+
+            guard let quantity = result?.sumQuantity() else {
+                print("Brak danych dotyczących dzisiaj spalonych kalorii")
+                completion(nil, nil)
                 return
             }
 
             let caloriesBurned = quantity.doubleValue(for: .kilocalorie())
-
-//            DispatchQueue.main.async {
-//                self.caloriesBurned = caloriesBurned
-//            }
-
-            completion(caloriesBurned)
+            completion(caloriesBurned, nil)
         }
         healthStore.execute(query)
     }
 
-    func requestSleepData(completion: @escaping (Double) -> Void) {
+    func requestSleepData(completion: @escaping (Double?, Error?) -> Void) {
         let startDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date()) // .startOfDay
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date())
 
         let query = HKSampleQuery(sampleType: sleepDataType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
-            guard let samples = samples, error == nil else {
-                print("Blad przy pobraniu danych dotyczacych dzisiejszego czasu snu")
+            if let error = error {
+                print("Błąd przy pobieraniu danych dotyczących dzisiejszego czasu snu: \(error)")
+                completion(nil, error)
                 return
             }
 
-//            var totalSleepTime: TimeInterval = 0
-//
-//            for sample in samples {
-//                if let sample = sample as? HKCategorySample {
-//                    totalSleepTime += sample.endDate.timeIntervalSince(sample.startDate)
-//                }
-//            }
+            guard let samples = samples else {
+                print("Brak danych dotyczących dzisiejszego czasu snu")
+                completion(nil, nil)
+                return
+            }
 
             var sleepTime: Double = 0.0
 
@@ -124,43 +167,46 @@ class HealthCardsViewModel {
             }
 
             let totalSleepTimeInHours = sleepTime / 3600.0
-
-//            DispatchQueue.main.async {
-//                // self.sleepData = self.formatTime(totalSleepTime)
-//                self.sleepData = totalSleepTimeInHours
-//            }
-
-            completion(totalSleepTimeInHours)
+            completion(totalSleepTimeInHours, nil)
         }
         healthStore.execute(query)
     }
 
-    func requestWaterData(completion: @escaping (Double) -> Void) {
+    func requestWaterData(completion: @escaping (Double?, Error?) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: waterType, quantitySamplePredicate: predicate) { _, result, error in
-            guard let quantity = result?.sumQuantity(), error == nil else {
-                print("Blad przy pobraniu danych dotyczacych dzisiejszego nawodnienia")
+            if let error = error {
+                print("Błąd przy pobieraniu danych dotyczących dzisiejszego nawodnienia: \(error)")
+                completion(nil, error)
+                return
+            }
+
+            guard let quantity = result?.sumQuantity() else {
+                print("Brak danych dotyczących dzisiejszego nawodnienia")
+                completion(nil, nil)
                 return
             }
 
             let waterAmount = quantity.doubleValue(for: HKUnit.literUnit(with: .milli))
-
-//            DispatchQueue.main.async {
-//                self.waterAmount = waterAmount
-//            }
-
-            completion(waterAmount)
+            completion(waterAmount, nil)
         }
         healthStore.execute(query)
     }
 
-    func requestHighHeartRateData(completion: @escaping (Double) -> Void) {
+    func requestHighHeartRateData(completion: @escaping (Double?, Error?) -> Void) {
         @AppStorage("heartRateGoal") var heartRateGoal: String = ""
 
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKSampleQuery(sampleType: heartRateType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
-            guard let samples = samples as? [HKQuantitySample], error == nil else {
-                print("Blad przy pobraniu danych dotyczacych wystapienia wysokiego tetna z dzisiaj")
+            if let error = error {
+                print("Błąd przy pobieraniu danych dotyczących wystąpienia wysokiego tętna z dzisiaj: \(error)")
+                completion(nil, error)
+                return
+            }
+
+            guard let samples = samples as? [HKQuantitySample] else {
+                print("Brak danych dotyczących wysokiego tętna")
+                completion(nil, nil)
                 return
             }
 
@@ -168,38 +214,31 @@ class HealthCardsViewModel {
                 sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) > Double(heartRateGoal) ?? 100
             }
 
-//            DispatchQueue.main.async {
-//                // self.highHeartRateSamples = highHeartRateSamples
-//                self.highHeartRateValue = highHeartRateSamples.last?.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) ?? 0
-//            }
-
-            completion(highHeartRateSamples.last?.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) ?? 0)
+            completion(highHeartRateSamples.last?.quantity.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) ?? 0, nil)
         }
         healthStore.execute(query)
     }
 
-    func requestWorkoutTimeData(completion: @escaping (Double) -> Void) {
+    func requestWorkoutTimeData(completion: @escaping (Double?, Error?) -> Void) {
         let workoutType = HKWorkoutType.workoutType()
 
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKSampleQuery(sampleType: workoutType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
-            guard let samples = samples as? [HKWorkout], error == nil else {
-                print("Blad przy pobraniu danych dotyczacych dzisiejszego czasu treningow")
+            if let error = error {
+                print("Błąd przy pobieraniu danych dotyczących dzisiejszego czasu treningów: \(error)")
+                completion(nil, error)
                 return
             }
 
-            // let totalWorkoutTime = samples.reduce(0) { $0 + $1.duration }
+            guard let samples = samples as? [HKWorkout] else {
+                print("Brak danych dotyczących dzisiejszego czasu treningów")
+                completion(nil, nil)
+                return
+            }
 
             let workoutTime = samples.last?.duration
-
             let totalWorkoutTimeInHours = (workoutTime ?? 0.0) / 3600.0
-
-//            DispatchQueue.main.async {
-//                // self.workoutTime = self.formatTime(totalWorkoutTime)
-//                self.workoutTime = totalWorkoutTimeInHours
-//            }
-
-            completion(totalWorkoutTimeInHours)
+            completion(totalWorkoutTimeInHours, nil)
         }
         healthStore.execute(query)
     }

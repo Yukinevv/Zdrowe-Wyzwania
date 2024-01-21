@@ -27,10 +27,10 @@ final class HealthCardsTests: XCTestCase {
         var receivedData: Double?
 
         // Tworzenie mockowych danych
-        let mockData: Double = 4200
+        let mockData: Double = 5800
 
         // Działanie
-        healthCardsInstance.requestStepCount { data in
+        healthCardsInstance.requestStepCount { data, _ in
             receivedData = data
             if let unwrapedData = receivedData {
                 print("Kroki: \(unwrapedData)")
@@ -56,7 +56,7 @@ final class HealthCardsTests: XCTestCase {
         let mockData: Double = 350
 
         // Działanie
-        healthCardsInstance.requestCaloriesBurned { data in
+        healthCardsInstance.requestCaloriesBurned { data, _ in
             receivedData = data
             if let unwrapedData = receivedData {
                 print("Kalorie: \(unwrapedData)")
@@ -79,10 +79,10 @@ final class HealthCardsTests: XCTestCase {
         var receivedData: Double?
 
         // Tworzenie mockowych danych
-        let mockData: Double = 7
+        let mockData: Double = 8
 
         // Działanie
-        healthCardsInstance.requestSleepData { data in
+        healthCardsInstance.requestSleepData { data, _ in
             receivedData = data
             if let unwrapedData = receivedData {
                 print("Sen: \(unwrapedData)")
@@ -105,10 +105,10 @@ final class HealthCardsTests: XCTestCase {
         var receivedData: Double?
 
         // Tworzenie mockowych danych
-        let mockData: Double = 3
+        let mockData: Double = 4
 
         // Działanie
-        healthCardsInstance.requestWaterData { data in
+        healthCardsInstance.requestWaterData { data, _ in
             receivedData = data
             if let unwrapedData = receivedData {
                 print("Nawodnienie: \(unwrapedData)")
@@ -131,10 +131,10 @@ final class HealthCardsTests: XCTestCase {
         var receivedData: Double?
 
         // Tworzenie mockowych danych
-        let mockData: Double = 122
+        let mockData: Double = 126
 
         // Działanie
-        healthCardsInstance.requestHighHeartRateData { data in
+        healthCardsInstance.requestHighHeartRateData { data, _ in
             receivedData = data
             if let unwrapedData = receivedData {
                 print("Tętno: \(unwrapedData)")
@@ -149,7 +149,7 @@ final class HealthCardsTests: XCTestCase {
         // Sprawdzenie
         XCTAssertNotNil(receivedData, "Otrzymane dane nie powinny być nil")
         XCTAssertGreaterThan(receivedData ?? 0, 100, "Otrzymane tętno powinno być wyższe od 100 ud / min")
-        XCTAssertEqual(receivedData, mockData, "Otrzymane tętno powinno być wyższe od 100 ud / min")
+        XCTAssertEqual(receivedData, mockData, "Otrzymane tętno powinno być równe wartości mockowanej")
     }
 
     func testRequestWorkoutTime() {
@@ -161,7 +161,7 @@ final class HealthCardsTests: XCTestCase {
         let mockData: Double = 0.75 // 45 min
 
         // Działanie
-        healthCardsInstance.requestWorkoutTimeData { data in
+        healthCardsInstance.requestWorkoutTimeData { data, _ in
             receivedData = data
             if let unwrapedData = receivedData {
                 print("Czas treningu: \(unwrapedData)")

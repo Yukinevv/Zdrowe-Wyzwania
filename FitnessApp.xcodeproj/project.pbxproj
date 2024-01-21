@@ -21,6 +21,7 @@
 		0F2538F02ADAD97500061770 /* HealthWorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2538EF2ADAD97500061770 /* HealthWorkoutViewModel.swift */; };
 		0F2538F92ADC740C00061770 /* HealthCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2538F82ADC740C00061770 /* HealthCardView.swift */; };
 		0F2538FB2ADC743900061770 /* HealthCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2538FA2ADC743900061770 /* HealthCardViewModel.swift */; };
+		0F4339C72B5D60A4002BFAEE /* HealthCardsPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F4339C62B5D60A4002BFAEE /* HealthCardsPerformanceTests.swift */; };
 		0F5A07D62ABEF3E500563B6F /* WorkoutCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5A07D52ABEF3E500563B6F /* WorkoutCardView.swift */; };
 		0F5ED98B29FEFCEB006A2CB2 /* ChallengeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5ED98A29FEFCEB006A2CB2 /* ChallengeModel.swift */; };
 		0F5ED98D29FEFDC6006A2CB2 /* ChallengeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5ED98C29FEFDC6006A2CB2 /* ChallengeService.swift */; };
@@ -126,6 +127,7 @@
 		0F2538EF2ADAD97500061770 /* HealthWorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthWorkoutViewModel.swift; sourceTree = "<group>"; };
 		0F2538F82ADC740C00061770 /* HealthCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCardView.swift; sourceTree = "<group>"; };
 		0F2538FA2ADC743900061770 /* HealthCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCardViewModel.swift; sourceTree = "<group>"; };
+		0F4339C62B5D60A4002BFAEE /* HealthCardsPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCardsPerformanceTests.swift; sourceTree = "<group>"; };
 		0F5A07D52ABEF3E500563B6F /* WorkoutCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCardView.swift; sourceTree = "<group>"; };
 		0F5ED98A29FEFCEB006A2CB2 /* ChallengeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeModel.swift; sourceTree = "<group>"; };
 		0F5ED98C29FEFDC6006A2CB2 /* ChallengeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeService.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				0F170E262B3D8C83006EEDCD /* FitnessAppTests.swift */,
 				0F170E2F2B3DB347006EEDCD /* HealthCardsTests.swift */,
 				0F170E1E2B3D8407006EEDCD /* ExerciseTimeTests.swift */,
+				0F4339C62B5D60A4002BFAEE /* HealthCardsPerformanceTests.swift */,
 			);
 			path = FitnessAppTests;
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F4339C72B5D60A4002BFAEE /* HealthCardsPerformanceTests.swift in Sources */,
 				0F170E302B3DB347006EEDCD /* HealthCardsTests.swift in Sources */,
 				0F170E272B3D8C83006EEDCD /* FitnessAppTests.swift in Sources */,
 				0F170E2E2B3D8CA6006EEDCD /* ExerciseTimeTests.swift in Sources */,

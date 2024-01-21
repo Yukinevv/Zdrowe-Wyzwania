@@ -44,7 +44,7 @@ class HealthSleepTimeViewModel {
                 return
             }
 
-            completion(samples, nil)
+            completion(samples?.reversed(), nil)
         }
 
         if let healthStore = healthStore {

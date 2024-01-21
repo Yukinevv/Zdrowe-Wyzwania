@@ -43,6 +43,10 @@ class HealthExerciseTimeViewModel {
                     print("durationMinutes: \(durationMinutes)")
 
                     data.append(.init(count: Int(durationMinutes), date: workout.startDate))
+
+                    if data.count == 7 {
+                        break
+                    }
                 }
             }
 

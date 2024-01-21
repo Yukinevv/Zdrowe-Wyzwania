@@ -27,7 +27,7 @@ struct HealthExerciseTimeView: View {
             if !StaticData.staticData.isTestData {
                 viewModel.requestAuthorization { success in
                     if success {
-                        viewModel.requestExerciseTime { data in
+                        viewModel.requestExerciseTimeFromLastWeek { data in
                             self.data = data
                         }
                     }

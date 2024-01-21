@@ -40,9 +40,11 @@ struct HealthCardsView: View {
             DispatchQueue.main.async {
                 updateCardsVisibility()
                 // print("update widocznosci kart")
-                updateStatsData()
-                for data in statsData {
-                    print("\(data.title): \(data.currentData)")
+                if statsData.isEmpty {
+                    updateStatsData()
+                    for data in statsData {
+                        print("\(data.title): \(data.currentData)")
+                    }
                 }
             }
         }
