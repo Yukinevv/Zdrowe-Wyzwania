@@ -24,6 +24,7 @@ struct HealthSettingsView: View {
                             validateAndAssign(newValue: newValue, type: "steps")
                         }
                     ))
+                    .keyboardType(.numberPad)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 }
@@ -38,6 +39,7 @@ struct HealthSettingsView: View {
                         validateAndAssign(newValue: newValue, type: "calories")
                     }
                 ))
+                .keyboardType(.numberPad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             }
@@ -51,6 +53,7 @@ struct HealthSettingsView: View {
                         validateAndAssign(newValue: newValue, type: "sleep")
                     }
                 ))
+                .keyboardType(.numberPad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             }
@@ -64,6 +67,7 @@ struct HealthSettingsView: View {
                         validateAndAssign(newValue: newValue, type: "water")
                     }
                 ))
+                .keyboardType(.numberPad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             }
@@ -77,6 +81,7 @@ struct HealthSettingsView: View {
                         validateAndAssign(newValue: newValue, type: "heartRate")
                     }
                 ))
+                .keyboardType(.numberPad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             }
@@ -90,6 +95,7 @@ struct HealthSettingsView: View {
                         validateAndAssign(newValue: newValue, type: "workoutTime")
                     }
                 ))
+                .keyboardType(.numberPad)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             }
