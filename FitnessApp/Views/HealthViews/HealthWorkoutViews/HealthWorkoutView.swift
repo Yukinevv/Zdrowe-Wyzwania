@@ -51,8 +51,8 @@ struct HealthWorkoutView: View {
 
     func updateMockActivities() {
         mockActivities = [
-            WorkoutModel(id: 0, title: "Kroki", subtitle: "Cel \(staticData.stepsGoalString)", image: "figure.walk", tintColor: .green, amount: String(Int(staticData.stepsData[0]))),
-            WorkoutModel(id: 1, title: "Kalorie", subtitle: "Cel \(staticData.caloriesGoalString)", image: "flame", tintColor: .red, amount: String(Int(staticData.caloriesData[0])) + " kcal"),
+            WorkoutModel(id: 0, title: "Kroki", subtitle: "Cel \(Int(staticData.stepsGoalString) ?? 10000)", image: "figure.walk", tintColor: .green, amount: String(Int(staticData.stepsData[0]))),
+            WorkoutModel(id: 1, title: "Kalorie", subtitle: "Cel \(Int(staticData.caloriesGoalString) ?? 500)", image: "flame", tintColor: .red, amount: String(Int(staticData.caloriesData[0])) + " kcal"),
             WorkoutModel(id: 2, title: "Bieganie", subtitle: "Obecny tydzień", image: "figure.run", tintColor: .orange, amount: String(staticData.runningData) + " min"),
             WorkoutModel(id: 3, title: "Trening siłowy", subtitle: "Obecny tydzień", image: "dumbbell", tintColor: .cyan, amount: String(staticData.strengthTrainingData) + " min"),
             WorkoutModel(id: 4, title: "Pływanie", subtitle: "Obecny tydzień", image: "figure.pool.swim", tintColor: .blue, amount: String(staticData.swimmingData) + " min"),

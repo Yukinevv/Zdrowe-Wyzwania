@@ -18,50 +18,80 @@ struct HealthSettingsView: View {
                 Spacer()
                 VStack {
                     Text("Cel").font(.system(size: 18, weight: .medium))
-                    TextField("Kroki", text: staticData.$stepsGoalString)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+                    TextField("Kroki", text: Binding(
+                        get: { staticData.stepsGoalString },
+                        set: { newValue in
+                            validateAndAssign(newValue: newValue, type: "steps")
+                        }
+                    ))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
                 }
             }
             HStack {
                 Toggle("Kalorie", isOn: staticData.$caloriesCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Kalorie", text: staticData.$caloriesGoalString)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+                TextField("Kalorie", text: Binding(
+                    get: { staticData.caloriesGoalString },
+                    set: { newValue in
+                        validateAndAssign(newValue: newValue, type: "calories")
+                    }
+                ))
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
             }
             HStack {
                 Toggle("Sen", isOn: staticData.$sleepCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Sen", text: staticData.$sleepGoalString)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+                TextField("Sen", text: Binding(
+                    get: { staticData.sleepGoalString },
+                    set: { newValue in
+                        validateAndAssign(newValue: newValue, type: "sleep")
+                    }
+                ))
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
             }
             HStack {
                 Toggle("Nawodnienie", isOn: staticData.$waterCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Nawodnienie", text: staticData.$waterGoalString)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+                TextField("Nawodnienie", text: Binding(
+                    get: { staticData.waterGoalString },
+                    set: { newValue in
+                        validateAndAssign(newValue: newValue, type: "water")
+                    }
+                ))
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
             }
             HStack {
                 Toggle("Tętno", isOn: staticData.$heartRateCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Tętno", text: staticData.$heartRateGoalString)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+                TextField("Tętno", text: Binding(
+                    get: { staticData.heartRateGoalString },
+                    set: { newValue in
+                        validateAndAssign(newValue: newValue, type: "heartRate")
+                    }
+                ))
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
             }
             HStack {
                 Toggle("Czas treningu", isOn: staticData.$workoutTimeCardVisibility)
                     .padding()
                 Spacer()
-                TextField("Czas treningu", text: staticData.$workoutTimeGoalString)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+                TextField("Czas treningu", text: Binding(
+                    get: { staticData.workoutTimeGoalString },
+                    set: { newValue in
+                        validateAndAssign(newValue: newValue, type: "workoutTime")
+                    }
+                ))
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
             }
             Spacer()
 
@@ -73,6 +103,49 @@ struct HealthSettingsView: View {
         }
         .padding()
         .navigationTitle("Ustawienia")
+    }
+
+    private func validateAndAssign(newValue: String, type: String) {
+        switch type {
+        case "steps":
+            if let number = Int(newValue), number >= 0 {
+                staticData.stepsGoalString = newValue
+            } else {
+                staticData.stepsGoalString = "10000"
+            }
+        case "calories":
+            if let number = Int(newValue), number >= 0 {
+                staticData.caloriesGoalString = newValue
+            } else {
+                staticData.caloriesGoalString = "500"
+            }
+        case "sleep":
+            if let number = Int(newValue), number >= 0 {
+                staticData.sleepGoalString = newValue
+            } else {
+                staticData.sleepGoalString = "8"
+            }
+        case "water":
+            if let number = Int(newValue), number >= 0 {
+                staticData.waterGoalString = newValue
+            } else {
+                staticData.waterGoalString = "5"
+            }
+        case "heartRate":
+            if let number = Int(newValue), number >= 0 {
+                staticData.heartRateGoalString = newValue
+            } else {
+                staticData.heartRateGoalString = "120"
+            }
+        case "workoutTime":
+            if let number = Int(newValue), number >= 0 {
+                staticData.workoutTimeGoalString = newValue
+            } else {
+                staticData.workoutTimeGoalString = "30"
+            }
+        default:
+            break
+        }
     }
 }
 

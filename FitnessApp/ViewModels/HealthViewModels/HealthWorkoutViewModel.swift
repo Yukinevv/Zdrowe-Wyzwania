@@ -25,12 +25,12 @@ class HealthWorkoutViewModel: ObservableObject {
                 if !StaticData.staticData.isTestData {
                     requestStepCount { data, _ in
                         if let data = data {
-                            let steps = WorkoutModel(id: 0, title: "Kroki", subtitle: "Cel \(StaticData.staticData.stepsGoalString)", image: "figure.walk", tintColor: .green, amount: String(Int(data)))
+                            let steps = WorkoutModel(id: 0, title: "Kroki", subtitle: "Cel \(Int(StaticData.staticData.stepsGoalString) ?? 10000)", image: "figure.walk", tintColor: .green, amount: String(Int(data)))
                             DispatchQueue.main.async {
                                 self.activites["totalSteps"] = steps
                             }
                         } else {
-                            let steps = WorkoutModel(id: 0, title: "Kroki", subtitle: "Cel \(StaticData.staticData.stepsGoalString)", image: "figure.walk", tintColor: .green, amount: "0")
+                            let steps = WorkoutModel(id: 0, title: "Kroki", subtitle: "Cel \(Int(StaticData.staticData.stepsGoalString) ?? 10000)", image: "figure.walk", tintColor: .green, amount: "0")
                             DispatchQueue.main.async {
                                 self.activites["totalSteps"] = steps
                             }
@@ -38,12 +38,12 @@ class HealthWorkoutViewModel: ObservableObject {
                     }
                     requestCaloriesBurned { data, _ in
                         if let data = data {
-                            let calories = WorkoutModel(id: 1, title: "Kalorie", subtitle: "Cel \(StaticData.staticData.caloriesGoalString)", image: "flame", tintColor: .red, amount: String(Int(data)) + " kcal")
+                            let calories = WorkoutModel(id: 1, title: "Kalorie", subtitle: "Cel \(Int(StaticData.staticData.caloriesGoalString) ?? 500)", image: "flame", tintColor: .red, amount: String(Int(data)) + " kcal")
                             DispatchQueue.main.async {
                                 self.activites["totalCalories"] = calories
                             }
                         } else {
-                            let calories = WorkoutModel(id: 1, title: "Kalorie", subtitle: "Cel \(StaticData.staticData.caloriesGoalString)", image: "flame", tintColor: .red, amount: "0 kcal")
+                            let calories = WorkoutModel(id: 1, title: "Kalorie", subtitle: "Cel \(Int(StaticData.staticData.caloriesGoalString) ?? 500)", image: "flame", tintColor: .red, amount: "0 kcal")
                             DispatchQueue.main.async {
                                 self.activites["totalCalories"] = calories
                             }
