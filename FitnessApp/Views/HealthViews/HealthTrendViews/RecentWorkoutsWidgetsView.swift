@@ -91,7 +91,6 @@ struct RecentWorkoutsWidgetsView: View {
             }
         }
         .cardStyle()
-        // .frame(maxHeight: Constants.widgetLargeHeight)
         .onAppear {
             workoutManager.latestWorkouts { data in
                 workouts = data
@@ -181,10 +180,6 @@ struct WorkoutRowView: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
-//            Image(workout.imageName)
-//                .resizable()
-//                .foregroundColor(Color(UIColor.systemGray))
-//                .frame(width: 50, height: 50, alignment: .center)
             Image(systemName: workout.imageSystemName)
                 .resizable()
                 .font(Font.body.bold())

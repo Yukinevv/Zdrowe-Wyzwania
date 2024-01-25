@@ -48,6 +48,13 @@ class StaticData {
     var workoutTimeData: [Double] = []
     var workoutStaticData: [Daily] = []
 
+    var runningData: Int = 0
+    var strengthTrainingData: Int = 0
+    var swimmingData: Int = 0
+    var footballData: Int = 0
+    var basketballData: Int = 0
+    var stairStepperData: Int = 0
+
     var recentWorkoutsData: [HKWorkout] = []
     var todayWorkouts: [HKWorkout] = []
     var weekWorkouts: [HKWorkout] = []
@@ -60,6 +67,13 @@ class StaticData {
         waterGoal = Double(waterGoalString) ?? waterGoal
         heartRateGoal = Double(heartRateGoalString) ?? heartRateGoal
         workoutTimeGoal = Double(workoutTimeGoalString) ?? workoutTimeGoal
+
+        runningData = Int.random(in: 60 ... 250)
+        strengthTrainingData = Int.random(in: 60 ... 250)
+        swimmingData = Int.random(in: 60 ... 250)
+        footballData = Int.random(in: 60 ... 250)
+        basketballData = Int.random(in: 60 ... 250)
+        stairStepperData = Int.random(in: 60 ... 250)
 
         for _ in 1 ... 366 {
             stepsData.append(Double(generateRandomNumber(min: 500, max: UInt32(stepsGoal))))

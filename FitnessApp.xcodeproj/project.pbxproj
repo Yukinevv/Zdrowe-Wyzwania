@@ -906,6 +906,7 @@
 				DEVELOPMENT_TEAM = 8BQHH4CRD4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Zdrowe Wyzwania";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Aplikacja wymaga dostepu do Twoich danych zdrowotnych";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Aplikacja wymaga dostepu do Twoich danych zdrowotnych";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -940,6 +941,7 @@
 				DEVELOPMENT_TEAM = 8BQHH4CRD4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Zdrowe Wyzwania";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Aplikacja wymaga dostepu do Twoich danych zdrowotnych";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Aplikacja wymaga dostepu do Twoich danych zdrowotnych";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

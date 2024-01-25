@@ -57,7 +57,7 @@ struct WorkoutDayRowView: View {
     var workoutDayModel: WorkoutDayModel
 
     var body: some View {
-        VStack(alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/, spacing: 15) {
+        VStack(alignment: .center, spacing: 15) {
             Text(workoutDayModel.day)
                 .font(Font.subheadline.bold())
                 .foregroundColor(Color(UIColor.systemGray))

@@ -27,7 +27,7 @@ struct WorkoutWidgetsView_Previews: PreviewProvider {
         WorkoutWidgetsView().previewDevice("iPhone 15 Pro").environmentObject(
             HealthTrendsViewModel(
                 weekWorkoutModel: WeekWorkoutModel.data,
-                recentWorkouts: StaticData.staticData.recentWorkoutsData // HKWorkout.data
+                recentWorkouts: StaticData.staticData.recentWorkoutsData
             )
         )
     }

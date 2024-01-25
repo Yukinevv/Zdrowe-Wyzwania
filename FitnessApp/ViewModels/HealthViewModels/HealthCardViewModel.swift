@@ -104,7 +104,7 @@ class HealthCardViewModel {
         }
     }
 
-    // Converting Numbers to Decimals
+    // konwersja na Decimal
     func getDec(val: CGFloat) -> String {
         let format = NumberFormatter()
         format.numberStyle = .decimal
@@ -129,7 +129,7 @@ class HealthCardViewModel {
         return timeString
     }
 
-    // Calculates the percentage for the stats area
+    // obliczenie wartosci procentowej
     func getPercent(current: CGFloat, goal: CGFloat) -> String {
         let per = (current / goal) * 100
         return String(format: "%.1f", per)

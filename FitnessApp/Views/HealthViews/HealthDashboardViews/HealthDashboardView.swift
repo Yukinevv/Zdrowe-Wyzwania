@@ -53,7 +53,6 @@ struct HealthDashboardView: View {
             }
         }
         .background(Color.black.edgesIgnoringSafeArea(.all))
-        // .preferredColorScheme(StaticData.staticData.isDarkMode ? .dark : .light)
     }
 }
 

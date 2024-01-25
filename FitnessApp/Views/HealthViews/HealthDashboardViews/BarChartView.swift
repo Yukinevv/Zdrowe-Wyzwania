@@ -63,7 +63,7 @@ struct BarChartView: View {
             if !StaticData.staticData.isTestData && workoutData.isEmpty {
                 viewModel.requestAuthorization { success in
                     if success {
-                        viewModel.requestExerciseTime { data in
+                        viewModel.requestExerciseTimeFromLastWeek { data in
                             print("data ilosc: \(data.count)")
                             if data.count > 0 {
                                 print("czy ilosc treningow > 0")

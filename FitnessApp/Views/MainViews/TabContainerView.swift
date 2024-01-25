@@ -33,7 +33,6 @@ struct TabContainerView: View {
         case .stats:
             NavigationView {
                 HealthWorkoutView()
-                    .environmentObject(HealthWorkoutViewModel())
             }
         case .trends:
             NavigationView {

@@ -8,20 +8,6 @@
 import HealthKit
 
 extension HKWorkout {
-//    static var data = [
-//        generateWorkoutWithActivity(daysAgo: 0, activityType: .running),
-//        generateWorkoutWithActivity(daysAgo: 0, activityType: .traditionalStrengthTraining),
-//        generateWorkoutWithActivity(daysAgo: 1, activityType: .walking),
-//        generateWorkoutWithActivity(daysAgo: 3, activityType: .tennis),
-//        generateWorkoutWithActivity(daysAgo: 2, activityType: .basketball),
-//        generateWorkoutWithActivity(daysAgo: 1, activityType: .soccer),
-//        generateWorkoutWithActivity(daysAgo: 3, activityType: .running),
-//        generateWorkoutWithActivity(daysAgo: 2, activityType: .swimming),
-//        generateWorkoutWithActivity(daysAgo: 4, activityType: .jumpRope),
-//        generateWorkoutWithActivity(daysAgo: 5, activityType: .traditionalStrengthTraining),
-//        generateWorkoutWithActivity(daysAgo: 4, activityType: .running),
-//    ]
-
     static func generateWorkoutWithActivity(daysAgo: Int, activityType: HKWorkoutActivityType) -> HKWorkout {
         let totalEnergyBurned = Double.random(in: 350 ..< 650)
         let totalDistance = Double.random(in: 1500 ..< 6500)

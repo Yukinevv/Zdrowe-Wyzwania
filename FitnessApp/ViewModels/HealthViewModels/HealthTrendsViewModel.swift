@@ -52,9 +52,6 @@ class HealthTrendsViewModel: NSObject, ObservableObject {
         latestWorkoutWeekDays { data in
             self.weekWorkoutModel = data
         }
-//        latestWorkouts { data in
-//            self.recentWorkouts = data
-//        }
     }
 
     func latestWorkoutWeekDays(completion: ((WeekWorkoutModel) -> Void)?) {

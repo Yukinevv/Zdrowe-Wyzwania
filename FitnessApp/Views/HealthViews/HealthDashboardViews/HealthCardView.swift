@@ -34,7 +34,7 @@ struct HealthCardView: View {
                 }
             }
 
-            // Ring
+            // pierscien
             ZStack {
                 Circle()
                     .trim(from: 0, to: 1)
@@ -48,10 +48,9 @@ struct HealthCardView: View {
                     .font(.system(size: 22))
                     .fontWeight(.bold)
                     .foregroundColor(stats.color)
-                    // Rotates the bar so it begins at 12'clock
                     .rotationEffect(.init(degrees: 90))
             }
-            // Fixes rotation on all elements in HStack
+            // poprawa rotacji elementow w HStack
             .rotationEffect(.init(degrees: -90))
 
             Text(healthCardViewModel.getValueForPrint(value: stats.currentData, title: stats.title) + " " + healthCardViewModel.getType(title: stats.title))

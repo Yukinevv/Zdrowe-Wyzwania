@@ -26,7 +26,6 @@ struct GraphView: View {
         VStack {
             HStack(alignment: .lastTextBaseline) {
                 ForEach(self.data, id: \.id) { value in
-                    // let yValue = Swift.min(value.count / 40 >= 1 ? value.count / 40 : value.count, 300)
                     let yValue = Swift.min(value.count, 100)
 
                     VStack {

@@ -13,6 +13,9 @@ class HealthExerciseTimeViewModel {
 
     var workoutType = HKObjectType.workoutType()
 
+    let calendar = Calendar.current
+    let today = Date()
+
     init() {
         if HKHealthStore.isHealthDataAvailable() {
             healthStore = HKHealthStore()
@@ -50,8 +53,10 @@ class HealthExerciseTimeViewModel {
                 }
             }
 
-            while data.count < 5 {
-                data.append(HealthModel(count: 0, date: Date()))
+            while data.count < 7 {
+                if let date = self.calendar.date(byAdding: .day, value: -data.count, to: self.today) {
+                    data.append(HealthModel(count: 0, date: date))
+                }
             }
 
             completion(data)
@@ -81,8 +86,10 @@ class HealthExerciseTimeViewModel {
                 }
             }
 
-            while data.count < 5 {
-                data.append(HealthModel(count: 0, date: Date()))
+            while data.count < 7 {
+                if let date = self.calendar.date(byAdding: .day, value: -data.count, to: self.today) {
+                    data.append(HealthModel(count: 0, date: date))
+                }
             }
 
             completion(data)

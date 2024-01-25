@@ -12,7 +12,6 @@ struct HealthSettingsView: View {
 
     var body: some View {
         VStack {
-            // Spacer()
             HStack {
                 Toggle("Kroki", isOn: staticData.$stepsCardVisibility)
                     .padding()

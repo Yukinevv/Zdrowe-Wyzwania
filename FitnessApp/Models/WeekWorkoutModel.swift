@@ -40,14 +40,6 @@ struct WeekWorkoutModel {
 }
 
 extension WeekWorkoutModel {
-//    static var data = WeekWorkoutModel(workouts: [
-//        generateWorkout(daysAgo: Int.random(in: 0 ... 6)),
-//        generateWorkout(daysAgo: Int.random(in: 0 ... 6)),
-//        generateWorkout(daysAgo: Int.random(in: 0 ... 6)),
-//        generateWorkout(daysAgo: Int.random(in: 0 ... 6)),
-//        generateWorkout(daysAgo: Int.random(in: 0 ... 6)),
-//    ])
-
     static var data = WeekWorkoutModel(workouts: StaticData.staticData.weekWorkouts)
 
     private static func generateWorkout(daysAgo: Int) -> HKWorkout {

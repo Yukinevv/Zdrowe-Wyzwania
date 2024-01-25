@@ -73,21 +73,14 @@ extension Date {
         return calendar.startOfDay(for: weekAgo!)
     }
 
-    // Starts on Monday
+    // start w poniedzialek
     static var startOfWeek: Date {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
-        components.weekday = 2 // Monday
+        components.weekday = 2 // poniedzialek
 
         return calendar.date(from: components)!
     }
-
-//    func weekday() -> String {
-//        let weekDays = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"]
-//        let myCalendar = Calendar(identifier: .gregorian)
-//        let weekDay = myCalendar.component(.weekday, from: self)
-//        return String(weekDays[weekDay - 1].prefix(3))
-//    }
 
     func weekday() -> String {
         let weekDays = ["Nd", "Pon", "Wt", "Śr", "Czw", "Pt", "Sob"]

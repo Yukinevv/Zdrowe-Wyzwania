@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WorkoutModel {
+struct WorkoutModel: Hashable {
     let id: Int
     let title: String
     let subtitle: String

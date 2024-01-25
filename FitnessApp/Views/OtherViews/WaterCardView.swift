@@ -19,7 +19,6 @@ struct WaterCardView: View {
                     .fill(Color(#colorLiteral(red: 0.1463547051, green: 0.1574619114, blue: 0.2792110443, alpha: 1)))
                     .blendMode(.overlay)
                 )
-                // .frame(width: 165, height: 210).cornerRadius(30)
                 .frame(width: 365, height: 410).cornerRadius(30)
 
             VStack(alignment: .center) {
@@ -43,18 +42,15 @@ struct WaterCardView: View {
                                     .fill(
                                         LinearGradient(colors: [Color(#colorLiteral(red: 0.03251739964, green: 0.2137796581, blue: 0.5376530886, alpha: 1)), Color(#colorLiteral(red: 0.4195603728, green: 0.6958546042, blue: 0.957184732, alpha: 1))], startPoint: .bottom, endPoint: .leading)
                                     )
-                                    // .frame(width: 50, height: 130)
                                     .frame(width: 150, height: 230)
 
                                 RoundedRectangle(cornerRadius: 20)
                                     .fill(
                                         .white.opacity(0.7)
                                     )
-                                    // .frame(width: 50, height: 60)
                                     .frame(width: 150, height: 60)
                             }
                         )
-                        // .frame(width: 50, height: 130).cornerRadius(30)
                         .frame(width: 150, height: 230).cornerRadius(40)
 
                     VStack {
@@ -71,7 +67,6 @@ struct WaterCardView: View {
             }
             .padding()
         }
-        // .frame(width: 165, height: 210).cornerRadius(30)
         .frame(width: 365, height: 410).cornerRadius(30)
     }
 }
