@@ -50,6 +50,7 @@
 		0F973FE729E464F4000463B1 /* FitnessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F973FE629E464F4000463B1 /* FitnessApp.swift */; };
 		0F973FEB29E464F6000463B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F973FEA29E464F6000463B1 /* Assets.xcassets */; };
 		0F973FEE29E464F6000463B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F973FED29E464F6000463B1 /* Preview Assets.xcassets */; };
+		0FABB41B2B666CCB00FC97FF /* TabContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FABB41A2B666CCB00FC97FF /* TabContainerViewModel.swift */; };
 		0FBB25302AC97FA10014F5D8 /* AvatarIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBB252F2AC97FA10014F5D8 /* AvatarIconView.swift */; };
 		0FBB25362AC97FE70014F5D8 /* WaterCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBB25352AC97FE70014F5D8 /* WaterCardView.swift */; };
 		0FBB25432AC9831C0014F5D8 /* HealthDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBB25422AC9831C0014F5D8 /* HealthDashboardView.swift */; };
@@ -157,6 +158,7 @@
 		0F973FE629E464F4000463B1 /* FitnessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessApp.swift; sourceTree = "<group>"; };
 		0F973FEA29E464F6000463B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F973FED29E464F6000463B1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0FABB41A2B666CCB00FC97FF /* TabContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabContainerViewModel.swift; sourceTree = "<group>"; };
 		0FBB252F2AC97FA10014F5D8 /* AvatarIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarIconView.swift; sourceTree = "<group>"; };
 		0FBB25352AC97FE70014F5D8 /* WaterCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCardView.swift; sourceTree = "<group>"; };
 		0FBB25422AC9831C0014F5D8 /* HealthDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDashboardView.swift; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 			children = (
 				0F90D2E82A06EB8E001A9FF9 /* LandingViewModel.swift */,
 				0F90D2EC2A06ED91001A9FF9 /* LoginSignupViewModel.swift */,
+				0FABB41A2B666CCB00FC97FF /* TabContainerViewModel.swift */,
 				0F90D2E42A06DA24001A9FF9 /* SettingsViewModel.swift */,
 				0F90D2E62A06DA3C001A9FF9 /* SettingsItemViewModel.swift */,
 			);
@@ -713,6 +716,7 @@
 				0F90D2F22A0806E6001A9FF9 /* ProgressCircleView.swift in Sources */,
 				0F90D2F42A080774001A9FF9 /* ProgressCircleViewModel.swift in Sources */,
 				0F90D2F02A07ABC9001A9FF9 /* TextFieldCustomRoundedStyle.swift in Sources */,
+				0FABB41B2B666CCB00FC97FF /* TabContainerViewModel.swift in Sources */,
 				0FBB254A2AC98BE40014F5D8 /* WorkoutDayModel.swift in Sources */,
 				0FC2B8C629EDDA2100349F50 /* DropdownView.swift in Sources */,
 				0FBB25682AC98F170014F5D8 /* HKWorkoutActivityType+Extension.swift in Sources */,

@@ -17,6 +17,10 @@ class HealthSleepTimeViewModel {
         }
     }
 
+    /// Autoryzuje dostep do wybranych danych z bazy danych zdrowotnych HealthKit
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         guard let healthStore = healthStore else { return completion(false) }
 
@@ -29,6 +33,11 @@ class HealthSleepTimeViewModel {
         }
     }
 
+    /// Pobiera dane o czasie snu z ostatniego tygodnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request,
+    /// zawiera obsluge bledow w tym przypadek braku wybranych danych
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestSleepData(completion: @escaping ([HKSample]?, Error?) -> Void) {
         let sleepType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!
 

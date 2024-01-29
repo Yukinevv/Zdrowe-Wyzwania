@@ -93,6 +93,7 @@ struct ChallengeItemViewModel: Identifiable {
         self.onToggleComplete = onToggleComplete
     }
 
+    // Obsluga akcji usuniecia wybranego wyzwania oraz oznaczenia jako wykonane w danym dniu
     func send(action: Action) {
         guard let id = challenge.id else { return }
         switch action {

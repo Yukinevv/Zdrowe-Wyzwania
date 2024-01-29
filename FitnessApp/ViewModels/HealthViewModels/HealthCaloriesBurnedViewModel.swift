@@ -33,6 +33,7 @@ class HealthCaloriesBurnedViewModel {
         }
     }
 
+    /// Pobiera ilosc spalonych kalorii z dzisiejszego dnia z bazy danych zdrowotnych HealthKir, wykonuje odpowiedni request
     func requestCaloriesBurned() {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: caloriesBurnedType, quantitySamplePredicate: predicate) { _, result, error in
@@ -50,6 +51,7 @@ class HealthCaloriesBurnedViewModel {
         healthStore.execute(query)
     }
 
+    /// Pobiera najwyzsze wartosci przebytych krokow z ostatniego tygodnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request
     func requestHighestCaloriesBurnedFromLastWeek() {
         let interval = DateComponents(day: 1)
         let anchorDate = Calendar.current.startOfDay(for: .weekAgo)

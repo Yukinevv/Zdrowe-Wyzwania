@@ -11,6 +11,7 @@ enum CustomError: LocalizedError {
     case auth(description: String)
     case `default`(description: String? = nil)
 
+    // Opis bledu
     var errorDescription: String? {
         switch self {
         case let .auth(description):

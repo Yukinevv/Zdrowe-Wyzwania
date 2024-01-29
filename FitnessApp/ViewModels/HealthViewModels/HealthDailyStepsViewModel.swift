@@ -64,6 +64,11 @@ class HealthDailyStepsViewModel: ObservableObject {
         }
     }
 
+    /// Pobiera ilosc przebytych krokow z dzisiejszego dnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request
+    ///
+    /// - Parameters:
+    ///   - startDate: Data dnia, z ktorego maja zostac pobrane dane
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func fetchDailySteps(startDate: Date, completion: @escaping ([DailyStepView]) -> Void) {
         let steps = HKQuantityType(.stepCount)
         let interval = DateComponents(day: 1)
@@ -88,6 +93,7 @@ class HealthDailyStepsViewModel: ObservableObject {
 }
 
 extension HealthDailyStepsViewModel {
+    /// Przypisywanie danych do wykresu
     func fetchPastWeekStepData() {
         fetchDailySteps(startDate: .oneWeekAgo) { dailySteps in
             DispatchQueue.main.async {

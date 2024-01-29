@@ -8,6 +8,11 @@
 import HealthKit
 
 extension HKWorkout {
+    /// Metoda generuje dane odnosnie treningu z wybranego dnia
+    ///
+    /// - Parameters:
+    ///   - daysAgo: z przed ilu dni ma zostac wygenerowany trening
+    ///   - activityType: typ generowanego treningu
     static func generateWorkoutWithActivity(daysAgo: Int, activityType: HKWorkoutActivityType) -> HKWorkout {
         let totalEnergyBurned = Double.random(in: 350 ..< 650)
         let totalDistance = Double.random(in: 1500 ..< 6500)
@@ -28,6 +33,7 @@ extension HKWorkout {
         return workout
     }
 
+    // Mapowanie liczby calkowitej na typ treningu
     static func getActivityType(for number: Int) -> HKWorkoutActivityType? {
         switch number {
         case 1:                                 return .americanFootball

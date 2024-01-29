@@ -73,7 +73,7 @@ extension Date {
         return calendar.startOfDay(for: weekAgo!)
     }
 
-    // start w poniedzialek
+    // Start w poniedzialek
     static var startOfWeek: Date {
         let calendar = Calendar.current
         var components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())

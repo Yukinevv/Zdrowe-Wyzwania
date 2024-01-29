@@ -99,6 +99,10 @@ struct RecentWorkoutsWidgetsView: View {
         }
     }
 
+    /// Przypisuje treningi w zaleznosci od okresu czasowego, w ktorym zostaly wykonane
+    ///
+    /// - Parameters:
+    ///   - selectedWorkoutDaysRange: Wybrany przedzial czasowy
     func assignWorkouts(selectedWorkoutDaysRange: Int) {
         if StaticData.staticData.isTestData {
             switch selectedWorkoutDaysRange {

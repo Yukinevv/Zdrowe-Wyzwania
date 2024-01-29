@@ -16,6 +16,7 @@ struct Constants {
 class StaticData {
     static let staticData = StaticData()
 
+    // Wartosci zmiennych zapisywane w pamieci podrecznej
     @AppStorage("isDarkMode") var isDarkMode: Bool = true
 
     @AppStorage("stepsCardVisibility") var stepsCardVisibility: Bool = true
@@ -76,14 +77,14 @@ class StaticData {
         stairStepperData = Int.random(in: 60 ... 250)
 
         for _ in 1 ... 366 {
-            stepsData.append(Double(generateRandomNumber(min: 1500, max: UInt32((stepsGoal < 1500 ? 10000 : stepsGoal)))))
+            stepsData.append(Double(generateRandomNumber(min: 3000, max: UInt32(stepsGoal < 3000 ? 10000 : stepsGoal))))
         }
 
         let calendar = Calendar.current
         let currentDate = getCurrentYearMonthDay()
 
         for i in 1 ... 7 {
-            caloriesData.append(Double(generateRandomNumber(min: 50, max: UInt32(caloriesGoal + 300))))
+            caloriesData.append(Double(generateRandomNumber(min: 200, max: UInt32(caloriesGoal + 250))))
             waterData.append(Double.random(in: 1 ... waterGoal))
 
             var tmpWorkoutTimeData = 0.0
@@ -123,6 +124,7 @@ class StaticData {
         }
     }
 
+    /// Metoda pobiera obecny rok, miesiac i dzien
     func getCurrentYearMonthDay() -> (year: Int, month: Int, day: Int) {
         let currentDate = Date()
         let calendar = Calendar.current
@@ -134,6 +136,7 @@ class StaticData {
         return (year, month, day)
     }
 
+    // Metoda do wygenerowania pseudolosowej liczby calkowitej
     func generateRandomNumber(min: UInt32, max: UInt32) -> UInt32 {
         guard min < max else {
             fatalError("Min musi byc mniejsze od Max")
@@ -141,10 +144,16 @@ class StaticData {
         return arc4random_uniform(max - min) + min
     }
 
+    /// Metoda pobiera n najwiekszych elementow z tablicy
     func getNthHighestValuesFromArray(arr: [Double], n: Int) -> [Double] {
         return Array(arr.sorted(by: >).prefix(n))
     }
 
+    /// Metoda generuje dane dotyczace czasu snu
+    ///
+    /// - Parameters:
+    ///   - startDate: data od ktorej rozpoczac generowanie
+    ///   - endDate: data na ktorej zakonczyc generowanie
     func generateSleepData(startDate: Date, endDate: Date) -> [(date: Date, startTime: Date, endTime: Date, duration: TimeInterval)] {
         var currentDate = startDate
         let calendar = Calendar.current
@@ -172,6 +181,11 @@ class StaticData {
         return sleepData
     }
 
+    /// Metoda generuje dane dotyczace wystapienia wysokiego tetna
+    ///
+    /// - Parameters:
+    ///   - startDate: data od ktorej rozpoczac generowanie
+    ///   - endDate: data na ktorej zakonczyc generowanie
     func generateHighHeartRateData(startDate: Date, endDate: Date) -> [(date: Date, startTime: Date, endTime: Date, highHeartRate: Int)] {
         var currentDate = startDate
         let calendar = Calendar.current

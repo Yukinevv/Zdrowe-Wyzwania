@@ -25,6 +25,7 @@ struct WeekWorkoutModel {
         self.workoutDays = workoutDays.reversed()
     }
 
+    // Metoda zwraca ilosc dni w tygodniu, w ktorych zostal wykonany trening
     private func countWeekWorkoutDays(_ workouts: [WorkoutDayModel]) -> Int {
         let myCalendar = Calendar(identifier: .gregorian)
         var days = [false, false, false, false, false, false, false]
@@ -42,6 +43,7 @@ struct WeekWorkoutModel {
 extension WeekWorkoutModel {
     static var data = WeekWorkoutModel(workouts: StaticData.staticData.weekWorkouts)
 
+    // Metoda sluzy do generowania losowych treningow (danych o treningach)
     private static func generateWorkout(daysAgo: Int) -> HKWorkout {
         let totalEnergyBurned = Double.random(in: 350 ..< 651)
         let today = Date()

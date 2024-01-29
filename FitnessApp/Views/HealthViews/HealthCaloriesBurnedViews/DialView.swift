@@ -38,7 +38,13 @@ struct DialView: View {
                     Text("\(calories)")
                         .font(.system(size: 42, weight: .bold))
                         .padding()
-                    Text("Dobrze Ci idzie!")
+                    if calories > goal {
+                        Text("Osiągnięto cel!")
+                    } else if calories > goal / 2 {
+                        Text("Dobrze Ci idzie!")
+                    } else {
+                        Text("Nie poddawaj się!")
+                    }
                 }
             }
             .padding()

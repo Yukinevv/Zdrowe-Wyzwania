@@ -22,6 +22,10 @@ class HealthExerciseTimeViewModel {
         }
     }
 
+    /// Autoryzuje dostep do wybranych danych z bazy danych zdrowotnych HealthKit
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         guard let healthStore = healthStore else { return completion(false) }
 
@@ -30,6 +34,11 @@ class HealthExerciseTimeViewModel {
         }
     }
 
+    /// Pobiera wszystkie zapisane dane o treningach, ktorych czas wykonywania przekracza 5 minut.
+    /// Poprzez przeslany jako argument delegat zwraca dane w postaci: data treningu, czas treningu
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda, ktora w przypadku powodzenia zapytania przyjmuje jako argument przygotowane dane
     func requestExerciseTime(completion: @escaping ([HealthModel]) -> Void) {
         let workoutPredicate = HKQuery.predicateForWorkouts(with: .greaterThan, duration: 5)
 

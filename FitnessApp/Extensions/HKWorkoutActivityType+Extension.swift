@@ -9,7 +9,7 @@ import Foundation
 import HealthKit
 
 extension HKWorkoutActivityType {
-    /* Mapowanie dostępnych typów treningu na czytelne nazwy */
+    // Mapowanie dostepnych typow treningu na czytelne nazwy
     var name: String {
         switch self {
         case .americanFootball:                 return "Football Amerykański"
@@ -94,7 +94,7 @@ extension HKWorkoutActivityType {
         }
     }
 
-    /* Mapowanie dostępnych typów treningu na skrócone nazwy */
+    // Mapowanie dostepnych typow treningu na skrocone nazwy
     var commonName: String {
         switch self {
         case .highIntensityIntervalTraining:    return "HIIT"
@@ -102,7 +102,7 @@ extension HKWorkoutActivityType {
         }
     }
 
-    /* Mapowanie dostępnych typów aktywności na pasujące nazwy obrazków */
+    // Mapowanie dostepnych typow aktywnosci na pasujace nazwy obrazkow
     var associatedImageName: String {
         switch self {
         case .running:                          return "running"
@@ -116,7 +116,7 @@ extension HKWorkoutActivityType {
         }
     }
 
-    /* Mapowanie dostępnych typów aktywności na pasujące nazwy ikon */
+    // Mapowanie dostepnych typow aktywnosci na pasujace nazwy ikon
     var associatedImageSystemName: String {
         switch self {
         case .americanFootball:                 return "figure.american.football"
@@ -201,7 +201,7 @@ extension HKWorkoutActivityType {
         }
     }
 
-    /* Mapowanie dostępnych typów aktywności na pasujące emotikony */
+    // Mapowanie dostepnych typow aktywnosci na pasujace emotikony
     var associatedEmoji: String? {
         switch self {
         case .americanFootball:                 return "🏈"

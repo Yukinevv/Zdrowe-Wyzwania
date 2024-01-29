@@ -84,7 +84,7 @@ struct BarChartView: View {
         .padding()
     }
 
-    // wyliczenie godzin i konwersja wzgledem wysokosci
+    // Wyliczenie godzin i konwersja wzgledem wysokosci
     // max height = 200
     func getHeight(value: CGFloat) -> CGFloat {
         // 24h = 1440 min

@@ -35,6 +35,7 @@ final class CreateChallengeViewModel: ObservableObject {
         self.challengeService = challengeService
     }
 
+    // Obsluga akcji utworzenia wyzwania
     func send(action: Action) {
         switch action {
         case .createChallenge:
@@ -54,6 +55,7 @@ final class CreateChallengeViewModel: ObservableObject {
         }
     }
 
+    /// Tworzy obiekt wyzwania z wybranych opcji i wywoluje metode obslugujaca zapis w bazie FireStore
     private func createChallenge(userId: UserId) -> AnyPublisher<Void, CustomError> {
         guard let exercise = exerciseDropdown.text,
               let startAmount = startAmountDropown.number,

@@ -19,6 +19,10 @@ protocol ChallengeServiceProtocol {
 final class ChallengeService: ChallengeServiceProtocol {
     private let db = Firestore.firestore()
 
+    /// Metoda obsluguje zapisanie przeslanego jako argument obiektu wyzwania w bazie Firestore
+    ///
+    /// - Parameters:
+    ///   - challenge: Obiekt wyzwania
     func create(_ challenge: ChallengeModel) -> AnyPublisher<Void, CustomError> {
         return Future<Void, CustomError> { promise in
             do {
@@ -35,6 +39,11 @@ final class ChallengeService: ChallengeServiceProtocol {
         }.eraseToAnyPublisher()
     }
 
+    /// Metoda obsluguje pobranie wyzwan zalogowanego uzytkownika z bazy Firestore,
+    /// pobrane wyzwania sa posortowane malejaco po polu startDate
+    ///
+    /// - Parameters:
+    ///   - userId: identyfikator / login uzytkownika
     func observeChallenges(userId: UserId) -> AnyPublisher<[ChallengeModel], CustomError> {
         let query = db.collection("challenges").whereField("userId", isEqualTo: userId).order(by: "startDate", descending: true)
         return Publishers.QuerySnapshotPublisher(query: query)
@@ -54,6 +63,10 @@ final class ChallengeService: ChallengeServiceProtocol {
             }.eraseToAnyPublisher()
     }
 
+    /// Metoda obsluguje usuniecie wybranego wyzwania z bazy Firestore
+    ///
+    /// - Parameters:
+    ///   - challengeId: id wyzwania
     func delete(_ challengeId: String) -> AnyPublisher<Void, CustomError> {
         return Future<Void, CustomError> { promise in
             self.db.collection("challenges").document(challengeId).delete { error in
@@ -66,6 +79,11 @@ final class ChallengeService: ChallengeServiceProtocol {
         }.eraseToAnyPublisher()
     }
 
+    /// Metoda obsluguje zaktualizowanie wartosci pol w wybranym wyzwaniu bazie Firestore
+    ///
+    /// - Parameters:
+    ///   - challengeId: id wyzwania
+    ///   - activities: tablica aktywnosci podejmowanych w wyzwaniu
     func updateChallenge(_ challengeId: String, activities: [Activity]) -> AnyPublisher<Void, CustomError> {
         return Future<Void, CustomError> { promise in
             self.db.collection("challenges").document(challengeId).updateData(

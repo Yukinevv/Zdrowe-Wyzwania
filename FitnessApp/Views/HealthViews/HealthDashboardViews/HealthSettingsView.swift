@@ -111,6 +111,11 @@ struct HealthSettingsView: View {
         .navigationTitle("Ustawienia")
     }
 
+    /// Sprawdza poprawnosc wprowadzanych celow wybranych aktywnosci
+    ///
+    /// - Parameters:
+    ///   - newValue: Nowa wartosc celu
+    ///   - type: Rodzaj celu
     private func validateAndAssign(newValue: String, type: String) {
         switch type {
         case "steps":

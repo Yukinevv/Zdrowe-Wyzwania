@@ -101,6 +101,11 @@ class HealthCardsViewModel {
         return formatter.string(from: timeInterval) ?? ""
     }
 
+    /// Pobiera ilosc przebytych krokow z dzisiejszego dnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request,
+    /// zawiera obsluge bledow w tym przypadek braku wybranych danych
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestStepCount(completion: @escaping (Double?, Error?) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: stepCountType, quantitySamplePredicate: predicate) { _, result, error in
@@ -122,6 +127,10 @@ class HealthCardsViewModel {
         healthStore.execute(query)
     }
 
+    /// Pobiera ilosc spalonych kalorii z dzisiejszego dnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestCaloriesBurned(completion: @escaping (Double?, Error?) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: caloriesBurnedType, quantitySamplePredicate: predicate) { _, result, error in
@@ -143,6 +152,10 @@ class HealthCardsViewModel {
         healthStore.execute(query)
     }
 
+    /// Pobiera czas snu z dzisiejszego dnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestSleepData(completion: @escaping (Double?, Error?) -> Void) {
         let startDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date())
@@ -172,6 +185,10 @@ class HealthCardsViewModel {
         healthStore.execute(query)
     }
 
+    /// Pobiera informacje o nawodnieniu z dzisiejszego dnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestWaterData(completion: @escaping (Double?, Error?) -> Void) {
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
         let query = HKStatisticsQuery(quantityType: waterType, quantitySamplePredicate: predicate) { _, result, error in
@@ -193,6 +210,10 @@ class HealthCardsViewModel {
         healthStore.execute(query)
     }
 
+    /// Pobiera iformacje o wystapieniu wysokiego tetna z dzisiejszego dnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestHighHeartRateData(completion: @escaping (Double?, Error?) -> Void) {
         @AppStorage("heartRateGoal") var heartRateGoal: String = ""
 
@@ -219,6 +240,10 @@ class HealthCardsViewModel {
         healthStore.execute(query)
     }
 
+    /// Pobiera czas treningu z dzisiejszego dnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestWorkoutTimeData(completion: @escaping (Double?, Error?) -> Void) {
         let workoutType = HKWorkoutType.workoutType()
 

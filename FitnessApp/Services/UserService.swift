@@ -26,6 +26,7 @@ final class UserService: UserServiceProtocol {
         Just(Auth.auth().currentUser).eraseToAnyPublisher()
     }
 
+    /// Metoda obsluguje logowanie anonimowego uzytkownika z uzyciem uslugi Firebase Authentication
     func signInAnonymously() -> AnyPublisher<User, CustomError> {
         return Future<User, CustomError> { promise in
             Auth.auth().signInAnonymously { result, error in
@@ -42,6 +43,12 @@ final class UserService: UserServiceProtocol {
         Publishers.AuthPublisher().eraseToAnyPublisher()
     }
 
+    /// Metoda obsluguje polaczenie anonimowego konta z emailem uzytkownika,
+    /// w celu utworzenia konta nalezy podac email oraz utworzyc haslo
+    ///
+    /// - Parameters:
+    ///   - email: Email uzytkownika
+    ///   - password: Haslo uzytkownika
     func linkAccount(email: String, password: String) -> AnyPublisher<Void, CustomError> {
         let emailCredential = EmailAuthProvider.credential(withEmail: email, password: password)
         return Future<Void, CustomError> { promise in
@@ -61,6 +68,7 @@ final class UserService: UserServiceProtocol {
         }.eraseToAnyPublisher()
     }
 
+    /// Metoda obsluguje wylogowanie uzytkownika z konta
     func logout() -> AnyPublisher<Void, CustomError> {
         return Future<Void, CustomError> { promise in
             do {
@@ -72,6 +80,11 @@ final class UserService: UserServiceProtocol {
         }.eraseToAnyPublisher()
     }
 
+    /// Metoda obsluguje logowanie uzytkownika na konto przy uzyciu uslugi Firebase Authentication
+    ///
+    /// - Parameters:
+    ///   - email: Email uzytkownika
+    ///   - password: Haslo uzytkownika
     func login(email: String, password: String) -> AnyPublisher<Void, CustomError> {
         return Future<Void, CustomError> { promise in
             Auth.auth().signIn(withEmail: email, password: password) { _, error in
@@ -84,6 +97,12 @@ final class UserService: UserServiceProtocol {
         }.eraseToAnyPublisher()
     }
 
+    /// Metoda obsluguje utworzenie konta uzytkownika, rejestracje z uzyciem uslugi
+    /// Firebase Authentication
+    ///
+    /// - Parameters:
+    ///   - email: Email uzytkownika
+    ///   - password: Haslo uzytkownika
     func signup(email: String, password: String) -> AnyPublisher<Void, CustomError> {
         return Future<Void, CustomError> { promise in
             Auth.auth().createUser(withEmail: email, password: password) { _, error in

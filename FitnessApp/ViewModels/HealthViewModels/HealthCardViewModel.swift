@@ -34,6 +34,11 @@ class HealthCardViewModel {
         }
     }
 
+    /// Zwraca odpowiedni widok w zaleznosci od wybranej karty ze statystykami treningowymi lub zdrowotnymi
+    ///
+    /// - Parameters:
+    ///   - for: Rodzaj wybranej karty
+    ///   - value: Wartosc danych
     @ViewBuilder
     func getHealthView(for title: String, value: Double) -> some View {
         switch title {
@@ -104,7 +109,7 @@ class HealthCardViewModel {
         }
     }
 
-    // konwersja na Decimal
+    // Konwersja na Decimal
     func getDec(val: CGFloat) -> String {
         let format = NumberFormatter()
         format.numberStyle = .decimal
@@ -129,7 +134,7 @@ class HealthCardViewModel {
         return timeString
     }
 
-    // obliczenie wartosci procentowej
+    // Obliczenie wartosci procentowej
     func getPercent(current: CGFloat, goal: CGFloat) -> String {
         let per = (current / goal) * 100
         return String(format: "%.1f", per)

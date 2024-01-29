@@ -19,6 +19,10 @@ class HealthHighHeartRateViewModel {
         }
     }
 
+    /// Autoryzuje dostep do wybranych danych z bazy danych zdrowotnych HealthKit
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         guard let healthStore = healthStore else { return completion(false) }
 
@@ -27,6 +31,11 @@ class HealthHighHeartRateViewModel {
         }
     }
 
+    /// Pobiera dane o wysokim tetnie z ostatniego dnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request,
+    /// prog tetna jest pobierany z ustawien dashboardu lub w domyslnym przypadku wynosi 100 ud / min
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestHighHeartRateData(completion: @escaping ([HKQuantitySample]) -> Void) {
         @AppStorage("heartRateGoal") var heartRateGoal: String = ""
 

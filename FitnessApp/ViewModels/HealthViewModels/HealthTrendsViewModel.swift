@@ -26,6 +26,11 @@ class HealthTrendsViewModel: NSObject, ObservableObject {
         }
     }
 
+    /// Autoryzuje dostep do wybranych danych z bazy danych zdrowotnych HealthKit
+    ///
+    /// - Parameters:
+    ///   - onSuccess: Metoda wywolywana w przypadku pozywnej autoryzacji
+    ///   - onError: Metoda wywolywana w przypadku wystapienia bledy przy autoryzacji
     func requestAuthorization(onSuccess: @escaping () -> Void, onError: @escaping (Error?) -> Void) {
         if HKHealthStore.isHealthDataAvailable() {
             let typesToRead: Set = [
@@ -54,6 +59,11 @@ class HealthTrendsViewModel: NSObject, ObservableObject {
         }
     }
 
+    /// Pobiera informacje o dniach, w ktorych zostal wykonany jakikolwiek trening
+    /// z ostatniego tygodnia
+    ///
+    /// - Parameters:
+    ///   - completion: W przypadku sukcesu zapytania metoda przyjmuje jako argument pobrane dane
     func latestWorkoutWeekDays(completion: ((WeekWorkoutModel) -> Void)?) {
         let end = Date()
         let start = Calendar.current.date(byAdding: .day, value: -7, to: end)!
@@ -87,6 +97,10 @@ class HealthTrendsViewModel: NSObject, ObservableObject {
         healthStore?.execute(query)
     }
 
+    /// Pobiera informacje o treningach wykonanych z przeciagu ostatniego miesiaca
+    ///
+    /// - Parameters:
+    ///   - completion: W przypadku sukcesu zapytania metoda przyjmuje jako argument pobrane dane
     func latestWorkouts(completion: @escaping (([HKWorkout]) -> Void)) {
         let end = Date()
         let start = Calendar.current.date(byAdding: .day, value: -30, to: end)!

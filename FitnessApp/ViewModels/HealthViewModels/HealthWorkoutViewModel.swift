@@ -57,6 +57,9 @@ class HealthWorkoutViewModel: ObservableObject {
         }
     }
 
+    /// Pobiera dane o akytwnosciach z ostatniego tygodnia, kolejno: biegania, treningu silowego,
+    /// plywania, pilki noznej, koszykowki, orbitreka.
+    /// Sumuje czas poswiecony na dane aktywnosci i uzupelnia mape.
     func fetchCurrentWeekWorkoutStats() {
         let workout = HKSampleType.workoutType()
         let timePredicate = HKQuery.predicateForSamples(withStart: .startOfWeek, end: Date())
@@ -113,6 +116,11 @@ class HealthWorkoutViewModel: ObservableObject {
         healthStore.execute(query)
     }
 
+    /// Pobiera ilosc przebytych krokow z dzisiejszego dnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request,
+    /// zawiera obsluge bledow w tym przypadek braku wybranych danych
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestStepCount(completion: @escaping (Double?, Error?) -> Void) {
         let stepCountType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
@@ -135,6 +143,11 @@ class HealthWorkoutViewModel: ObservableObject {
         healthStore.execute(query)
     }
 
+    /// Pobiera ilosc spalonych kalorii z dzisiejszego dnia z bazy danych zdrowotnych HealthKit, wykonuje odpowiedni request,
+    /// zawiera obsluge bledow w tym przypadek braku wybranych danych
+    ///
+    /// - Parameters:
+    ///   - completion: Metoda wywolywana z roznymi parametrami w zaleznosci od powodzenia zapytania
     func requestCaloriesBurned(completion: @escaping (Double?, Error?) -> Void) {
         let caloriesBurnedType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!
         let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())

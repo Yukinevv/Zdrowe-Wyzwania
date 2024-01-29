@@ -25,6 +25,8 @@ extension Publishers {
 
         init(subscriber: S) {
             self.subscriber = subscriber
+
+            // Nasluchiwanie zmiany stanu autentykacji
             handler = Auth.auth().addStateDidChangeListener { _, user in
                 _ = subscriber.receive(user)
             }

@@ -44,6 +44,9 @@ final class ChallengeListViewModel: ObservableObject {
         }
     }
 
+    /// Metoda obsluguje pobranie wyzwan zalogowanego uzytkownika z bazy FireStore,
+    /// w tym celu wywoluje metode zdefiniowana w serwisie ChallengeService,
+    /// zawiera przy tym niezbedna obsluge bledow
     private func observeChallenges() {
         isLoading = true
         userService.currentUserPublisher()
@@ -78,6 +81,10 @@ final class ChallengeListViewModel: ObservableObject {
             }.store(in: &cancellables)
     }
 
+    /// Metoda obsluguje usuniecie wybranego wyzwania uzytkownika z bazy FireStore
+    ///
+    /// - Parameters:
+    ///   - challengeID: id wybranego wyzwania
     private func deleteChallenge(_ challengeId: String) {
         challengeService.delete(challengeId).sink { completion in
             switch completion {
@@ -89,6 +96,11 @@ final class ChallengeListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
+    /// Metoda obsluguje zaktualizowanie wybranego wyzwania uzytkownika z bazy FireStore
+    ///
+    /// - Parameters:
+    ///   - challengeID: id wybranego wyzwania
+    ///   - activities: tablica codziennych aktywnosci
     private func updateChallenge(id: String, activities: [Activity]) {
         challengeService.updateChallenge(id, activities: activities).sink { completion in
             switch completion {

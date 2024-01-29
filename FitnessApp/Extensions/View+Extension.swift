@@ -7,14 +7,15 @@
 
 import SwiftUI
 
-// From: https://www.avanderlee.com/swiftui/conditional-view-modifier/
+// Zrodlo: https://www.avanderlee.com/swiftui/conditional-view-modifier/
 
 extension View {
-    /// Applies the given transform if the given condition evaluates to `true`.
+    /// Aplikuje podana transformacje, jesli podany warunek jest prawdziwy
+    ///
     /// - Parameters:
-    ///   - condition: The condition to evaluate.
-    ///   - transform: The transform to apply to the source `View`.
-    /// - Returns: Either the original `View` or the modified `View` if the condition is `true`.
+    ///   - condition: Warunek do oceny
+    ///   - transform: Transformacja do zastosowania na zrodlowym widoku
+    /// - Returns: Albo oryginalny widok, albo zmodyfikowany widok, jezeli warunek jest prawdziwy
     @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
         if condition {
             transform(self)

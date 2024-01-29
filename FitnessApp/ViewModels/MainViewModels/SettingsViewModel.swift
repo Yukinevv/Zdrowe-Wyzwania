@@ -9,7 +9,6 @@ import Combine
 import SwiftUI
 
 final class SettingsViewModel: ObservableObject {
-    // @AppStorage("isDarkMode") private var isDarkMode = false
     @Published private(set) var itemViewModels: [SettingsItemViewModel] = []
     @Published var loginSignupPushed = false
     let title = "Ustawienia"
@@ -24,6 +23,7 @@ final class SettingsViewModel: ObservableObject {
         return itemViewModels[index]
     }
 
+    /// Obsluguje akcje dla przyciskow na ekranie ustawien aplikacji
     func tappedItem(at index: Int) {
         switch itemViewModels[index].action {
         case .account:
@@ -48,6 +48,7 @@ final class SettingsViewModel: ObservableObject {
         }
     }
 
+    /// Zwraca odpowiedni widok
     func tappedNavigationItem(at index: Int) -> AnyView {
         switch itemViewModels[index].destination {
         case "achievements":
